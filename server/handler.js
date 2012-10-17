@@ -47,7 +47,34 @@ function displayPage(pathname, response, postData) {
 	});
 }
 
+function css(response, postData) {
+	console.log("\033[32mHandle:\033[m Request handler 'css' was called.");
+
+	response.writeHead(200, {"Content-Type": "text/css"});
+
+	var cssFiles = ["../client/css/css.css"];
+
+	var totalCSS = ""
+
+	var cssCount = 0;
+
+	for (var i = 0; i < cssFiles.length; i++)
+	{
+		fs.readFile(cssFiles[i], "utf8", function(err, data) {
+			console.log("Read " + cssFiles[i]);
+			totalCSS += data;
+			cssCount += 1;
+			if (cssCount >= cssFiles.length)
+			{
+				response.write(totalCSS);
+				response.end();	
+			}
+		});
+	}
+}
+
 exports.start = start;
 exports.upload = upload;
 exports.index = index;
 exports.displayPage = displayPage;
+exports.css = css;

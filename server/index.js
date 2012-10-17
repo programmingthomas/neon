@@ -4,6 +4,8 @@ var requestHandlers = require("./handler");
 
 var handle = {}
 
+handle["/index.html"] = requestHandlers.index;
+handle["/css"] = requestHandlers.css;
 handle["/"] = requestHandlers.index;
 handle["/index.html"] = requestHandlers.index;
 

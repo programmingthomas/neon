@@ -2,15 +2,89 @@
 <html>
 	<head>
 		<title>Welcome to Neon</title>
+		<style>
+			body
+			{
+				font-family:sans-serif;
+				background-color:#c6eeff;
+				margin:0;
+				padding:0;
+			}
+			#navbar
+			{
+				background-color:orange;
+				color:white;
+				margin:0px;
+				height:60px;
+				text-shadow:rgba(0,0,0,1) 1px 1px 4px;
+			}
+			#navbar h1
+			{
+				margin:0;
+				padding-top:10px;
+				width:100px;
+				float:left;
+			}
+			.content
+			{
+				width:960px;
+				margin:auto;
+				clear:both;
+			}
+			#navbar ul
+			{
+				list-style:none;
+				padding:0;
+				margin:0;
+			}
+			#navbar li
+			{
+				padding-top:22px;
+				width:60px;
+				text-align:center;
+			}
+			#menu li {float:left;}
+			#menuright li { float: right;}
+			.large-left
+			{
+				float:left;
+				width:640px;
+			}
+			.large-right
+			{
+				float:right;
+				width:640px;
+			}
+			.small-left
+			{
+				float:left;
+				width:320px;
+			}
+			.small-right
+			{
+				float:right;
+				width:640px;
+			}
+		</style>
 	</head>
 	<body>
 		<div id="navbar">
-			<span class="logo"></span>
-			<h1>Neon</h1>
+			<div class="content">
+				<h1>Neon</h1>
+				<ul id="menu">
+					<li>home</li>
+					<li>groups</li>
+					<li>inbox</li>
+					<li style="float:right">notifications</li>
+				</ul>
+			</div>
 		</div>
-		<div id="content">
-			<p>Gareth can worry about this</p>
+		<div class="content">
+			<div class="small-left">Small</div>
+			<div class="large-right">Large</div>
 		</div>
-		<div id="footer">This is the work of <a href="http://github.com/TDimaline">TDimaline</a> and <a href="http://github.com/ProgrammingThomas">Programming Thomas</a></div>
+		<div id="footer" class="content">
+				This is the work of <a href="http://github.com/TDimaline">TDimaline</a> and <a href="http://github.com/ProgrammingThomas">Programming Thomas</a>.
+		</div>
 	</body>
 </html>

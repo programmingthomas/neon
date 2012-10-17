@@ -6,7 +6,7 @@ function route(handle, pathname, response, postData) {
 		console.log("\033[34mRouter:\033[m No request handler found for " + pathname);
 		response.writeHead(404, {"Content-Type": "text/html"});
 		response.write("404 Not Found");
-		response.end()
+		response.end();
 	}
 }
 

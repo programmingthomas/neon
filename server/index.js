@@ -3,8 +3,10 @@ var router = require("./router");
 var requestHandlers = require("./handler");
 
 var handle = {}
-handle["/index.html"] = requestHandlers.index;
+
 handle["/"] = requestHandlers.index;
+handle["/index.html"] = requestHandlers.index;
+
 handle["/start"] = requestHandlers.start;
 handle["/upload"] = requestHandlers.upload;
 

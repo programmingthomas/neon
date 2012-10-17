@@ -31,13 +31,12 @@ function index(response, postData) {
 	var body= "";
 	fs.readFile("../client/html/index.html", "utf8", function(err, data) {
 		body = data;
-	
-	});
-
-	console.log(body);
-	response.write(body);
+		console.log(body);
+			response.write(body);
 
 	response.end();
+	});
+
 }
 
 exports.start = start;

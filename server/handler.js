@@ -28,13 +28,9 @@ function index(response, postData) {
 
 	response.writeHead(200, {"Content-Type": "text/html"});
 
-	var body= "";
 	fs.readFile("../client/html/index.html", "utf8", function(err, data) {
-		body = data;
-		console.log(body);
-			response.write(body);
-
-	response.end();
+		response.write(data);
+		response.end();
 	});
 
 }

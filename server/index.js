@@ -4,12 +4,4 @@ var requestHandlers = require("./handler");
 
 var handle = {}
 
-handle["/index.html"] = requestHandlers.index;
-handle["/css"] = requestHandlers.css;
-handle["/"] = requestHandlers.index;
-handle["/index.html"] = requestHandlers.index;
-
-handle["/start"] = requestHandlers.start;
-handle["/upload"] = requestHandlers.upload;
-
 server.start(router.route, handle);

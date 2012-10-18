@@ -1,12 +1,13 @@
 var http = require("http");
 var url = require("url");
+var path = require("path");
 
 var port = 1337;
 
 function start(route, handle) {
 	function onRequest(request, response) {
 		var postData = "";
-		var pathname = url.parse(request.url).pathname;
+		var pathname = path.basename(url.parse(request.url).href);
 		console.log('\033[31mServer:\033[m Request for ' + pathname + ' recieved.');
 
 		request.setEncoding("utf8");

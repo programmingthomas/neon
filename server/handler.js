@@ -2,13 +2,13 @@ var exec = require("child_process").exec;
 var fs = require("fs");
 
 function displayPage(pathname, response, postData) {
+
+	if (pathname === "") {
+		pathname = "index.html";
+	}
 	console.log("\033[32mHandle:\033[m Returning data for '" + pathname + "'.");
 
 	response.writeHead(200, {"Content-Type": "text/html"});
-
-	/*if (pathname = "/") { 
-		pathname = "/index"; 
-	}*/
 
 	fs.readFile("../client/html/" + pathname, "utf8", function(err, data) {
 		response.write(data);
@@ -16,10 +16,31 @@ function displayPage(pathname, response, postData) {
 	});
 }
 
-function css(response, postData) {
-	console.log("\033[32mHandle:\033[m Request handler 'css' was called.");
+function displayCss(pathname, response, postData) {
+
+	console.log("\033[32mHandle:\033[m Returning data for '" + pathname + "'.");
 
 	response.writeHead(200, {"Content-Type": "text/css"});
+
+	fs.readFile("../client/css/" + pathname, "utf8", function(err, data) {
+		response.write(data);
+		response.end();
+	});
+}
+
+function displayJs(pathname, response, postData) {
+
+	console.log("\033[32mHandle:\033[m Returning data for '" + pathname + "'.");
+
+	response.writeHead(200, {"Content-Type": "text/javascript"});
+
+	fs.readFile("../client/js/" + pathname, "utf8", function(err, data) {
+		response.write(data);
+		response.end();
+	});
+}
+
+/*function css(response, postData) {
 
 	var cssFiles = ["../client/css/css.css"];
 
@@ -40,7 +61,7 @@ function css(response, postData) {
 			}
 		});
 	}
-}
+}*/
 
 exports.displayPage = displayPage;
-exports.css = css;
+exports.displayCss = displayCss;

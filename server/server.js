@@ -4,10 +4,15 @@ var path = require("path");
 
 var port = 1337;
 
-function start(route, handle) {
+function start(route) {
 	function onRequest(request, response) {
 		var postData = "";
 		var pathname = path.basename(url.parse(request.url).href);
+		
+		if (pathname === "") {
+			pathname = "index.html";
+		}
+
 		console.log('\033[31mServer:\033[m Request for ' + pathname + ' recieved.');
 
 		request.setEncoding("utf8");
@@ -18,7 +23,7 @@ function start(route, handle) {
 		});
 
 		request.addListener("end", function() {
-			route(handle, pathname, response, postData);
+			route(pathname, response, postData);
 		});
 
 	}

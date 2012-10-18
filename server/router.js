@@ -4,6 +4,10 @@ var requestHandlers = require("./handler");
 function route(handle, pathname, response, postData) {
 	console.log("\033[34mRouter:\033[m About to route a request for " + pathname);
 
+	if (pathname === "") {
+		pathname = "index.html";
+	}
+
 	fs.exists('../client/html/' + pathname, function(exists) {
 		if (exists) {
 			return requestHandlers.displayPage(pathname, response, postData);

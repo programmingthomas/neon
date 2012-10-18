@@ -39,9 +39,11 @@ function displayPage(pathname, response, postData) {
 
 	response.writeHead(200, {"Content-Type": "text/html"});
 
-	if (pathName = "/") { pathName = "index"; }
+	if (pathname = "/") { 
+		pathname = "/index"; 
+	}
 
-	fs.readFile("../client/html/" + pathname + ".html", "utf8", function(err, data) {
+	fs.readFile("../client/html" + pathname + ".html", "utf8", function(err, data) {
 		response.write(data);
 		response.end();
 	});
@@ -73,8 +75,5 @@ function css(response, postData) {
 	}
 }
 
-exports.start = start;
-exports.upload = upload;
-exports.index = index;
 exports.displayPage = displayPage;
 exports.css = css;

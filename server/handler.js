@@ -1,6 +1,7 @@
 var exec = require("child_process").exec;
 var fs = require("fs");
 
+<<<<<<< HEAD
 function displayPage(pathname, response, postData) {
 
 	if (pathname === "") {
@@ -27,6 +28,8 @@ function displayCss(pathname, response, postData) {
 		response.end();
 	});
 }
+=======
+>>>>>>> Commit that needs deleting.
 
 function displayJs(pathname, response, postData) {
 

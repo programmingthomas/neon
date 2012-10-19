@@ -1,6 +1,7 @@
 var fs = require("fs");
 var requestHandlers = require("./handler");
 var path = require("path");
+var log = require("./logger");
 
 function route(pathname, response, postData) {
 
@@ -8,7 +9,7 @@ function route(pathname, response, postData) {
 		pathname = "index.html";
 	}
 
-	console.log("\033[34mRouter:\033[m About to route a request for " + pathname);
+	log.i("router.js", "About to route a request for " + pathname);
 
 	if(path.extname(pathname) === ".html") {
 		fs.exists('../client/html/' + pathname, function(exists) {
@@ -16,7 +17,7 @@ function route(pathname, response, postData) {
 				return requestHandlers.displayPage(pathname, response, postData);
 			}
 			else {
-				console.log("\033[34mRouter:\033[m File /client/html/" + pathname + ".html not found on the server.");
+				log.e("router.js", "File /client/html/" + pathname + ".html not found on the server.");
 				response.writeHead(404, {"Content-Type": "text/html"});
 				response.write("404 Not Found");
 				response.end();
@@ -30,7 +31,7 @@ function route(pathname, response, postData) {
 				return requestHandlers.displayCss(pathname, response, postData);
 			}
 			else {
-				console.log("\033[34mRouter:\033[m File /client/css/" + pathname + ".css not found on the server.");
+				log.e("router.js", "File /client/css/" + pathname + ".css not found on the server.");
 				response.end();
 			}
 		}); 
@@ -42,14 +43,14 @@ function route(pathname, response, postData) {
 				return requestHandlers.displayJs(pathname, response, postData);
 			}
 			else {
-				console.log("\033[34mRouter:\033[m File /client/js/" + pathname + ".js not found on the server.");
+				log.e("router.js", "File /client/js/" + pathname + ".js not found on the server.");
 				response.end();
 			}
 		}); 
 	}
 	else
 	{
-		console.log("\033[34mRouter:\033[m Could not route a request for " + pathname);
+		log.e("router.js", "Could not route a request for " + pathname);
 		response.writeHead(404, {"Content-Type": "text/html"});
 		response.write("404 Not Found");
 	}

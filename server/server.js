@@ -1,6 +1,7 @@
 var http = require("http");
 var url = require("url");
 var path = require("path");
+var log = require("./logger");
 
 var port = 1337;
 
@@ -13,13 +14,14 @@ function start(route) {
 			pathname = "index.html";
 		}
 
-		console.log('\033[31mServer:\033[m Request for ' + pathname + ' recieved.');
+		log.i("server.js", "Request for " + pathname + " received.");
 
 		request.setEncoding("utf8");
 
 		request.addListener("data", function(postDataChunk) {
 			postData += postDataChunk;
-			console.log('\033[31mServer:\033[m Recieved POST data chunk: ' + postDataChunk + '.');
+			//ARE WE SERIOUSLY LOGGING ALL POST REQUESTS?!
+			log.i("server.js", "Received POST data chunk: " + postDataChunk + ".");
 		});
 
 		request.addListener("end", function() {
@@ -29,7 +31,7 @@ function start(route) {
 	}
 	
 	http.createServer(onRequest).listen(port);
-	console.log('\033[31mServer:\033[m Server running on port ' + port);
+	log.i("server.js", "Console running on " + port.toString());
 }
 
 exports.start = start;

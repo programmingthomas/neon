@@ -1,12 +1,14 @@
 var exec = require("child_process").exec;
 var fs = require("fs");
+var log = require("./logger");
 
 function displayPage(pathname, response, postData) {
 
 	if (pathname === "") {
 		pathname = "index.html";
 	}
-	console.log("\033[32mHandle:\033[m Returning data for '" + pathname + "'.");
+
+	log.i("handler.js", "Returning data for '" + pathname + "'");
 
 	response.writeHead(200, {"Content-Type": "text/html"});
 
@@ -18,7 +20,7 @@ function displayPage(pathname, response, postData) {
 
 function displayCss(pathname, response, postData) {
 
-	console.log("\033[32mHandle:\033[m Returning data for '" + pathname + "'.");
+	log.i("handler.js", "Returning CSS for '" + pathname + "'");
 
 	response.writeHead(200, {"Content-Type": "text/css"});
 
@@ -30,7 +32,7 @@ function displayCss(pathname, response, postData) {
 
 function displayJs(pathname, response, postData) {
 
-	console.log("\033[32mHandle:\033[m Returning data for '" + pathname + "'.");
+	log.i("handler.js", "Returning JS for '" + pathname + "'");
 
 	response.writeHead(200, {"Content-Type": "text/javascript"});
 
@@ -65,3 +67,4 @@ function displayJs(pathname, response, postData) {
 
 exports.displayPage = displayPage;
 exports.displayCss = displayCss;
+exports.displayJs = displayJs;

@@ -24,7 +24,7 @@ function route(pathname, response, postData) {
 		}); 
 	}
 
-	if(path.extname(pathname) === ".css") {
+	else if(path.extname(pathname) === ".css") {
 		fs.exists('../client/css/' + pathname, function(exists) {
 			if (exists) {
 				return requestHandlers.displayCss(pathname, response, postData);
@@ -36,7 +36,7 @@ function route(pathname, response, postData) {
 		}); 
 	}
 
-	if(path.extname(pathname) === ".js") {
+	else if(path.extname(pathname) === ".js") {
 		fs.exists('../client/js/' + pathname, function(exists) {
 			if (exists) {
 				return requestHandlers.displayJs(pathname, response, postData);
@@ -47,7 +47,12 @@ function route(pathname, response, postData) {
 			}
 		}); 
 	}
-
+	else
+	{
+		console.log("\033[34mRouter:\033[m Could not route a request for " + pathname);
+		response.writeHead(404, {"Content-Type": "text/html"});
+		response.write("404 Not Found");
+	}
 
 }
 exports.route = route;

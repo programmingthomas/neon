@@ -1,7 +1,9 @@
 var http = require("http");
 var url = require("url");
 var path = require("path");
+var dns = require("dns");
 var log = require("./logger");
+var os = require("os");
 
 var port = 1337;
 
@@ -20,7 +22,7 @@ function start(route) {
 
 		request.addListener("data", function(postDataChunk) {
 			postData += postDataChunk;
-			//ARE WE SERIOUSLY LOGGING ALL POST REQUESTS?!
+			//ARE WE SERIOUSLY LOGGING ALL POST REQUESTS?! it was for testing purposes ;)
 			log.i("server.js", "Received POST data chunk: " + postDataChunk + ".");
 		});
 
@@ -31,7 +33,8 @@ function start(route) {
 	}
 	
 	http.createServer(onRequest).listen(port);
-	log.i("server.js", "Console running on " + port.toString());
+
+	log.i("server.js", "Server running on port " + port.toString() + ".");
 }
 
 exports.start = start;

@@ -1,1 +1,5 @@
 Timestamp	Type	Source	Message
+Fri Oct 19 2012 21:17:00 GMT+0100 (BST)	Information	handler.js	Returning data for 'index.html'
+Fri Oct 19 2012 21:17:00 GMT+0100 (BST)	Information	server.js	Request for css.css received.
+Fri Oct 19 2012 21:17:00 GMT+0100 (BST)	Information	router.js	About to route a request for css.css
+Fri Oct 19 2012 21:17:00 GMT+0100 (BST)	Information	handler.js	Returning CSS for 'css.css'

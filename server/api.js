@@ -9,7 +9,7 @@ function api(command, option, parameters)
 	var response = {};
 	response.request = {};
 	response.request.requestType = command;
-	response.request.responseDetail = option;
+	response.request.requestDetail = option;
 	response.request.successCode = 200;
 	return response;
 }

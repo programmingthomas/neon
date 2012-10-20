@@ -4,26 +4,29 @@
 		<title>Dashboard - Neon</title>
 		<link rel="stylesheet" href="css.css" type="text/css" />
 		<script type="text/javascript" src="neonclient.js"></script>
+		<!--[if lt IE 9]>
+			<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+		<![endif]-->
 	</head>
 	<body>
-		<div id="navbar">
+		<div id="navbar"><!-- Should be <header>-->
 			<div class="content">
 				<h1>Neon</h1>
-				<ul id="menu">
-					<li><span class="icon-home"></span></li>
-					<li><span class="icon-group"></span></li>
-					<li><span class="icon-inbox"></span></li>
-					<li style="float:right"><span class="icon-cog"></span></li>
+				<ul id="menu"><!-- Should be <nav>-->
+					<li><span class="icon-home"></span></li><!-- Should be <a> and this has no fallback-->
+					<li><span class="icon-group"></span></li><!-- Same problem -->
+					<li><span class="icon-inbox"></span></li><!-- Same problem -->
+					<li style="float:right"><span class="icon-cog"></span></li><!-- Same problem -->
 				</ul>
 			</div>
 		</div>
-		<div class="content">
-			<div class="small left">Small</div>
-			<div class="large right">Large</div>
+		<div class="content"><!-- Perhaps a <section> but this tag as a whole isn't really needed -->
+			<div class="small left">Small</div><!-- An <aside>? -->
+			<div class="large right">Large</div><!-- An <article>? -->
 		</div>
-		<div id="footer" class="content">
+		<div id="footer" class="content"><!-- Should be <footer>-->
 				<hr />
-				This is the work of <a href="http://github.com/TDimaline">TDimaline</a>, <a href="http://github.com/ProgrammingThomas">Programming Thomas</a> and <a href="http://github.com/garethnunns">Gareth Nunns</a>.
+				This is the work of <a href="http://github.com/TDimaline">TDimaline</a>, <a href="http://github.com/ProgrammingThomas">Programming Thomas</a> and <a href="http://facebook.com/garethnunns">Gareth Nunns</a>.
 		</div>
 	</body>
 </html>

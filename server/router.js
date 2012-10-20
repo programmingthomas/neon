@@ -9,15 +9,18 @@ function route(pathname, response, postData) {
 		pathname = "index.html";
 	}
 
-	log.i("router.js", "About to route a request for " + pathname);
+	var folderPath = path.dirname(pathname).toString().split("/");
+	var folder = folderPath[folderPath.length - 1];
+
+	var fileName = path.basename(pathname);
 
 	if(path.extname(pathname) === ".html") {
-		fs.exists('../client/html/' + pathname, function(exists) {
+		fs.exists('../client/html/' + fileName, function(exists) {
 			if (exists) {
-				return requestHandlers.displayPage(pathname, response, postData);
+				return requestHandlers.displayPage(fileName, response, postData);
 			}
 			else {
-				log.e("router.js", "File /client/html/" + pathname + ".html not found on the server.");
+				log.e("router.js", "File /client/html/" + fileName + " not found on the server.");
 				response.writeHead(404, {"Content-Type": "text/html"});
 				response.write("404 Not Found");
 				response.end();
@@ -26,33 +29,44 @@ function route(pathname, response, postData) {
 	}
 
 	else if(path.extname(pathname) === ".css") {
-		fs.exists('../client/css/' + pathname, function(exists) {
+		fs.exists('../client/css/' + fileName, function(exists) {
 			if (exists) {
-				return requestHandlers.displayCss(pathname, response, postData);
+				return requestHandlers.displayCss(fileName, response, postData);
 			}
 			else {
-				log.e("router.js", "File /client/css/" + pathname + ".css not found on the server.");
+				log.e("router.js", "File /client/css/" + fileName + " not found on the server.");
 				response.end();
 			}
 		}); 
 	}
 
 	else if(path.extname(pathname) === ".js") {
-		fs.exists('../client/js/' + pathname, function(exists) {
+		fs.exists('../client/js/' + fileName, function(exists) {
 			if (exists) {
-				return requestHandlers.displayJs(pathname, response, postData);
+				return requestHandlers.displayJs(fileName, response, postData);
 			}
 			else {
-				log.e("router.js", "File /client/js/" + pathname + ".js not found on the server.");
+				log.e("router.js", "File /client/js/" + fileName + " not found on the server.");
 				response.end();
 			}
 		}); 
 	}
+
 	else
 	{
-		log.e("router.js", "Could not route a request for " + pathname);
-		response.writeHead(404, {"Content-Type": "text/html"});
-		response.write("404 Not Found");
+		fs.exists("../client/" + folder + "/" + fileName, function(exists) {
+			if (exists) {
+				return requestHandlers.displayResource(folder, fileName, response, postData);
+			}
+			else {
+				log.e("router.js", "File " + path.basename(pathname) + " not found on the server.");
+				log.e("router.js", "Could not route a request for " + pathname);
+				response.writeHead(404, {"Content-Type": "text/html"});
+				response.write("404 Not Found");
+				response.end();
+			}
+		});
+		
 	}
 
 }

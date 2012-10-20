@@ -10,9 +10,9 @@ var port = 1337;
 function start(route) {
 	function onRequest(request, response) {
 		var postData = "";
-		var pathname = path.basename(url.parse(request.url).href);
+		var pathname = url.parse(request.url).href;
 		
-		if (pathname === "") {
+		if (pathname === "" || pathname === "/") {
 			pathname = "index.html";
 		}
 

@@ -1,6 +1,15 @@
 var exec = require("child_process").exec;
 var fs = require("fs");
 var log = require("./logger");
+var path = require("path");
+
+var fileExtensionTypes = [];
+fileExtensionTypes[".html"] = "text/html";
+fileExtensionTypes[".css"] = "text/css";
+fileExtensionTypes[".js"] = "text/javascript";
+fileExtensionTypes[".svg"] = "image/svg+xml";
+fileExtensionTypes[".ttf"] = "application/x-font-ttf";
+fileExtensionTypes[".woff"] = "application/x-font-woff";
 
 function displayPage(pathname, response, postData) {
 
@@ -42,6 +51,24 @@ function displayJs(pathname, response, postData) {
 	});
 }
 
+function displayResource(type, pathname, response, postData)
+{
+	log.i("handler.js", "Returning resource for '" + pathname + "'");
+	response.writeHead(200, {"Content-Type": mimeForFile(path.extname(pathname)) });
+	var fileStream = fs.createReadStream("../client/" + type + "/" + pathname);
+	fileStream.on("data", function(data) {
+		response.write(data);
+	});
+	fileStream.on("end", function() {
+		response.end();
+	})
+}
+
+function mimeForFile(extension)
+{
+	return fileExtensionTypes[extension];
+}
+
 /*function css(response, postData) {
 
 	var cssFiles = ["../client/css/css.css"];
@@ -68,3 +95,4 @@ function displayJs(pathname, response, postData) {
 exports.displayPage = displayPage;
 exports.displayCss = displayCss;
 exports.displayJs = displayJs;
+exports.displayResource = displayResource;

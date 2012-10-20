@@ -3,6 +3,7 @@ var qs = require("querystring");
 var url = require("url");
 var log = require("./logger");
 
+//THIS IS WHERE ALL CORE API CODE GOES
 function api(command, option, parameters)
 {
 	var response = {};
@@ -13,6 +14,7 @@ function api(command, option, parameters)
 	return response;
 }
 
+//Checks if an url is an api request
 function isApiRequest(requestUrl)
 {
 	var split = requestUrl.split("/");
@@ -23,6 +25,7 @@ function isApiRequest(requestUrl)
 	return false;
 }
 
+//Runs the API
 function runApi(request, response, parameters)
 {
 	var pathname = url.parse(request.url).href;
@@ -43,10 +46,11 @@ function runApi(request, response, parameters)
 	writeApi(api(method, option, parameters), response, parameters.whitespace != null);
 }
 
+//Writes the information out
 function writeApi(respObj, response, whitespace)
 {
 	response.writeHead(respObj.request.successCode, {"Content-Type": "application/json" });
-	if (whitespace != null) 
+	if (whitespace) 
 	{
 		log.i("api.js", "Outputting whitespaced JSON");
 		response.write(JSON.stringify(respObj, null, "\t"));

@@ -10,7 +10,6 @@ function api(command, option, parameters)
 	response.request.requestType = command;
 	response.request.responseDetail = option;
 	response.request.successCode = 200;
-	response.request.parameters = parameters;
 	return response;
 }
 
@@ -41,13 +40,13 @@ function runApi(request, response, parameters)
 	}
 	if (method.indexOf("?") >= 0) method = method.substr(0, method.indexOf("?"));
 	if (option.indexOf("?") >= 0) option = option.substr(0, option.indexOf("?"));
-	writeApi(api(method, option, parameters), response);
+	writeApi(api(method, option, parameters), response, parameters.whitespace != null);
 }
 
-function writeApi(respObj, response)
+function writeApi(respObj, response, whitespace)
 {
 	response.writeHead(respObj.request.successCode, {"Content-Type": "application/json" });
-	if (respObj.request.parameters.whitespace != null) 
+	if (whitespace != null) 
 	{
 		log.i("api.js", "Outputting whitespaced JSON");
 		response.write(JSON.stringify(respObj, null, "\t"));

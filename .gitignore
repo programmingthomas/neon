@@ -164,3 +164,4 @@ pip-log.txt
 
 # Logging file
 log.txt
+*.log

@@ -10,10 +10,10 @@ function log(color, source, message)
 	console.log(color + source + ":\033[0m\t" + message);
 
 	// Check if log.txt exists
-	fs.exists("log.txt", function(exists) {
+	fs.exists("log.log", function(exists) {
 
 		if(exists) {
-			fs.open("log.txt", "a", 666, function(e, id) {
+			fs.open("log.log", "a", 666, function(e, id) {
 				var kind = "Information";
 				if (color == '\033[93m') kind = "Warning";
 				else if (color == '\033[91m') kind = "Error";
@@ -27,7 +27,7 @@ function log(color, source, message)
 
 		else {
 			console.log("doesnt exist");
-			fs.open("log.txt", "w", 0666, function(err, fd) {
+			fs.open("log.log", "w", 0666, function(err, fd) {
 				fs.write(fd, "Timestamp\tType\tSource\tMessage", null, "utf8", function()
 				{
 					fs.close(fd, function(){});

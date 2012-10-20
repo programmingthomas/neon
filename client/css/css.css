@@ -12,10 +12,15 @@ body
 {
 	box-shadow: rgba(0,0,0,0.5) 0px 1px 5px;
 	background-color:orange;
+	background:-webkit-linear-gradient(top, #FF8430 95%, #B24800 100%);
+	background:-moz-linear-gradient(top, #FF8430 95%, #B24800 100%);
+	background:-ms-linear-gradient(top, #FF8430 95%, #B24800 100%);
+	background:-o-linear-gradient(top, #FF8430 95%, #B24800 100%);
+	background:linear-gradient(top, #FF8430 95%, #B24800 100%);
 	color:white;
 	margin:0px;
 	height:60px;
-	text-shadow:rgba(255,255,255,0.2) 0 0  4px;
+	text-shadow:rgba(255,255,255,0.5) 0 0  4px;
 }
 #navbar h1
 {
@@ -26,7 +31,7 @@ body
 }
 .content
 {
-	width:960px;
+	width:720px;
 	margin:auto;
 	clear:both;
 }
@@ -49,8 +54,21 @@ body
 }
 #menu li {float:left;}
 #menuright li { float: right;}
-.small { width: 320px;}
-.large { width: 640px;}
+.small { width: 240px;}
+.large { width: 480px;}
 .left { float:left;}
 .right {float:right;}
 .large, .small { margin:10px auto;}
+
+hr
+{
+	width:600px;
+	height:1px;
+	background-color:transparent;
+	background:-webkit-linear-gradient(left, transparent 0%, black 25%, black 75%, transparent 100%);
+	background:-moz-linear-gradient(left, transparent 0%, black 25%, black 75%, transparent 100%);
+	background:-ms-linear-gradient(left, transparent 0%, black 25%, black 75%, transparent 100%);
+	background:-o-linear-gradient(left, transparent 0%, black 25%, black 75%, transparent 100%);
+	background:linear-gradient(left, transparent 0%, black 25%, black 75%, transparent 100%);
+	border:none;
+}

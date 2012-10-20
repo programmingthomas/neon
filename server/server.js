@@ -2,10 +2,11 @@ var http = require("http");
 var url = require("url");
 var path = require("path");
 var dns = require("dns");
-var log = require("./logger");
 var os = require("os");
+var log = require("./logger");
+var config = require("./config");
 
-var port = 1337;
+var port = config.port;
 
 function start(route) {
 	function onRequest(request, response) {
@@ -17,7 +18,7 @@ function start(route) {
 			pathname = "index.html";
 		}
 
-		log.i("server.js", "Request for " + pathname + " received.");
+		//log.i("server.js", "Request for " + pathname + " received.");
 
 		request.setEncoding("utf8");
 	

@@ -4,7 +4,7 @@
 body
 {
 	font-family:Avenir, "Open Sans",Helvetica, sans-serif;
-	background-color:#c6eeff;
+	background-color:#F0F0FF;
 	margin:0;
 	padding:0;
 }
@@ -72,3 +72,4 @@ hr
 	background:linear-gradient(left, transparent 0%, black 25%, black 75%, transparent 100%);
 	border:none;
 }
+a { text-decoration: none; color:blue;}

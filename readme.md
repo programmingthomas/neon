@@ -20,6 +20,6 @@ TODO:
 
 - GET requests
 - AJAX integration with JSON
-- Database integration (decide which one to use, god damnit!)
+- Database integration (decide which one to use, god damnit!)(MySQL)
 - Public API?
 - Everything else?!

@@ -2,6 +2,7 @@
  <!-- Created with SVG-edit - http://svg-edit.googlecode.com/ -->
  <defs>
   <path d="M 393.934 393.934 A50,190 45 1,1 606.066,606.006 M 606.066,606.006 A50,190 45 0,1 393.934 393.934" id="path_ne" transform="translate(0,0)" />
+  <path d="M 393.934 606.066 A 50,190 315 1,1 606.066,393.934 M 606.066,393.934 A 50,190 315 0,1 393.934 606.066" id="path_nw" transform="translate(0,0)" stroke-width="5" stroke="#ff0000" />
  </defs> 
  <g id="nuc">
   <title>Nucleus</title>
@@ -45,26 +46,58 @@
   <g id="elec_ne">
    <title>Electron Ring 1 (NE)</title> 
    <circle id="elec_ne_1" fill="#000000" stroke-width="5" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" r="25" stroke="#000000">
-	<animateMotion dur="8s" repeatCount="indefinite" >
+	<animateMotion dur="8s" begin="-0.5s" repeatCount="indefinite" >
       <mpath xlink:href="#path_ne" />
     </animateMotion>
    </circle>
    <circle id="elec_ne_2" fill="#000000" stroke-width="5" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" r="25" stroke="#000000">
-    <animateMotion dur="8s" begin="-4s" repeatCount="indefinite">
+    <animateMotion dur="8s" begin="-4.5s" repeatCount="indefinite">
      <mpath xlink:href="#path_ne" />
     </animateMotion>
    </circle>
   </g>
   <g id="elec_nw">
    <title>Electron Ring 2 (NW)</title>
-   <circle id="elec_nw_1" fill="#000000" stroke-width="5" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="306" cy="150" r="25" stroke="#000000"/>
-   <circle id="elec_nw_2" fill="#000000" stroke-width="5" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="542" cy="332" r="25" stroke="#000000"/>
-   <circle id="elec_nw_3" fill="#000000" stroke-width="5" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="750" cy="552" r="25" stroke="#000000"/>
-   <circle id="elec_nw_4" fill="#000000" stroke-width="5" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="916" cy="848" r="25" stroke="#000000"/>
-   <circle id="elec_nw_5" fill="#000000" stroke-width="5" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="580" cy="772" r="25" stroke="#000000"/>
-   <circle id="elec_nw_6" fill="#000000" stroke-width="5" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="368" cy="584" r="25" stroke="#000000"/>
-   <circle id="elec_nw_7" fill="#000000" stroke-width="5" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="192" cy="368" r="25" stroke="#000000"/>
-   <circle id="elec_nw_8" fill="#000000" stroke-width="5" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="86" cy="138" r="25" stroke="#000000"/>
+   <circle id="elec_nw_1" fill="#000000" stroke-width="5" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" r="25" stroke="#000000">
+    <animateMotion dur="8s" begin="0s" repeatCount="indefinite">
+     <mpath xlink:href="#path_nw" />
+    </animateMotion>
+   </circle>
+   <circle id="elec_nw_2" fill="#000000" stroke-width="5" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" r="25" stroke="#000000">
+    <animateMotion dur="8s" begin="-1s" repeatCount="indefinite">
+     <mpath xlink:href="#path_nw" />
+    </animateMotion>
+   </circle>
+   <circle id="elec_nw_3" fill="#000000" stroke-width="5" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" r="25" stroke="#000000">
+    <animateMotion dur="8s" begin="-2s" repeatCount="indefinite">
+     <mpath xlink:href="#path_nw" />
+    </animateMotion>
+   </circle>
+   <circle id="elec_nw_4" fill="#000000" stroke-width="5" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" r="25" stroke="#000000">
+    <animateMotion dur="8s" begin="-3s" repeatCount="indefinite">
+     <mpath xlink:href="#path_nw" />
+    </animateMotion>
+   </circle>
+   <circle id="elec_nw_5" fill="#000000" stroke-width="5" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" r="25" stroke="#000000">
+    <animateMotion dur="8s" begin="-4s" repeatCount="indefinite">
+     <mpath xlink:href="#path_nw" />
+    </animateMotion>
+   </circle>
+   <circle id="elec_nw_6" fill="#000000" stroke-width="5" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" r="25" stroke="#000000">
+    <animateMotion dur="8s" begin="-5s" repeatCount="indefinite">
+     <mpath xlink:href="#path_nw" />
+    </animateMotion>
+   </circle>
+   <circle id="elec_nw_7" fill="#000000" stroke-width="5" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" r="25" stroke="#000000">
+    <animateMotion dur="8s" begin="-6s" repeatCount="indefinite">
+     <mpath xlink:href="#path_nw" />
+    </animateMotion>
+   </circle>
+   <circle id="elec_nw_8" fill="#000000" stroke-width="5" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" r="25" stroke="#000000">
+    <animateMotion dur="8s" begin="-7s" repeatCount="indefinite">
+     <mpath xlink:href="#path_nw" />
+    </animateMotion>
+   </circle>
   </g>
  </g>
 </svg>

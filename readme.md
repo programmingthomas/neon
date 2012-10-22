@@ -1,6 +1,6 @@
 #Neon
 
-![Screenshot of login screen](/screenshots/login.png "Screenshot of login screen")
+![Screenshot of login screen](https://raw.github.com/TDimaline/neon/master/screenshots/login.png "Screenshot of login screen")
 
 Neon is a new project that allows schools to implement an educational micro blogging virtual learning environment with ease. Think of it as a mix of Twitter, Tumblr, the circles from Google+ and Moodle.
 

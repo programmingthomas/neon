@@ -16,10 +16,25 @@
 				</ul>
 			</div>
 		</div>
-		<div class="content">
-			<div class="small left">Small</div><!-- An <aside>? -->
-			<div class="large right">Large</div><!-- An <article>? -->
+		<div id="loginbox">
+			<!-- Apparently this is the best way of embedding a scaled SVG in a web page. I HATE IT. -->
+			<svg id="svgloginlogo" height="64" width="64" viewBox="0 0 1000 1000">
+				<image x="0" y="0" height="1000" width="1000"  xlink:href="images/new_logo.svg"/>
+			</svg>
+			<h1>Welcome to Neon</h1>
+			<h3>Neon is an educational social network</h3>
+			<form>
+				<input type="text" id="login-username" placeholder="Username" />
+				<input type="password" id="login-passowrd" placeholder="Password" />
+				<input type="submit" />
+			</form>
 		</div>
+		<!--
+		<div class="content">
+			<div class="small left">Small</div>An <aside>?
+			<div class="large right">Large</div>An <article>?
+		</div>
+		-->
 		<footer id="footer" class="content">
 				<hr />
 				Neon is an open-source project. Its <a href="http://github.com/TDimaline/neon">source is available on GitHub</a>.

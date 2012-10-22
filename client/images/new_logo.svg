@@ -1,51 +1,59 @@
 <svg width="1000" height="1000" xmlns="http://www.w3.org/2000/svg">
  <!-- Created with SVG-edit - http://svg-edit.googlecode.com/ -->
- <g>
-  <title>Rings</title>
-  <ellipse fill="none" stroke-width="15" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="500" cy="500" id="ring_ne" rx="150" ry="570" transform="rotate(45 500 500)" stroke="#000000"/>
-  <ellipse fill="none" stroke-width="15" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="500" cy="500" rx="150" ry="570" transform="rotate(-45 500 500)" stroke="#000000" id="ring_nw"/>
- </g>
- <g>
-  <title>Nucleus Outer Ring</title>
+ <g id="nuc">
+  <title>Nucleus</title>
   <g id="nuc_outer">
-   <circle id="nuc_2_1" fill="#000000" stroke-width="5" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="500" cy="430" r="25" stroke="#000000"/>
-   <circle id="nuc_2_2" fill="#000000" stroke-width="5" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="537.845" cy="441.112" r="25" stroke="#000000"/>
-   <circle id="nuc_2_3" fill="#000000" stroke-width="5" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="563.674" cy="470.92" r="25" stroke="#000000"/>
-   <circle id="nuc_2_4" fill="#000000" stroke-width="5" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="569.288" cy="509.961" r="25" stroke="#000000"/>
-   <circle id="nuc_2_5" fill="#000000" stroke-width="5" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="552.903" cy="545.839" r="25" stroke="#000000"/>
-   <circle id="nuc_2_6" fill="#000000" stroke-width="5" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="519.723" cy="567.164" r="25" stroke="#000000"/>
-   <circle id="nuc_2_7" fill="#000000" stroke-width="5" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="480.281" cy="567.165" r="25" stroke="#000000"/>
-   <circle id="nuc_2_8" fill="#000000" stroke-width="5" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="447.01" cy="545.842" r="25" stroke="#000000"/>
-   <circle id="nuc_2_9" fill="#000000" stroke-width="5" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="430.713" cy="509.965" r="25" stroke="#000000"/>
-   <circle id="nuc_2_10" fill="#000000" stroke-width="5" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="436.325" cy="470.924" r="25" stroke="#000000"/>
-   <circle id="nuc_2_11" fill="#000000" stroke-width="5" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="462.152" cy="441.114" r="25" stroke="#000000"/>
+   <title>Nucleus Outer Ring</title>
+   <circle stroke="#000000" r="25" cy="430" cx="500" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" fill="#000000" id="nuc_2_1"/>
+   <circle stroke="#000000" r="25" cy="441.112" cx="537.845" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" fill="#000000" id="nuc_2_2"/>
+   <circle stroke="#000000" r="25" cy="470.92" cx="563.674" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" fill="#000000" id="nuc_2_3"/>
+   <circle stroke="#000000" r="25" cy="509.961" cx="569.288" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" fill="#000000" id="nuc_2_4"/>
+   <circle stroke="#000000" r="25" cy="545.839" cx="552.903" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" fill="#000000" id="nuc_2_5"/>
+   <circle stroke="#000000" r="25" cy="567.164" cx="519.723" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" fill="#000000" id="nuc_2_6"/>
+   <circle stroke="#000000" r="25" cy="567.165" cx="480.281" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" fill="#000000" id="nuc_2_7"/>
+   <circle stroke="#000000" r="25" cy="545.842" cx="447.01" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" fill="#000000" id="nuc_2_8"/>
+   <circle stroke="#000000" r="25" cy="509.965" cx="430.713" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" fill="#000000" id="nuc_2_9"/>
+   <circle stroke="#000000" r="25" cy="470.924" cx="436.325" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" fill="#000000" id="nuc_2_10"/>
+   <circle stroke="#000000" r="25" cy="441.114" cx="462.152" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" fill="#000000" id="nuc_2_11"/>
   </g>
   <g id="nuc_inner">
-   <circle id="nuc_1_1" fill="#000000" stroke-width="5" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="500" cy="450" r="25" stroke="#000000"/>
-   <circle id="nuc_1_2" fill="#000000" stroke-width="5" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="535.355" cy="464.645" r="25" stroke="#000000"/>
-   <circle id="nuc_1_3" fill="#000000" stroke-width="5" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="550" cy="500" r="25" stroke="#000000"/>
-   <circle id="nuc_1_4" fill="#000000" stroke-width="5" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="535.355" cy="535.355" r="25" stroke="#000000"/>
-   <circle id="nuc_1_5" fill="#000000" stroke-width="5" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="500" cy="550" r="25" stroke="#000000"/>
-   <circle id="nuc_1_6" fill="#000000" stroke-width="5" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="464.645" cy="535.355" r="25" stroke="#000000"/>
-   <circle id="nuc_1_7" fill="#000000" stroke-width="5" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="450" cy="500" r="25" stroke="#000000"/>
-   <circle id="nuc_1_8" fill="#000000" stroke-width="5" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="464.645" cy="464.645" r="25" stroke="#000000"/>
+   <title>Nucleus Inner Ring</title>
+   <circle stroke="#000000" r="25" cy="450" cx="500" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" fill="#000000" id="nuc_1_1"/>
+   <circle stroke="#000000" r="25" cy="464.645" cx="535.355" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" fill="#000000" id="nuc_1_2"/>
+   <circle stroke="#000000" r="25" cy="500" cx="550" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" fill="#000000" id="nuc_1_3"/>
+   <circle stroke="#000000" r="25" cy="535.355" cx="535.355" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" fill="#000000" id="nuc_1_4"/>
+   <circle stroke="#000000" r="25" cy="550" cx="500" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" fill="#000000" id="nuc_1_5"/>
+   <circle stroke="#000000" r="25" cy="535.355" cx="464.645" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" fill="#000000" id="nuc_1_6"/>
+   <circle stroke="#000000" r="25" cy="500" cx="450" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" fill="#000000" id="nuc_1_7"/>
+   <circle stroke="#000000" r="25" cy="464.645" cx="464.645" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" fill="#000000" id="nuc_1_8"/>
   </g>
   <g id="nuc_middle">
-   <circle fill="#000000" stroke-width="5" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="500" cy="500" r="25" id="nuc_mid" stroke="#000000"/>
+   <title>Nucleus middle blob</title>
+   <circle stroke="#000000" id="nuc_mid" r="25" cy="500" cx="500" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" fill="#000000"/>
+  </g>
+ </g>
+ <g id="elec">
+  <title>Electrons</title>
+   <g id="rings">
+   <title>Rings</title>
+   <ellipse stroke="#000000" transform="rotate(45 500 500)" ry="570" rx="150" id="ring_ne" cy="500" cx="500" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="15" fill="none"/>
+   <ellipse id="ring_nw" stroke="#000000" transform="rotate(-45 500 500)" ry="570" rx="150" cy="500" cx="500" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="15" fill="none"/>
   </g>
   <g id="elec_ne">
-   <circle id="elec_ne_1" fill="#000000" stroke-width="5" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="666" cy="172" r="25" stroke="#000000"/>
-   <circle id="elec_ne_2" fill="#000000" stroke-width="5" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="268" cy="872" r="25" stroke="#000000"/>
+   <title>Electron Ring 1 (NE)</title>
+   <circle stroke="#000000" r="25" cy="172" cx="666" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" fill="#000000" id="elec_ne_1"/>
+   <circle stroke="#000000" r="25" cy="872" cx="268" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" fill="#000000" id="elec_ne_2"/>
   </g>
   <g id="elec_nw">
-   <circle id="elec_nw_1" fill="#000000" stroke-width="5" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="306" cy="150" r="25" stroke="#000000"/>
-   <circle id="elec_nw_2" fill="#000000" stroke-width="5" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="542" cy="334" r="25" stroke="#000000"/>
-   <circle id="elec_nw_3" fill="#000000" stroke-width="5" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="750" cy="552" r="25" stroke="#000000"/>
-   <circle id="elec_nw_4" fill="#000000" stroke-width="5" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="916" cy="848" r="25" stroke="#000000"/>
-   <circle id="elec_nw_5" fill="#000000" stroke-width="5" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="580" cy="772" r="25" stroke="#000000"/>
-   <circle id="elec_nw_6" fill="#000000" stroke-width="5" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="368" cy="584" r="25" stroke="#000000"/>
-   <circle id="elec_nw_7" fill="#000000" stroke-width="5" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="192" cy="368" r="25" stroke="#000000"/>
-   <circle id="elec_nw_8" fill="#000000" stroke-width="5" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="86" cy="138" r="25" stroke="#000000"/>
+   <title>Electron Ring 2 (NW)</title>
+   <circle stroke="#000000" r="25" cy="150" cx="306" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" fill="#000000" id="elec_nw_1"/>
+   <circle stroke="#000000" r="25" cy="332" cx="542" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" fill="#000000" id="elec_nw_2"/>
+   <circle stroke="#000000" r="25" cy="552" cx="750" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" fill="#000000" id="elec_nw_3"/>
+   <circle stroke="#000000" r="25" cy="848" cx="916" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" fill="#000000" id="elec_nw_4"/>
+   <circle stroke="#000000" r="25" cy="772" cx="580" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" fill="#000000" id="elec_nw_5"/>
+   <circle stroke="#000000" r="25" cy="584" cx="368" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" fill="#000000" id="elec_nw_6"/>
+   <circle stroke="#000000" r="25" cy="368" cx="192" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" fill="#000000" id="elec_nw_7"/>
+   <circle stroke="#000000" r="25" cy="138" cx="86" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" fill="#000000" id="elec_nw_8"/>
   </g>
  </g>
 </svg>

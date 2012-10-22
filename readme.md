@@ -1,4 +1,7 @@
 #Neon
+
+![Screenshot of login screen](/screenshots/login.png "Screenshot of login screen")
+
 Neon is a new project that allows schools to implement an educational micro blogging virtual learning environment with ease. Think of it as a mix of Twitter, Tumblr, the circles from Google+ and Moodle.
 
 The name stemming from the idea of a particle and how it is all interconnected yet intellectual.

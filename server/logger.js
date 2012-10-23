@@ -26,7 +26,7 @@ function log(color, source, message)
 		} 
 
 		else {
-			console.log("doesnt exist");
+			console.log("Log didn't exist. Creating log.");
 			fs.open("log.log", "w", 0666, function(err, fd) {
 				fs.write(fd, "Timestamp\tType\tSource\tMessage", null, "utf8", function()
 				{
@@ -59,8 +59,6 @@ function i(source, message)
 function prettyDate()
 {
 	return new Date().toString();
-	//var date = Date.now();
-	//return date.getFullYear().toString() + "-" + (date.getMonth() + 1).toString() + "-" + date.getDate().toString() + " " + date.getHours().toString() + ":" + date.getMinutes().toString() + ":" + date.getSeconds().toString() + " " + date.getTimezoneOffset().toString();
 }
 
 //Export the functions

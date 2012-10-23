@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Welcome to Neon</title>
+		<title>Dashboard - Neon</title>
 		<link rel="stylesheet" href="css.css" type="text/css" />
 	</head>
 	<body>
@@ -9,19 +9,40 @@
 			<div class="content">
 				<h1>Neon</h1>
 				<ul id="menu">
-					<li>home</li>
-					<li>groups</li>
-					<li>inbox</li>
-					<li style="float:right">notifications</li>
+					<li><span class="icon-home"></span></li>
+					<li><span class="icon-group"></span></li>
+					<li><span class="icon-inbox"></span></li>
+					<li style="float:right"><span class="icon-cog"></span></li>
 				</ul>
 			</div>
 		</div>
+		<div id="loginbox">
+			<!-- Apparently this is the best way of embedding a scaled SVG in a web page. I HATE IT. -->
+			<svg id="svgloginlogo" height="64" width="64" viewBox="0 0 1000 1000">
+				<image x="0" y="0" height="1000" width="1000"  xlink:href="images/new_logo_animation.svg"/>
+			</svg>
+			<h1>Welcome to Neon</h1>
+			<h3>The educational social network</h3>
+			<form>
+				<!--[if IE]>Username<br/><![endif]--><input type="text" id="login-username" placeholder="Username" required="required" />
+				<!--[if IE]>Password<br/><![endif]--><input type="password" id="login-passowrd" placeholder="Password" required="required" />
+				<input type="submit" value="Login" />
+			</form>
+		</div>
+		<!--
 		<div class="content">
-			<div class="small left">Small</div>
-			<div class="large right">Large</div>
+			<div class="small left">Small</div>An <aside>?
+			<div class="large right">Large</div>An <article>?
 		</div>
-		<div id="footer" class="content">
-				This is the work of <a href="http://github.com/TDimaline">TDimaline</a>, <a href="http://github.com/ProgrammingThomas">Programming Thomas</a> and <a href="http://github.com/garethnunns">Gareth Nunns</a>.
-		</div>
+		-->
+		<footer id="footer" class="content">
+				<hr />
+				Neon is an open-source project. Its <a href="http://github.com/TDimaline/neon">source is available on GitHub</a>.
+		</footer>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+		<script type="text/javascript" src="neonclient.js"></script>
+		<!--[if lt IE 9]>
+			<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+		<![endif]-->
 	</body>
 </html>

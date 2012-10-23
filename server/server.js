@@ -2,33 +2,44 @@ var http = require("http");
 var url = require("url");
 var path = require("path");
 var dns = require("dns");
-var log = require("./logger");
 var os = require("os");
+var log = require("./logger");
+var config = require("./config");
 
-var port = 1337;
+var port = config.port;
 
 function start(route) {
 	function onRequest(request, response) {
+		var parameters;
 		var postData = "";
-		var pathname = path.basename(url.parse(request.url).href);
-		
-		if (pathname === "") {
+		var pathname = url.parse(request.url).href;
+
+		if (pathname === "" || pathname === "/") {
 			pathname = "index.html";
 		}
 
-		log.i("server.js", "Request for " + pathname + " received.");
+		//log.i("server.js", "Request for " + pathname + " received.");
 
 		request.setEncoding("utf8");
+	
+		if (request.method == 'GET')
+		{
+			parameters = url.parse(request.url, true).query;
+			route(pathname, request, response, parameters);
+		}
+		else if (request.method == 'POST')
+		{
+			var body = '';
+	        request.on('data', function (data) {
+	            body += data;
+	        });
+	        request.on('end', function () {
 
-		request.addListener("data", function(postDataChunk) {
-			postData += postDataChunk;
-			//ARE WE SERIOUSLY LOGGING ALL POST REQUESTS?! it was for testing purposes ;)
-			log.i("server.js", "Received POST data chunk: " + postDataChunk + ".");
-		});
-
-		request.addListener("end", function() {
-			route(pathname, response, postData);
-		});
+	            parameters = qs.parse(body);
+	            route(pathname, request, response, parameters);
+	        });
+		}
+		
 
 	}
 	

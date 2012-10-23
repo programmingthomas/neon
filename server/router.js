@@ -1,59 +1,39 @@
 var fs = require("fs");
-var requestHandlers = require("./handler");
 var path = require("path");
+var requestHandlers = require("./handler");
 var log = require("./logger");
+var api = require("./api");
 
-function route(pathname, response, postData) {
+function route(pathname, request, response, parameters) {
 
 	if (pathname === "") {
 		pathname = "index.html";
 	}
 
-	log.i("router.js", "About to route a request for " + pathname);
+	if (api.isApiRequest(pathname)) api.runApi(request, response, parameters);
+	else
+	{
 
-	if(path.extname(pathname) === ".html") {
-		fs.exists('../client/html/' + pathname, function(exists) {
+		var folderPath = path.dirname(pathname).toString().split("/");
+		var folder = folderPath[folderPath.length - 1];
+
+		var fileName = path.basename(pathname);
+		if (path.extname(pathname) === ".html") folder = "html";
+		if (path.extname(pathname) === ".js") folder = "js";
+		if (path.extname(pathname) === ".css") folder = "css";
+
+		fs.exists("../client/" + folder + "/" + fileName, function(exists) {
 			if (exists) {
-				return requestHandlers.displayPage(pathname, response, postData);
+				return requestHandlers.displayResource(folder, fileName, request, response, parameters);
 			}
 			else {
-				log.e("router.js", "File /client/html/" + pathname + ".html not found on the server.");
+				log.e("router.js", "404: '" + path.basename(pathname) + "'");
 				response.writeHead(404, {"Content-Type": "text/html"});
 				response.write("404 Not Found");
 				response.end();
 			}
-		}); 
-	}
-
-	else if(path.extname(pathname) === ".css") {
-		fs.exists('../client/css/' + pathname, function(exists) {
-			if (exists) {
-				return requestHandlers.displayCss(pathname, response, postData);
-			}
-			else {
-				log.e("router.js", "File /client/css/" + pathname + ".css not found on the server.");
-				response.end();
-			}
-		}); 
-	}
-
-	else if(path.extname(pathname) === ".js") {
-		fs.exists('../client/js/' + pathname, function(exists) {
-			if (exists) {
-				return requestHandlers.displayJs(pathname, response, postData);
-			}
-			else {
-				log.e("router.js", "File /client/js/" + pathname + ".js not found on the server.");
-				response.end();
-			}
-		}); 
-	}
-	else
-	{
-		log.e("router.js", "Could not route a request for " + pathname);
-		response.writeHead(404, {"Content-Type": "text/html"});
-		response.write("404 Not Found");
-	}
+		});
+	}	
 
 }
 exports.route = route;

@@ -5,7 +5,7 @@
  <!ENTITY innerColour "#FF8430">
  <!ENTITY midColour "#FF8430">
  <!ENTITY ringColour "#FF8430">
- <!ENTITY elecColour "#FF8430">
+ <!ENTITY elecColour "#FF8430 ">
 ]>
 <svg viewbox="1000 1000" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
  <!-- Created with SVG-edit - http://svg-edit.googlecode.com/ -->

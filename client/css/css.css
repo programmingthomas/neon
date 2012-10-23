@@ -6,22 +6,24 @@ body
 	font-family:Avenir, "Open Sans",Helvetica, sans-serif;
 	background-color:#F0F0FF;
 	margin:0;
+	margin-top: 100px;
 	padding:0;
 }
 #navbar
 {
 	box-shadow: rgba(0,0,0,0.5) 0px 1px 5px;
 	background-color:orange;
-	background:-webkit-linear-gradient(top, #FF8430 95%, #B24800 100%);
-	background:-moz-linear-gradient(top, #FF8430 95%, #B24800 100%);
-	background:-ms-linear-gradient(top, #FF8430 95%, #B24800 100%);
-	background:-o-linear-gradient(top, #FF8430 95%, #B24800 100%);
-	background:linear-gradient(top, #FF8430 95%, #B24800 100%);
+	background:-webkit-linear-gradient(top, #cc3333 95%, #B24800 100%);
+	background:-moz-linear-gradient(top, #cc3333 95%, #B24800 100%);
+	background:-ms-linear-gradient(top, #cc3333 95%, #B24800 100%);
+	background:-o-linear-gradient(top, #cc3333 95%, #B24800 100%);
+	background:linear-gradient(top, #cc3333 95%, #B24800 100%);
 	color:white;
 	margin:0px;
 	height:60px;
 	text-shadow:rgba(255,255,255,0.5) 0 0  4px;
 	position: relative;
+	top: -100px;
 	z-index:1000;
 }
 #navbar h1
@@ -46,6 +48,7 @@ body
 	list-style:none;
 	padding:0;
 	margin:0;
+	cursor: pointer;
 }
 #navbar li
 {
@@ -80,13 +83,13 @@ a { text-decoration: none; color:blue;}
 {
 	box-shadow: rgba(0,0,0,0.5) 0px 0px 10px;
 	background-color:white;
-	border-bottom-left-radius:10px;
-	border-bottom-right-radius:10px;
+	border-radius: 10px;
 	width:600px;
 	margin:0px auto 30px auto;
 	z-index:-1;
 	text-align: center;
 	padding-top:10px;
+	padding-bottom: 5px;
 }
 
 #loginbox h1, h3 {

@@ -8,87 +8,89 @@
  <!ENTITY elecColour "#FF8430 ">
 ]>
 <svg viewbox="1000 1000" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
- <!-- Created with SVG-edit - http://svg-edit.googlecode.com/ -->
- <defs>
-  <path d="M 393.934 393.934 A50,190 45 1,1 606.066,606.006 M 606.066,606.006 A50,190 45 0,1 393.934 393.934" id="path_ne" transform="translate(0,0)" />
-  <path d="M 393.934 606.066 A 50,190 315 1,1 606.066,393.934 M 606.066,393.934 A 50,190 315 0,1 393.934 606.066" id="path_nw" transform="translate(0,0)" stroke-width="5" stroke="#ff0000" />
- </defs> 
- <g id="nuc">
-  <title>Nucleus</title>
-  <g id="nuc_outer">
-   <title>Nucleus Outer Ring</title>
-   <animateTransform attributeName="transform" type="rotate" from="0 500 500" to="360 500 500" dur="8s" repeatCount="indefinite"/>
-   <circle id="nuc_2_1" fill="&outerColour;" stroke-width="0" cx="500" cy="430" r="30"/>
-   <circle id="nuc_2_2" fill="&outerColour;" stroke-width="0" cx="537.845" cy="441.112" r="30"/>
-   <circle id="nuc_2_3" fill="&outerColour;" stroke-width="0" cx="563.674" cy="470.92" r="30"/>
-   <circle id="nuc_2_4" fill="&outerColour;" stroke-width="0" cx="569.288" cy="509.961" r="30"/>
-   <circle id="nuc_2_5" fill="&outerColour;" stroke-width="0" cx="552.903" cy="545.839" r="30"/>
-   <circle id="nuc_2_6" fill="&outerColour;" stroke-width="0" cx="519.723" cy="567.164" r="30"/>
-   <circle id="nuc_2_7" fill="&outerColour;" stroke-width="0" cx="480.281" cy="567.165" r="30"/>
-   <circle id="nuc_2_8" fill="&outerColour;" stroke-width="0" cx="447.01" cy="545.842" r="30"/>
-   <circle id="nuc_2_9" fill="&outerColour;" stroke-width="0" cx="430.713" cy="509.965" r="30"/>
-   <circle id="nuc_2_10" fill="&outerColour;" stroke-width="0" cx="436.325" cy="470.924" r="30"/>
-   <circle id="nuc_2_11" fill="&outerColour;" stroke-width="0" cx="462.152" cy="441.114" r="30"/>
-  </g>
-  <g id="nuc_inner">
-   <title>Nucleus Inner Ring</title>
-   <animateTransform attributeName="transform" type="rotate" from="360 500 500" to="0 500 500" dur="8s" repeatCount="indefinite" />
-   <circle id="nuc_1_1" fill="&innerColour;" stroke-width="0" cx="500" cy="450" r="30"/>
-   <circle id="nuc_1_2" fill="&innerColour;" stroke-width="0" cx="535.355" cy="464.645" r="30"/>
-   <circle id="nuc_1_3" fill="&innerColour;" stroke-width="0" cx="550" cy="500" r="30"/>
-   <circle id="nuc_1_4" fill="&innerColour;" stroke-width="0" cx="535.355" cy="535.355" r="30"/>
-   <circle id="nuc_1_5" fill="&innerColour;" stroke-width="0" cx="500" cy="550" r="30"/>
-   <circle id="nuc_1_6" fill="&innerColour;" stroke-width="0" cx="464.645" cy="535.355" r="30"/>
-   <circle id="nuc_1_7" fill="&innerColour;" stroke-width="0" cx="450" cy="500" r="30"/>
-   <circle id="nuc_1_8" fill="&innerColour;" stroke-width="0" cx="464.645" cy="464.645" r="30"/>
-  </g>
-  <g id="nuc_middle">
-   <title>Nucleus middle blob</title>
-   <circle id="nuc_mid" fill="&midColour;" stroke-width="0" cx="500" cy="500" r="30"/>
-  </g>
- </g>
- <g id="elec">
-  <title>Electrons</title>
-  <g id="rings">
-   <title>Rings</title>
-   <ellipse fill="none" stroke-width="15" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="500" cy="500" id="ring_ne" rx="150" ry="570" transform="rotate(45 500 500)" stroke="&ringColour;"/>
-   <ellipse fill="none" stroke-width="15" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="500" cy="500" rx="150" ry="570" transform="rotate(-45 500 500)" stroke="&ringColour;" id="ring_nw"/>
-  </g>
-  <g id="elec_ne">
-   <title>Electron Ring 1 (NE)</title> 
-   <circle id="elec_ne_1"  fill="&elecColour;" stroke-width="0" r="30">
-	<animateMotion dur="8s" begin="-0.5s" repeatCount="indefinite" ><mpath xlink:href="#path_ne" /></animateMotion>
-   </circle>
-   <circle id="elec_ne_2"  fill="&elecColour;" stroke-width="0" r="30">
-	<animateMotion dur="8s" begin="-4.5s" repeatCount="indefinite"><mpath xlink:href="#path_ne" /></animateMotion>
-   </circle>
-  </g>
-  <g id="elec_nw">
-   <title>Electron Ring 2 (NW)</title>
-   <circle id="elec_nw_1" fill="&elecColour;" stroke-width="0" r="30">
-    <animateMotion dur="8s" begin="0s" repeatCount="indefinite"><mpath xlink:href="#path_nw" /></animateMotion>
-   </circle>
-   <circle id="elec_nw_2" fill="&elecColour;" stroke-width="0" r="30">
-    <animateMotion dur="8s" begin="-1s" repeatCount="indefinite"><mpath xlink:href="#path_nw" /></animateMotion>
-   </circle>
-   <circle id="elec_nw_3" fill="&elecColour;" stroke-width="0" r="30">
-    <animateMotion dur="8s" begin="-2s" repeatCount="indefinite"><mpath xlink:href="#path_nw" /></animateMotion>
-   </circle>
-   <circle id="elec_nw_4" fill="&elecColour;" stroke-width="0" r="30">
-    <animateMotion dur="8s" begin="-3s" repeatCount="indefinite"><mpath xlink:href="#path_nw" /></animateMotion>
-   </circle>
-   <circle id="elec_nw_5" fill="&elecColour;" stroke-width="0" r="30">
-    <animateMotion dur="8s" begin="-4s" repeatCount="indefinite"><mpath xlink:href="#path_nw" /></animateMotion>
-   </circle>
-   <circle id="elec_nw_6" fill="&elecColour;" stroke-width="0" r="30">
-    <animateMotion dur="8s" begin="-5s" repeatCount="indefinite"><mpath xlink:href="#path_nw" /></animateMotion>
-   </circle>
-   <circle id="elec_nw_7" fill="&elecColour;" stroke-width="0" r="30">
-    <animateMotion dur="8s" begin="-6s" repeatCount="indefinite"><mpath xlink:href="#path_nw" /></animateMotion>
-   </circle>
-   <circle id="elec_nw_8" fill="&elecColour;" stroke-width="0" r="30">
-    <animateMotion dur="8s" begin="-7s" repeatCount="indefinite"><mpath xlink:href="#path_nw" /></animateMotion>
-   </circle>
-  </g>
- </g>
+	<defs>
+		<path d="M 393.934 393.934 A50,190 45 1,1 606.066,606.006 M 606.066,606.006 A50,190 45 0,1 393.934 393.934" id="path_ne" transform="translate(0,0)" />
+		<path d="M 393.934 606.066 A 50,190 315 1,1 606.066,393.934 M 606.066,393.934 A 50,190 315 0,1 393.934 606.066" id="path_nw" transform="translate(0,0)" stroke-width="5" stroke="#ff0000" />
+	</defs>
+	<g id="neon_svg">
+		<title>Neon</title>
+		<g id="nuc">
+			<title>Nucleus</title>
+			<g id="nuc_outer">
+			   <title>Nucleus Outer Ring</title>
+			   <animateTransform attributeName="transform" type="rotate" from="0 500 500" to="360 500 500" dur="8s" repeatCount="indefinite"/>
+			   <circle id="nuc_2_1" fill="&outerColour;" stroke-width="0" cx="500" cy="430" r="30"/>
+			   <circle id="nuc_2_2" fill="&outerColour;" stroke-width="0" cx="537.845" cy="441.112" r="30"/>
+			   <circle id="nuc_2_3" fill="&outerColour;" stroke-width="0" cx="563.674" cy="470.92" r="30"/>
+			   <circle id="nuc_2_4" fill="&outerColour;" stroke-width="0" cx="569.288" cy="509.961" r="30"/>
+			   <circle id="nuc_2_5" fill="&outerColour;" stroke-width="0" cx="552.903" cy="545.839" r="30"/>
+			   <circle id="nuc_2_6" fill="&outerColour;" stroke-width="0" cx="519.723" cy="567.164" r="30"/>
+			   <circle id="nuc_2_7" fill="&outerColour;" stroke-width="0" cx="480.281" cy="567.165" r="30"/>
+			   <circle id="nuc_2_8" fill="&outerColour;" stroke-width="0" cx="447.01" cy="545.842" r="30"/>
+			   <circle id="nuc_2_9" fill="&outerColour;" stroke-width="0" cx="430.713" cy="509.965" r="30"/>
+			   <circle id="nuc_2_10" fill="&outerColour;" stroke-width="0" cx="436.325" cy="470.924" r="30"/>
+			   <circle id="nuc_2_11" fill="&outerColour;" stroke-width="0" cx="462.152" cy="441.114" r="30"/>
+			</g>
+			<g id="nuc_inner">
+			   <title>Nucleus Inner Ring</title>
+			   <animateTransform attributeName="transform" type="rotate" from="360 500 500" to="0 500 500" dur="8s" repeatCount="indefinite" />
+			   <circle id="nuc_1_1" fill="&innerColour;" stroke-width="0" cx="500" cy="450" r="30"/>
+			   <circle id="nuc_1_2" fill="&innerColour;" stroke-width="0" cx="535.355" cy="464.645" r="30"/>
+			   <circle id="nuc_1_3" fill="&innerColour;" stroke-width="0" cx="550" cy="500" r="30"/>
+			   <circle id="nuc_1_4" fill="&innerColour;" stroke-width="0" cx="535.355" cy="535.355" r="30"/>
+			   <circle id="nuc_1_5" fill="&innerColour;" stroke-width="0" cx="500" cy="550" r="30"/>
+			   <circle id="nuc_1_6" fill="&innerColour;" stroke-width="0" cx="464.645" cy="535.355" r="30"/>
+			   <circle id="nuc_1_7" fill="&innerColour;" stroke-width="0" cx="450" cy="500" r="30"/>
+			   <circle id="nuc_1_8" fill="&innerColour;" stroke-width="0" cx="464.645" cy="464.645" r="30"/>
+			</g>
+			<g id="nuc_middle">
+				<title>Nucleus middle blob</title>
+				<circle id="nuc_mid" fill="&midColour;" stroke-width="0" cx="500" cy="500" r="30"/>
+			</g>
+		</g>
+		<g id="elec">
+			<title>Electrons</title>
+			<g id="rings">
+				<title>Rings</title>
+				<ellipse fill="none" stroke-width="15" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="500" cy="500" id="ring_ne" rx="150" ry="570" transform="rotate(45 500 500)" stroke="&ringColour;"/>
+				<ellipse fill="none" stroke-width="15" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="500" cy="500" rx="150" ry="570" transform="rotate(-45 500 500)" stroke="&ringColour;" id="ring_nw"/>
+			</g>
+			<g id="elec_ne">
+				<title>Electron Ring 1 (NE)</title> 
+				<circle id="elec_ne_1"  fill="&elecColour;" stroke-width="0" r="30">
+					<animateMotion dur="8s" begin="-0.5s" repeatCount="indefinite" ><mpath xlink:href="#path_ne" /></animateMotion>
+				</circle>
+				<circle id="elec_ne_2"  fill="&elecColour;" stroke-width="0" r="30">
+					<animateMotion dur="8s" begin="-4.5s" repeatCount="indefinite"><mpath xlink:href="#path_ne" /></animateMotion>
+				</circle>
+			</g>
+			<g id="elec_nw">
+				<title>Electron Ring 2 (NW)</title>
+				<circle id="elec_nw_1" fill="&elecColour;" stroke-width="0" r="30">
+					<animateMotion dur="8s" begin="0s" repeatCount="indefinite"><mpath xlink:href="#path_nw" /></animateMotion>
+				</circle>
+				<circle id="elec_nw_2" fill="&elecColour;" stroke-width="0" r="30">
+					<animateMotion dur="8s" begin="-1s" repeatCount="indefinite"><mpath xlink:href="#path_nw" /></animateMotion>
+				</circle>
+				<circle id="elec_nw_3" fill="&elecColour;" stroke-width="0" r="30">
+					<animateMotion dur="8s" begin="-2s" repeatCount="indefinite"><mpath xlink:href="#path_nw" /></animateMotion>
+			   </circle>
+			   <circle id="elec_nw_4" fill="&elecColour;" stroke-width="0" r="30">
+					<animateMotion dur="8s" begin="-3s" repeatCount="indefinite"><mpath xlink:href="#path_nw" /></animateMotion>
+			   </circle>
+			   <circle id="elec_nw_5" fill="&elecColour;" stroke-width="0" r="30">
+					<animateMotion dur="8s" begin="-4s" repeatCount="indefinite"><mpath xlink:href="#path_nw" /></animateMotion>
+			   </circle>
+			   <circle id="elec_nw_6" fill="&elecColour;" stroke-width="0" r="30">
+					<animateMotion dur="8s" begin="-5s" repeatCount="indefinite"><mpath xlink:href="#path_nw" /></animateMotion>
+			   </circle>
+			   <circle id="elec_nw_7" fill="&elecColour;" stroke-width="0" r="30">
+					<animateMotion dur="8s" begin="-6s" repeatCount="indefinite"><mpath xlink:href="#path_nw" /></animateMotion>
+				</circle>
+				<circle id="elec_nw_8" fill="&elecColour;" stroke-width="0" r="30">
+					<animateMotion dur="8s" begin="-7s" repeatCount="indefinite"><mpath xlink:href="#path_nw" /></animateMotion>
+				</circle>
+			</g>
+		</g>
+	</g>
 </svg>

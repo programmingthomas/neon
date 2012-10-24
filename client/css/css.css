@@ -1,5 +1,4 @@
 @import url(font-awesome.css);
-
 body {
   font-family: Avenir, "Open Sans",Helvetica, sans-serif;
   background-color: #F0F0FA;
@@ -9,20 +8,25 @@ body {
 }
 
 #navbar {
-  box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 5px;
-  background-color: orange;
-  background: -webkit-linear-gradient(top, #cc3333 95%, #b24800 100%);
-  background: -moz-linear-gradient(top, #cc3333 95%, #b24800 100%);
-  background: -ms-linear-gradient(top, #cc3333 95%, #b24800 100%);
-  background: -o-linear-gradient(top, #cc3333 95%, #b24800 100%);
-  background: linear-gradient(top, #cc3333 95%, #b24800 100%);
-  color: white;
-  margin: 0px;
+  margin: 0;
   height: 60px;
-  text-shadow: rgba(255, 255, 255, 0.5) 0 0 4px;
-  position: relative;
-  top: -100px;
+  width: 100%;
+  top: 0;
+  left: 0;
+  position: fixed;
   z-index: 1000;
+  -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+  background-color: #cc3333;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(95%, #cc3333), color-stop(100%, #b24800));
+  background-image: -webkit-linear-gradient(#cc3333 95%, #b24800);
+  background-image: -moz-linear-gradient(#cc3333 95%, #b24800);
+  background-image: -o-linear-gradient(#cc3333 95%, #b24800);
+  background-image: linear-gradient(#cc3333 95%, #b24800);
+  color: white;
+  text-shadow: 0 0 4px #aaaaaa, 0 0 4px rgba(255, 255, 255, 0.5) #aaaaaa;
+  text-shadow: 0 0 4px rgba(255, 255, 255, 0.5) #aaaaaa, 0 0 4px rgba(255, 255, 255, 0.5) #aaaaaa;
 }
 #navbar h1 {
   margin: 0;
@@ -31,7 +35,7 @@ body {
   float: left;
 }
 #navbar .content {
-  width: 720px;
+  max-width: 800px;
   margin: auto;
   clear: both;
 }
@@ -46,10 +50,6 @@ body {
   width: 60px;
   text-align: center;
   font-size: xx-large;
-}
-
-#footer {
-  text-align: center;
 }
 
 #menu li {
@@ -81,14 +81,13 @@ body {
 }
 
 hr {
-  width: 600px;
+  width: 90%;
   height: 1px;
   background-color: transparent;
   background-image: -webkit-gradient(linear, 0% 50%, 100% 50%, color-stop(0%, rgba(0, 0, 0, 0)), color-stop(25%, #000000), color-stop(75%, #000000), color-stop(100%, rgba(0, 0, 0, 0)));
   background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0), #000000 25%, #000000 75%, rgba(0, 0, 0, 0));
   background-image: -moz-linear-gradient(left, rgba(0, 0, 0, 0), #000000 25%, #000000 75%, rgba(0, 0, 0, 0));
   background-image: -o-linear-gradient(left, rgba(0, 0, 0, 0), #000000 25%, #000000 75%, rgba(0, 0, 0, 0));
-  background-image: -ms-linear-gradient(left, rgba(0, 0, 0, 0), #000000 25%, #000000 75%, rgba(0, 0, 0, 0));
   background-image: linear-gradient(left, rgba(0, 0, 0, 0), #000000 25%, #000000 75%, rgba(0, 0, 0, 0));
   border: none;
 }
@@ -99,15 +98,37 @@ a {
 }
 
 #loginbox {
+  position: relative;
+  width: 90%;
+  max-width: 600px;
+  margin: 0px auto 30px auto;
   box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 10px;
   background-color: white;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
   border-radius: 10px;
-  width: 600px;
-  margin: 0px auto 30px auto;
-  z-index: -1;
-  text-align: center;
-  padding-top: 10px;
-  padding-bottom: 5px;
+  padding: 15px 10px;
+}
+@media (max-width: 48em) {
+  #loginbox {
+    text-align: center;
+  }
+}
+@media (max-width: 48em) {
+  #loginbox #svgloginlogo {
+    width: 220px;
+    height: 220px;
+  }
+}
+@media (min-width: 48em) {
+  #loginbox #svgloginlogo {
+    position: absolute;
+    right: 0px;
+    width: 200px;
+    height: 200px;
+  }
 }
 #loginbox h1, #loginbox h3 {
   margin: 0px;
@@ -116,35 +137,65 @@ a {
 #loginbox input[type="text"], #loginbox input[type="password"] {
   display: block;
   width: 300px;
-  margin: 5px auto;
+  margin: 5px 0;
+  padding: 5px;
+  border: 1px #dedede solid;
   font-size: large;
-  text-align: center;
   font-family: Avenir, "Open Sans",Helvetica, sans-serif;
+}
+@media (max-width: 48em) {
+  #loginbox input[type="text"], #loginbox input[type="password"] {
+    margin: 5px auto;
+  }
+}
+#loginbox input[type="text"]:focus, #loginbox input[type="password"]:focus {
+  outline: none;
+  border: 1px #cc3333 solid;
 }
 #loginbox input[type="submit"] {
+  display: block;
   width: 100px;
+  padding: 5px 10px 5px 10px;
+  margin: 5px 0;
   font-family: Avenir, "Open Sans",Helvetica, sans-serif;
   text-align: center;
-  margin: 5px auto;
-  background-color: #6E6AFF;
-  background-image: -webkit-linear-gradient(top, #6e6aff 0%, #37357f 95%, #1b1a40 100%);
-  background-image: -moz-linear-gradient(top, #6e6aff 0%, #37357f 95%, #1b1a40 100%);
-  background-image: -ms-linear-gradient(top, #6e6aff 0%, #37357f 95%, #1b1a40 100%);
-  background-image: -o-linear-gradient(top, #6e6aff 0%, #37357f 95%, #1b1a40 100%);
-  background-image: linear-gradient(top, #6e6aff 0%, #37357f 95%, #1b1a40 100%);
-  border: none;
-  border-radius: 3px;
-  padding: 5px 10px 5px 10px;
-  font-size: large;
+  font-size: 18px;
   color: white;
-  box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 2px;
-  transition: all 0.5s ease-in-out;
+  background-color: #6E6AFF;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #6e6aff), color-stop(95%, #37357f), color-stop(100%, #1b1a40));
+  background-image: -webkit-linear-gradient(#6e6aff, #37357f 95%, #1b1a40);
+  background-image: -moz-linear-gradient(#6e6aff, #37357f 95%, #1b1a40);
+  background-image: -o-linear-gradient(#6e6aff, #37357f 95%, #1b1a40);
+  background-image: linear-gradient(#6e6aff, #37357f 95%, #1b1a40);
+  background-size: 100% 200%;
+  background-position: 0% 0%;
+  border: none;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
   -webkit-transition: all 0.5s ease-in-out;
   -moz-transition: all 0.5s ease-in-out;
-  -ms-transition: all 0.5s ease-in-out;
   -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
   cursor: pointer;
 }
+@media (max-width: 48em) {
+  #loginbox input[type="submit"] {
+    margin: 5px auto;
+  }
+}
 #loginbox input[type="submit"]:hover {
-  box-shadow: black 0px 0px 3px;
+  background-position: 0% 100%;
+  -webkit-box-shadow: 0 0 3px black;
+  -moz-box-shadow: 0 0 3px black;
+  box-shadow: 0 0 3px black;
+}
+
+footer {
+  text-align: center;
 }

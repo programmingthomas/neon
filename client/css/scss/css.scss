@@ -59,7 +59,7 @@ body
 		float:left;
 	}
 	.content {
-		width:720px;
+		max-width: 800px;
 		margin:auto;
 		clear:both;
 	}
@@ -78,9 +78,6 @@ body
 		}
 	}
 }
-#footer {
-	text-align: center;
-}
 #menu li {float:left;}
 #menuright li { float: right;}
 .small { width: 240px;}
@@ -90,7 +87,7 @@ body
 .large, .small { margin:10px auto;}
 
 hr {
-	width:600px;
+	width: 90%;
 	height:1px;
 	background-color:transparent;
 	@include background-image(linear-gradient(left, rgba(0,0,0,0), black 25%, black 75%, rgba(0,0,0,0)));
@@ -174,4 +171,7 @@ a {
 			@include single-box-shadow(rgba(0,0,0,1),0,0,3px);
 		}
 	}
+}
+footer {
+	text-align: center;
 }

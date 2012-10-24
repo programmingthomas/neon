@@ -14,8 +14,14 @@
 	@elseif $point == small-wide { // 480px to 768px - and then when they rotate it landscape
 		@media (min-width: 30em) and (max-width: 48em) { @content; }
 	}
+	@elseif $point == smaller { // upto 768px - mobile devices
+		@media (max-width: 48em) { @content; }
+	}
+	@elseif $point == larger { // over 768px - mobile devices
+		@media (min-width: 48em) { @content; }
+	}
 	@elseif $point == small { // 768px to 960px - some iPads at the portrait orientation and the rest of the mobile devices
-		@media (min-width: 48em) and (max-width: 60em) { @content; }
+		@media (min-width: 48em) { @content; }
 	}
 	@elseif $point == medium { // 960px and over- smaller browsers including 800x600 
 		@media (max-width: 60em)  { @content; }
@@ -83,8 +89,7 @@ body
 .right {float:right;}
 .large, .small { margin:10px auto;}
 
-hr
-{
+hr {
 	width:600px;
 	height:1px;
 	background-color:transparent;
@@ -98,15 +103,29 @@ a {
 
 #loginbox
 {
+	position:relative;
+	width:90%;
+	max-width:600px;
+	margin:0px auto 30px auto;
 	box-shadow: rgba(0,0,0,0.5) 0px 0px 10px;
 	background-color:white;
-	border-radius: 10px;
-	width:600px;
-	margin:0px auto 30px auto;
-	z-index:-1;
-	text-align: center;
-	padding-top:10px;
-	padding-bottom: 5px;
+	@include border-radius(10px);
+	padding:15px 10px;
+	@include breakpoint(smaller) {
+		text-align: center;
+	}
+	#svgloginlogo {
+		@include breakpoint(smaller) {
+			width: 220px;
+			height: 220px;
+		}
+		@include breakpoint(larger) {
+			position:absolute;
+			right:0px;
+			width:200px;
+			height:200px;
+		}
+	}
 	h1, h3 {
 		margin:0px;
 		padding:0px;
@@ -115,11 +134,14 @@ a {
 	{
 		display:block;
 		width:300px;
-		margin:5px auto;
+		margin:5px 0;
 		padding:5px;
 		border:1px #dedede solid;
 		font-size:large;
 		font-family:Avenir, "Open Sans",Helvetica, sans-serif;
+		@include breakpoint(smaller) {
+			margin: 5px auto;
+		}
 		&:focus {
 			outline:none;
 			border:1px #cc3333 solid;
@@ -127,12 +149,13 @@ a {
 	}
 	input[type="submit"]
 	{
+		display:block;
 		width:100px;
 		padding:5px 10px 5px 10px;
-		margin:5px auto;
+		margin:5px 0;
 		font-family:Avenir, "Open Sans",Helvetica, sans-serif;;
 		text-align:center;
-		font-size:large;
+		font-size:18px;
 		color:white;
 		background-color:#6E6AFF;
 		@include background-image(linear-gradient(#6E6AFF, #37357F 95%, #1B1A40));
@@ -143,6 +166,9 @@ a {
 		@include single-box-shadow(rgba(0,0,0,.5),0,0,2px);
 		@include single-transition(all,.5s,ease-in-out);
 		cursor:pointer;
+		@include breakpoint(smaller) {
+			margin: 5px auto;
+		}
 		&:hover {
 			background-position:0% 100%;
 			@include single-box-shadow(rgba(0,0,0,1),0,0,3px);

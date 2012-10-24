@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11-flat-20030114.dtd"
 [
-	<!ENTITY outerColour "#333333">
-	<!ENTITY innerColour "#333333">
-	<!ENTITY midColour "#333333">
+	<!ENTITY outerColour "#555555">
+	<!ENTITY innerColour "#555555">
+	<!ENTITY midColour "#555555">
 	<!ENTITY ringColour "#555555">
 	<!ENTITY elecColour "#cc3333">
 ]>
@@ -18,7 +18,6 @@
 			<title>Nucleus</title>
 			<g id="nuc_outer">
 			   <title>Nucleus Outer Ring</title>
-			   <animateTransform attributeName="transform" type="rotate" from="0 500 500" to="360 500 500" dur="8s" repeatCount="indefinite"/>
 			   <circle id="nuc_2_1" fill="&outerColour;" stroke-width="0" cx="500" cy="430" r="30"/>
 			   <circle id="nuc_2_2" fill="&outerColour;" stroke-width="0" cx="537.845" cy="441.112" r="30"/>
 			   <circle id="nuc_2_3" fill="&outerColour;" stroke-width="0" cx="563.674" cy="470.92" r="30"/>

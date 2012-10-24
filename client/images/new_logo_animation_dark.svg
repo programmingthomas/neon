@@ -18,6 +18,7 @@
 			<title>Nucleus</title>
 			<g id="nuc_outer">
 			   <title>Nucleus Outer Ring</title>
+			   <animateTransform attributeName="transform" type="rotate" from="0 500 500" to="360 500 500" dur="8s" repeatCount="indefinite"/>
 			   <circle id="nuc_2_1" fill="&outerColour;" stroke-width="0" cx="500" cy="430" r="30"/>
 			   <circle id="nuc_2_2" fill="&outerColour;" stroke-width="0" cx="537.845" cy="441.112" r="30"/>
 			   <circle id="nuc_2_3" fill="&outerColour;" stroke-width="0" cx="563.674" cy="470.92" r="30"/>

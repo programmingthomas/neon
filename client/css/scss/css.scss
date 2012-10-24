@@ -7,15 +7,22 @@
 // mixins
 
 @mixin breakpoint($point) {
-  @if $point == papa-bear {
-    @media (max-width: 1600px) { @content; }
-  }
-  @if $point == mama-bear {
-    @media (max-width: 1250px) { @content; }
-  }
-  @else if $point == baby-bear {
-    @media (max-width: 650px)  { @content; }
-  }
+	// Example: @include breakpoint(small) { width: 18em; }
+	@if $point == small-thin { // up to 480px - many mobile devices portrait
+		@media (max-width: 30em) { @content; }
+	}
+	@elseif $point == small-wide { // 480px to 768px - and then when they rotate it landscape
+		@media (min-width: 30em) and (max-width: 48em) { @content; }
+	}
+	@elseif $point == small { // 768px to 960px - some iPads at the portrait orientation and the rest of the mobile devices
+		@media (min-width: 48em) and (max-width: 60em) { @content; }
+	}
+	@elseif $point == medium { // 960px and over- smaller browsers including 800x600 
+		@media (max-width: 60em)  { @content; }
+	}
+	@elseif $point == large { // 1300px and over - 1366x768 and modern wide screens like that
+		@media (min-width: 81.25em) { @content; }
+	}
 }
 
 body
@@ -25,25 +32,20 @@ body
 	margin:0;
 	margin-top: 100px;
 	padding:0;
-	@include breakpoint(papa-bear) { width: 60%; }
-	@include breakpoint(mama-bear) { width: 80%; }
-	@include breakpoint(baby-bear) { width: 95%; }
 }
 #navbar {
-	box-shadow: rgba(0,0,0,0.5) 0px 1px 5px;
-	background-color:orange;
-	background:-webkit-linear-gradient(top, #cc3333 95%, #B24800 100%);
-	background:-moz-linear-gradient(top, #cc3333 95%, #B24800 100%);
-	background:-ms-linear-gradient(top, #cc3333 95%, #B24800 100%);
-	background:-o-linear-gradient(top, #cc3333 95%, #B24800 100%);
-	background:linear-gradient(top, #cc3333 95%, #B24800 100%);
-	color:white;
-	margin:0px;
+	margin:0;
 	height:60px;
-	text-shadow:rgba(255,255,255,0.5) 0 0  4px;
-	position: relative;
-	top: -100px;
+	width:100%;
+	top:0;
+	left:0;
+	position:fixed;
 	z-index:1000;
+	@include single-box-shadow(rgba(0,0,0,.5),0,1px,5px);
+	background-color:#cc3333;
+	@include background-image(linear-gradient(#cc3333 95%, #B24800));
+	color: white;
+	@include single-text-shadow(0,0,4px,rgba(255,255,255,0.5));
 	h1 {
 		margin:0;
 		padding-top:10px;
@@ -89,7 +91,10 @@ hr
 	@include background-image(linear-gradient(left, rgba(0,0,0,0), black 25%, black 75%, rgba(0,0,0,0)));
 	border:none;
 }
-a { text-decoration: none; color:blue;}
+a {
+	text-decoration: none;
+	color:blue;
+}
 
 #loginbox
 {
@@ -111,37 +116,36 @@ a { text-decoration: none; color:blue;}
 		display:block;
 		width:300px;
 		margin:5px auto;
+		padding:5px;
+		border:1px #dedede solid;
 		font-size:large;
-		text-align:center;
 		font-family:Avenir, "Open Sans",Helvetica, sans-serif;
+		&:focus {
+			outline:none;
+			border:1px #cc3333 solid;
+		}
 	}
 	input[type="submit"]
 	{
 		width:100px;
+		padding:5px 10px 5px 10px;
+		margin:5px auto;
 		font-family:Avenir, "Open Sans",Helvetica, sans-serif;;
 		text-align:center;
-		margin:5px auto;
-		background-color:#6E6AFF;
-		background-image:-webkit-linear-gradient(top, #6E6AFF 0%, #37357F 95%, #1B1A40 100%);
-		background-image:-moz-linear-gradient(top, #6E6AFF 0%, #37357F 95%, #1B1A40 100%);
-		background-image:-ms-linear-gradient(top, #6E6AFF 0%, #37357F 95%, #1B1A40 100%);
-		background-image:-o-linear-gradient(top, #6E6AFF 0%, #37357F 95%, #1B1A40 100%);
-		background-image:linear-gradient(top, #6E6AFF 0%, #37357F 95%, #1B1A40 100%);
-		border:none;
-		border-radius: 3px;
-		padding:5px 10px 5px 10px;
 		font-size:large;
 		color:white;
-		box-shadow:rgba(0,0,0,0.5) 0px 0px 2px;
-		transition:all 0.5s ease-in-out;
-		-webkit-transition:all 0.5s ease-in-out;
-		-moz-transition:all 0.5s ease-in-out;
-		-ms-transition:all 0.5s ease-in-out;
-		-o-transition:all 0.5s ease-in-out;
+		background-color:#6E6AFF;
+		@include background-image(linear-gradient(#6E6AFF, #37357F 95%, #1B1A40));
+		background-size:100% 200%;
+		background-position:0% 0%;
+		border:none;
+		@include border-radius(3px);
+		@include single-box-shadow(rgba(0,0,0,.5),0,0,2px);
+		@include single-transition(all,.5s,ease-in-out);
 		cursor:pointer;
-	}
-	input[type="submit"]:hover
-	{
-		box-shadow:rgba(0,0,0,1) 0px 0px 3px;
+		&:hover {
+			background-position:0% 100%;
+			@include single-box-shadow(rgba(0,0,0,1),0,0,3px);
+		}
 	}
 }

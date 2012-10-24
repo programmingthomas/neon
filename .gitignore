@@ -172,3 +172,6 @@ Thumbs.db
 # Logging files
 log.txt
 *.log
+
+#Custom database
+*.jsondb

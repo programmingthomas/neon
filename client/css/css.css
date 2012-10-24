@@ -10,7 +10,8 @@ body {
 #navbar {
   margin: 0;
   height: 60px;
-  width: 100%;
+  width: 90%;
+  padding: 0 5%;
   top: 0;
   left: 0;
   position: fixed;
@@ -31,13 +32,7 @@ body {
 #navbar h1 {
   margin: 0;
   padding-top: 10px;
-  width: 100px;
   float: left;
-}
-#navbar .content {
-  max-width: 800px;
-  margin: auto;
-  clear: both;
 }
 #navbar ul {
   list-style: none;
@@ -50,34 +45,7 @@ body {
   width: 60px;
   text-align: center;
   font-size: xx-large;
-}
-
-#menu li {
   float: left;
-}
-
-#menuright li {
-  float: right;
-}
-
-.small {
-  width: 240px;
-}
-
-.large {
-  width: 480px;
-}
-
-.left {
-  float: left;
-}
-
-.right {
-  float: right;
-}
-
-.large, .small {
-  margin: 10px auto;
 }
 
 hr {
@@ -97,7 +65,7 @@ a {
   color: blue;
 }
 
-#loginbox {
+#formbox, #loginbox, #signupbox {
   position: relative;
   width: 90%;
   max-width: 600px;
@@ -112,47 +80,52 @@ a {
   padding: 15px 10px;
 }
 @media (max-width: 48em) {
-  #loginbox {
+  #formbox, #loginbox, #signupbox {
     text-align: center;
   }
 }
-@media (max-width: 48em) {
-  #loginbox #svgloginlogo {
-    width: 220px;
-    height: 220px;
-  }
-}
-@media (min-width: 48em) {
-  #loginbox #svgloginlogo {
-    position: absolute;
-    right: 0px;
-    width: 200px;
-    height: 200px;
-  }
-}
-#loginbox h1, #loginbox h3 {
+#formbox h1, #loginbox h1, #signupbox h1, #formbox h3, #loginbox h3, #signupbox h3 {
   margin: 0px;
   padding: 0px;
 }
-#loginbox input[type="text"], #loginbox input[type="password"] {
-  display: block;
-  width: 300px;
-  margin: 5px 0;
+@media (min-width: 48em) {
+  #formbox #input_container, #loginbox #input_container, #signupbox #input_container {
+    display: block;
+    width: 330px;
+    height: 38px;
+    position: relative;
+    overflow-y: hidden;
+  }
+  #formbox #input_container div, #loginbox #input_container div, #signupbox #input_container div {
+    display: block;
+    float: left;
+    line-height: 36px;
+    width: 70px;
+    text-align: justify;
+  }
+}
+#formbox input[type="text"], #loginbox input[type="text"], #signupbox input[type="text"], #formbox input[type="password"], #loginbox input[type="password"], #signupbox input[type="password"] {
+  margin: 2px;
   padding: 5px;
   border: 1px #dedede solid;
   font-size: large;
   font-family: Avenir, "Open Sans",Helvetica, sans-serif;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
 }
 @media (max-width: 48em) {
-  #loginbox input[type="text"], #loginbox input[type="password"] {
+  #formbox input[type="text"], #loginbox input[type="text"], #signupbox input[type="text"], #formbox input[type="password"], #loginbox input[type="password"], #signupbox input[type="password"] {
+    width: 240px;
     margin: 5px auto;
   }
 }
-#loginbox input[type="text"]:focus, #loginbox input[type="password"]:focus {
+#formbox input[type="text"]:focus, #loginbox input[type="text"]:focus, #signupbox input[type="text"]:focus, #formbox input[type="password"]:focus, #loginbox input[type="password"]:focus, #signupbox input[type="password"]:focus {
   outline: none;
   border: 1px #cc3333 solid;
 }
-#loginbox input[type="submit"] {
+#formbox input[type="submit"], #loginbox input[type="submit"], #signupbox input[type="submit"] {
   display: block;
   width: 100px;
   padding: 5px 10px 5px 10px;
@@ -185,15 +158,67 @@ a {
   cursor: pointer;
 }
 @media (max-width: 48em) {
-  #loginbox input[type="submit"] {
+  #formbox input[type="submit"], #loginbox input[type="submit"], #signupbox input[type="submit"] {
     margin: 5px auto;
   }
 }
-#loginbox input[type="submit"]:hover {
+#formbox input[type="submit"]:hover, #loginbox input[type="submit"]:hover, #signupbox input[type="submit"]:hover {
   background-position: 0% 100%;
   -webkit-box-shadow: 0 0 3px black;
   -moz-box-shadow: 0 0 3px black;
   box-shadow: 0 0 3px black;
+}
+
+@media (max-width: 48em) {
+  #loginbox #svgloginlogo {
+    width: 220px;
+    height: 220px;
+  }
+}
+@media (min-width: 48em) {
+  #loginbox #svgloginlogo {
+    position: absolute;
+    top: 0px;
+    right: 20px;
+    width: 200px;
+    height: 200px;
+  }
+}
+@media (min-width: 48em) {
+  #loginbox #input_container {
+    display: block;
+    width: 330px;
+    height: 38px;
+    position: relative;
+    overflow-y: hidden;
+  }
+  #loginbox #input_container div {
+    display: block;
+    float: left;
+    line-height: 36px;
+    width: 70px;
+    text-align: justify;
+  }
+}
+#loginbox #input_container input[type="text"], #loginbox #input_container input[type="password"] {
+  margin: 0;
+  display: block;
+}
+@media (max-width: 48em) {
+  #loginbox #input_container input[type="text"], #loginbox #input_container input[type="password"] {
+    width: 240px;
+    margin: 5px auto;
+  }
+}
+@media (min-width: 48em) {
+  #loginbox #input_container input[type="text"], #loginbox #input_container input[type="password"] {
+    position: absolute;
+    right: 0;
+    width: 200px;
+  }
+  #loginbox #input_container input[type="text"]:focus, #loginbox #input_container input[type="password"]:focus {
+    width: 318px;
+  }
 }
 
 footer {

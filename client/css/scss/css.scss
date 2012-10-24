@@ -39,10 +39,12 @@ body
 	margin-top: 100px;
 	padding:0;
 }
+
 #navbar {
 	margin:0;
 	height:60px;
-	width:100%;
+	width:90%;
+	padding:0 5%;
 	top:0;
 	left:0;
 	position:fixed;
@@ -55,14 +57,13 @@ body
 	h1 {
 		margin:0;
 		padding-top:10px;
-		width:100px;
 		float:left;
 	}
-	.content {
-		max-width: 800px;
-		margin:auto;
-		clear:both;
-	}
+	//.content {
+	//	max-width: 800px;
+	//	margin:auto;
+	//	clear:both;
+	//}
 	ul
 	{
 		list-style:none;
@@ -75,16 +76,10 @@ body
 			width:60px;
 			text-align:center;
 			font-size:xx-large;
+			float:left;
 		}
 	}
 }
-#menu li {float:left;}
-#menuright li { float: right;}
-.small { width: 240px;}
-.large { width: 480px;}
-.left { float:left;}
-.right {float:right;}
-.large, .small { margin:10px auto;}
 
 hr {
 	width: 90%;
@@ -98,7 +93,7 @@ a {
 	color:blue;
 }
 
-#loginbox
+#formbox
 {
 	position:relative;
 	width:90%;
@@ -111,32 +106,35 @@ a {
 	@include breakpoint(smaller) {
 		text-align: center;
 	}
-	#svgloginlogo {
-		@include breakpoint(smaller) {
-			width: 220px;
-			height: 220px;
-		}
-		@include breakpoint(larger) {
-			position:absolute;
-			right:0px;
-			width:200px;
-			height:200px;
-		}
-	}
 	h1, h3 {
 		margin:0px;
 		padding:0px;
 	}
-	input[type="text"], input[type="password"]
-	{
-		display:block;
-		width:300px;
-		margin:5px 0;
+	#input_container {
+		@include breakpoint(larger) {
+			display:block;
+			width:330px;
+			height:38px;
+			position:relative;
+			overflow-y:hidden;
+			div {
+				display: block;
+				float: left;
+				line-height:36px;
+				width:70px;
+				text-align:justify;
+			}
+		}
+	}
+	input[type="text"], input[type="password"] {
+		margin:2px;
 		padding:5px;
 		border:1px #dedede solid;
 		font-size:large;
 		font-family:Avenir, "Open Sans",Helvetica, sans-serif;
+		@include single-transition(all,.5s,ease-in-out);
 		@include breakpoint(smaller) {
+			width:240px;
 			margin: 5px auto;
 		}
 		&:focus {
@@ -144,8 +142,7 @@ a {
 			border:1px #cc3333 solid;
 		}
 	}
-	input[type="submit"]
-	{
+	input[type="submit"] {
 		display:block;
 		width:100px;
 		padding:5px 10px 5px 10px;
@@ -170,6 +167,60 @@ a {
 			background-position:0% 100%;
 			@include single-box-shadow(rgba(0,0,0,1),0,0,3px);
 		}
+	}
+}
+#loginbox {
+	@extend #formbox;
+	#svgloginlogo {
+		@include breakpoint(smaller) {
+			width: 220px;
+			height: 220px;
+		}
+		@include breakpoint(larger) {
+			position:absolute;
+			top: 0px;
+			right:20px;
+			width:200px;
+			height:200px;
+		}
+	}
+	#input_container {
+		@include breakpoint(larger) {
+			display:block;
+			width:330px;
+			height:38px;
+			position:relative;
+			overflow-y:hidden;
+			div {
+				display: block;
+				float: left;
+				line-height:36px;
+				width:70px;
+				text-align:justify;
+			}
+		}
+		input[type="text"], input[type="password"] {
+			margin:0;
+			display:block;
+			@include breakpoint(smaller) {
+				width:240px;
+				margin: 5px auto;
+			}
+			@include breakpoint(larger) {
+				position:absolute;
+				right:0;
+				width:200px;
+				&:focus {
+					width:318px;
+				}
+			}
+		}
+	}
+}
+#signupbox {
+	@extend #formbox;
+	input[type="submit"] {
+		//margin: 0px auto !important;
 	}
 }
 footer {

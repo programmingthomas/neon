@@ -117,7 +117,7 @@ function loadGroupIndexes()
 function userForId(id)
 {
 	log.i("Loading data for user #" + id.toString());
-	log.i("Array index for #" id.toString() + " is " + uI[id]);
+	log.i("Array index for #" + id.toString() + " is " + uI[id]);
 	var user = users.table[uI[id]];
 	if (user != undefined && user.id == id) return user;
 	else return null;

@@ -6,6 +6,7 @@
   font-style: normal;
 }
 
+/* line 47, scss/css.scss */
 body {
   font-family: Avenir, "Open Sans",Helvetica, sans-serif;
   background-color: #F0F0FA;
@@ -14,6 +15,7 @@ body {
   padding: 0;
 }
 
+/* line 55, scss/css.scss */
 #navbar {
   margin: 0;
   height: 60px;
@@ -51,11 +53,13 @@ body {
   	}
   }*/
 }
+/* line 69, scss/css.scss */
 #navbar h1 {
   margin: 0;
   padding-top: 10px;
   float: left;
 }
+/* line 89, scss/css.scss */
 #navbar [data-icon]:before {
   font-family: 'icomoon';
   content: attr(data-icon);
@@ -64,6 +68,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* line 98, scss/css.scss */
 hr {
   width: 90%;
   height: 1px;
@@ -76,11 +81,13 @@ hr {
   border: none;
 }
 
+/* line 105, scss/css.scss */
 a {
   text-decoration: none;
   color: blue;
 }
 
+/* line 111, scss/css.scss */
 #formbox, #loginbox, #signupbox {
   position: relative;
   width: 90%;
@@ -96,15 +103,18 @@ a {
   padding: 15px 10px;
 }
 @media (max-width: 48em) {
+  /* line 111, scss/css.scss */
   #formbox, #loginbox, #signupbox {
     text-align: center;
   }
 }
+/* line 123, scss/css.scss */
 #formbox h1, #loginbox h1, #signupbox h1, #formbox h3, #loginbox h3, #signupbox h3 {
   margin: 0px;
   padding: 0px;
 }
 @media (min-width: 48em) {
+  /* line 127, scss/css.scss */
   #formbox #input_container, #loginbox #input_container, #signupbox #input_container {
     display: block;
     width: 330px;
@@ -112,6 +122,7 @@ a {
     position: relative;
     overflow-y: hidden;
   }
+  /* line 134, scss/css.scss */
   #formbox #input_container div, #loginbox #input_container div, #signupbox #input_container div {
     display: block;
     float: left;
@@ -120,6 +131,7 @@ a {
     text-align: justify;
   }
 }
+/* line 143, scss/css.scss */
 #formbox input[type="text"], #loginbox input[type="text"], #signupbox input[type="text"], #formbox input[type="password"], #loginbox input[type="password"], #signupbox input[type="password"] {
   margin: 2px;
   padding: 5px;
@@ -132,15 +144,18 @@ a {
   transition: all 0.5s ease-in-out;
 }
 @media (max-width: 48em) {
+  /* line 143, scss/css.scss */
   #formbox input[type="text"], #loginbox input[type="text"], #signupbox input[type="text"], #formbox input[type="password"], #loginbox input[type="password"], #signupbox input[type="password"] {
     width: 240px;
     margin: 5px auto;
   }
 }
+/* line 154, scss/css.scss */
 #formbox input[type="text"]:focus, #loginbox input[type="text"]:focus, #signupbox input[type="text"]:focus, #formbox input[type="password"]:focus, #loginbox input[type="password"]:focus, #signupbox input[type="password"]:focus {
   outline: none;
   border: 1px #cc3333 solid;
 }
+/* line 159, scss/css.scss */
 #formbox input[type="submit"], #loginbox input[type="submit"], #signupbox input[type="submit"] {
   display: inline;
   padding: 5px 20px;
@@ -173,10 +188,12 @@ a {
   cursor: pointer;
 }
 @media (max-width: 48em) {
+  /* line 159, scss/css.scss */
   #formbox input[type="submit"], #loginbox input[type="submit"], #signupbox input[type="submit"] {
     margin: 5px auto;
   }
 }
+/* line 179, scss/css.scss */
 #formbox input[type="submit"]:hover, #loginbox input[type="submit"]:hover, #signupbox input[type="submit"]:hover {
   background-position: 0% 100%;
   -webkit-box-shadow: 0 0 3px black;
@@ -185,12 +202,14 @@ a {
 }
 
 @media (max-width: 48em) {
+  /* line 187, scss/css.scss */
   #loginbox #svgloginlogo {
     width: 220px;
     height: 220px;
   }
 }
 @media (min-width: 48em) {
+  /* line 187, scss/css.scss */
   #loginbox #svgloginlogo {
     position: absolute;
     top: 0px;
@@ -200,6 +219,7 @@ a {
   }
 }
 @media (min-width: 48em) {
+  /* line 200, scss/css.scss */
   #loginbox #input_container {
     display: block;
     width: 330px;
@@ -207,6 +227,7 @@ a {
     position: relative;
     overflow-y: hidden;
   }
+  /* line 207, scss/css.scss */
   #loginbox #input_container div {
     display: block;
     float: left;
@@ -215,27 +236,32 @@ a {
     text-align: justify;
   }
 }
+/* line 215, scss/css.scss */
 #loginbox #input_container input[type="text"], #loginbox #input_container input[type="password"] {
   margin: 0;
   display: block;
 }
 @media (max-width: 48em) {
+  /* line 215, scss/css.scss */
   #loginbox #input_container input[type="text"], #loginbox #input_container input[type="password"] {
     width: 240px;
     margin: 5px auto;
   }
 }
 @media (min-width: 48em) {
+  /* line 215, scss/css.scss */
   #loginbox #input_container input[type="text"], #loginbox #input_container input[type="password"] {
     position: absolute;
     right: 0;
     width: 200px;
   }
+  /* line 226, scss/css.scss */
   #loginbox #input_container input[type="text"]:focus, #loginbox #input_container input[type="password"]:focus {
     width: 318px;
   }
 }
 
+/* line 239, scss/css.scss */
 footer {
   text-align: center;
   padding: 10px 0;

@@ -152,6 +152,7 @@ function register(username, password, name, response)
 	db.users.table[db.users.table.length] = user;
 	db.users.index += 1;
 	db.saveTo(db.users, "users");
+	db.loadUserIndexes();
 	log.i("api.js", "Successfully registered user " + username);
 }
 

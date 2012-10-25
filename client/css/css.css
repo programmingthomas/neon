@@ -37,4 +37,4 @@ a { text-decoration: none; color: blue; }
 @media (min-width: 48em) { #loginbox #input_container input[type="text"], #loginbox #input_container input[type="password"] { position: absolute; right: 0; width: 200px; }
   #loginbox #input_container input[type="text"]:focus, #loginbox #input_container input[type="password"]:focus { width: 318px; } }
 
-footer { text-align: center; padding: 10px 0; }
+footer { text-align: center; padding: 10px 0; background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(240, 240, 240, 0)), color-stop(100%, rgba(240, 240, 240, 0.75))); background-image: -webkit-linear-gradient(rgba(240, 240, 240, 0), rgba(240, 240, 240, 0.75)); background-image: -moz-linear-gradient(rgba(240, 240, 240, 0), rgba(240, 240, 240, 0.75)); background-image: -o-linear-gradient(rgba(240, 240, 240, 0), rgba(240, 240, 240, 0.75)); background-image: linear-gradient(rgba(240, 240, 240, 0), rgba(240, 240, 240, 0.75)); }

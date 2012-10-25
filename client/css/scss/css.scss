@@ -253,4 +253,5 @@ a {
 footer {
 	text-align: center;
 	padding:10px 0;
+	@include background-image(linear-gradient(rgba(#f0f0f0,0), rgba(#f0f0f0,.75)));
 }

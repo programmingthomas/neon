@@ -1,4 +1,11 @@
-@import url(font-awesome.css);
+@font-face {
+  font-family: 'icomoon';
+  src: url("fonts/icomoon.eot");
+  src: url("fonts/icomoon.eot?#iefix") format("embedded-opentype"), url("fonts/icomoon.svg#icomoon") format("svg"), url("fonts/icomoon.woff") format("woff"), url("fonts/icomoon.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
   font-family: Avenir, "Open Sans",Helvetica, sans-serif;
   background-color: #F0F0FA;
@@ -28,24 +35,33 @@ body {
   color: white;
   text-shadow: 0 0 4px #aaaaaa, 0 0 4px rgba(255, 255, 255, 0.5) #aaaaaa;
   text-shadow: 0 0 4px rgba(255, 255, 255, 0.5) #aaaaaa, 0 0 4px rgba(255, 255, 255, 0.5) #aaaaaa;
+  /*ul
+  {
+  	list-style:none;
+  	padding:0;
+  	margin:0;
+  	cursor: pointer;
+  	li
+  	{
+  		padding-top:10px;
+  		width:60px;
+  		text-align:center;
+  		font-size:xx-large;
+  		float:left;
+  	}
+  }*/
 }
 #navbar h1 {
   margin: 0;
   padding-top: 10px;
   float: left;
 }
-#navbar ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  cursor: pointer;
-}
-#navbar ul li {
-  padding-top: 10px;
-  width: 60px;
-  text-align: center;
-  font-size: xx-large;
-  float: left;
+#navbar [data-icon]:before {
+  font-family: 'icomoon';
+  content: attr(data-icon);
+  speak: none;
+  font-weight: normal;
+  -webkit-font-smoothing: antialiased;
 }
 
 hr {
@@ -223,15 +239,4 @@ a {
 footer {
   text-align: center;
   padding: 10px 0;
-}
-
-
-#login-btn {
-	display: inline !important;	
-	text-align: left;
-}
-
-#signup-link {
-	cursor: pointer;
-
 }

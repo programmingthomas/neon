@@ -111,6 +111,13 @@ function api(command, option, parameters)
 			}
 			response.posts = posts;
 		}
+		else if (command == "logout")
+		{
+			var userId = user(parameters.username).id;
+			for (var i = 0; i < db.keys.table.length; i++) if (db.keys.table[i] != null && db.keys.table[i].user == userId) delete db.keys.table[i];
+			response.request.message = "All keys destroyed, logged out";
+			db.saveTo(db.keys, "keys");
+		}
 	}
 	else
 	{
@@ -358,7 +365,7 @@ function runApi(request, response, parameters)
 //Writes the information out
 function writeApi(respObj, response, whitespace)
 {
-	response.writeHead(respObj.request.successCode, {"Content-Type": "application/json" });
+	response.writeHead(200, {"Content-Type": "application/json" });
 	if (whitespace)
 		response.write(JSON.stringify(respObj, null, "\t"));
 	else response.write(JSON.stringify(respObj));

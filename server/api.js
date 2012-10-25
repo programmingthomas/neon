@@ -45,7 +45,7 @@ function api(command, option, parameters)
 		if (command == "user")
 		{
 			if (option == null || option == undefined) response.user = user(parameters.username);
-			response.user = user(option);
+			else response.user = user(option);
 		}
 	}
 	else
@@ -97,7 +97,7 @@ function login(username, password, response)
 						servGroup.name = group.name;
 						servGroup.color = group.color;
 						servGroup.role = 1;
-						response.login.grous[response.login.groups.length] = servGroup;
+						response.login.groups[response.login.groups.length] = servGroup;
 					}
 				}
 			}

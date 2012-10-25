@@ -1,14 +1,23 @@
 $(document).ready(function(){
-	var widths = [1024, 1280, 1360, 1366, 1440, 1680, 1920, 1921];
+	var widths = [1024, 1280, 1360, 1366, 1440, 1680, 1920, 1920];
 	var body_width = $("body").width();
-
-	console.log(roundUpWidth(widths, body_width));
 
 	console.log("width is " + body_width + ", returning image " + roundUpWidth(widths, body_width)[1] + ".jpg");
 	var image_width = roundUpWidth(widths, body_width)[1] + ".jpg"
 	var image_path = "splashes/" + image_width;
 
-	$('body').css("background", "url('" + image_path + "')");
+	$('body').css("background", "url('" + image_path + "') no-repeat");
+});
+
+$(window).resize(function(){
+	var widths = [1024, 1280, 1360, 1366, 1440, 1680, 1920, 1920];
+	var body_width = $("body").width();
+
+	console.log("width is " + body_width + ", returning image " + roundUpWidth(widths, body_width)[1] + ".jpg");
+	var image_width = roundUpWidth(widths, body_width)[1] + ".jpg"
+	var image_path = "splashes/" + image_width;
+
+	$('body').css("background", "url('" + image_path + "') no-repeat");
 });
 
 var roundUpWidth = function(a, x) {

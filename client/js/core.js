@@ -28,3 +28,8 @@ var roundUpWidth = function(a, x) {
     };
     return [lo, hi];
 }
+
+$('#signuplink').click(function(e){
+	e.preventDefault();
+	$('#loginbox').animate({'height':'1000'}, 1000);
+});

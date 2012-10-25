@@ -143,10 +143,9 @@ a {
 		}
 	}
 	input[type="submit"] {
-		display:block;
-		width:100px;
-		padding:5px 10px 5px 10px;
-		margin:5px 0;
+		display:inline;
+		padding:5px 20px;
+		margin:5px 3px;
 		font-family:Avenir, "Open Sans",Helvetica, sans-serif;;
 		text-align:center;
 		font-size:18px;
@@ -220,9 +219,10 @@ a {
 #signupbox {
 	@extend #formbox;
 	input[type="submit"] {
-		//margin: 0px auto !important;
+		
 	}
 }
 footer {
 	text-align: center;
+	padding:10px 0;
 }

@@ -126,10 +126,9 @@ a {
   border: 1px #cc3333 solid;
 }
 #formbox input[type="submit"], #loginbox input[type="submit"], #signupbox input[type="submit"] {
-  display: block;
-  width: 100px;
-  padding: 5px 10px 5px 10px;
-  margin: 5px 0;
+  display: inline;
+  padding: 5px 20px;
+  margin: 5px 3px;
   font-family: Avenir, "Open Sans",Helvetica, sans-serif;
   text-align: center;
   font-size: 18px;
@@ -223,4 +222,5 @@ a {
 
 footer {
   text-align: center;
+  padding: 10px 0;
 }

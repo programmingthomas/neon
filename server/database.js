@@ -102,7 +102,7 @@ function loadPostIndexes()
 {
 	pI = new Array();
 	for (var i = 0; i < posts.index; i++) pI[i] = 0;
-	for (var i = 0; i < posts.tables.length; i++) pI[posts.tables[i].id] = i;
+	for (var i = 0; i < posts.table.length; i++) pI[posts.table[i].id] = i;
 	exports.posts = posts;
 }
 
@@ -110,7 +110,7 @@ function loadGroupIndexes()
 {
 	gI = new Array();
 	for (var i = 0; i < groups.index; i++) gI[i] = 0;
-	for (var i = 0; i < groups.tables.length; i++) gI[groups.tables[i].id] = i;
+	for (var i = 0; i < groups.table.length; i++) gI[groups.table[i].id] = i;
 	exports.groups = groups;
 }
 

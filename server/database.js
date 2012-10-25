@@ -151,3 +151,6 @@ exports.saveTo = saveTo;
 exports.userForId = userForId;
 exports.userForName = userForName;
 exports.groupForId = groupForId;
+exports.loadUserIndexes = loadUserIndexes;
+exports.loadGroupIndexes = loadGroupIndexes;
+exports.loadPostIndexes = loadPostIndexes;

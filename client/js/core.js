@@ -29,10 +29,12 @@ var roundUpWidth = function(a, x) {
     return [lo, hi];
 }
 
-$('#signuplink').live("click", (function(e){
+$('#signuplink').live("click", function(e){
 	e.preventDefault();
-	$('#input_group_signup').animate({'height':'400'}, 700);
-}));
+	$('#input_group').animate({'height':'200'}, 700, function(){
+		$('#input-group-signup').attr('style', 'display:block');;
+	});
+});
 
 var changeToDashboard = function(){
 	var dashboard_data = nc_dashboard(localStorage.username, localStorage.key);

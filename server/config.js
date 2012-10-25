@@ -1,14 +1,17 @@
 //Config.js contains all core options...
 
-//Port to run on
-var port = 8888;
+//Which port to run the server on. The default (8888) is our recommended
+exports.port = 8888;
 
-//Get the client to cache resources so it doesn't slow server up requesting big files like the fonts
-var cache = true;
+//Whether or not client side should cache files (and therefore the server should send 304s)
+exports.cache = true;
 
-//Whether or not the server allows registrations
-var allowsRegister = true;
-
-exports.port = port;
-exports.cache = cache;
+//Whether or not the service allows registrations
+//You may wish to register allow your users before publically running your service
+//It may therefore be appropriate for schools to disable this after launch
+//You have to re-enable to register a new user though :(
 exports.allowsRegister = true;
+
+//Data store extension
+//We set the default as *.jsondb as this doesn't clash with anything
+exports.storeExtension = ".jsondb";

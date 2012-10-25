@@ -175,3 +175,7 @@ log.txt
 
 #Custom database
 *.jsondb
+
+*.sublime-project
+*.sublime-workspace
+*.scss

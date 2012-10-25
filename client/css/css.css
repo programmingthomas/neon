@@ -224,3 +224,8 @@ a {
 footer {
   text-align: center;
 }
+
+
+#login-btn {
+	display: inline;	
+}

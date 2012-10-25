@@ -15,3 +15,9 @@ exports.allowsRegister = true;
 //Data store extension
 //We set the default as *.jsondb as this doesn't clash with anything
 exports.storeExtension = ".jsondb";
+
+//Whether or not to log anything to file/console
+exports.shouldLog = true;
+
+//Whether or not to only log errors. If shouldLog = false this value won't do anything
+exports.shoudOnlyLogErrors = false;

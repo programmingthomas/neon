@@ -5,7 +5,8 @@
 		<link rel="stylesheet" href="css.css" type="text/css" />
 		<link href='fonts.css' rel='stylesheet' type='text/css'>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-
+		<script type="text/javascript" src="jquery-1.8.2.min.js"></script>		
+		<script src="core.js"></script>		
 	</head>
 	<body>
 		<div id="navbar">
@@ -29,7 +30,7 @@
 			<form>
 				<div id="input_container"><div>Username</div><input type="text" id="login-username" placeholder="Username" required="required"/></div>
 				<div id="input_container"><div>Password</div><input type="password" id="login-password" placeholder="Password" required="required"/></div>
-				<input type="submit" id="login-btn" value="Login" /><span>or <a>sign up!</a></span>
+				<div><input type="submit" id="login-btn" value="Login" /> or <a id="signup-link">sign up!</a></div>
 			</form>
 		</section>
 		<aside id="signupbox">
@@ -53,9 +54,9 @@
 				<hr />
 				Neon is an open-source project. Its <a href="http://github.com/TDimaline/neon">source is available on GitHub</a>.
 		</footer>
-		<script type="text/javascript" src="jquery-1.8.2.min.js"></script>
+
 		<script type="text/javascript" src="neonclient.js"></script>
-		<script src="core.js"></script>
+
 		<!--[if lt IE 9]>
 			<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
 		<![endif]-->

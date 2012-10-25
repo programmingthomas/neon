@@ -227,6 +227,11 @@ footer {
 
 
 #login-btn {
-	display: inline;	
-	align: left;
+	display: inline !important;	
+	text-align: left;
+}
+
+#signup-link {
+	cursor: pointer;
+
 }

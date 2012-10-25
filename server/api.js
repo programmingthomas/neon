@@ -44,7 +44,7 @@ function api(command, option, parameters)
 		log.i("api.js", "User " + parameters.username + " is authenticated");
 		if (command == "user")
 		{
-			if (option == null || option == undefined) response.user = user(parameters.username);
+			if (option == null || option == undefined || option.length == 0) response.user = user(parameters.username);
 			else response.user = user(option);
 		}
 	}

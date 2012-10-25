@@ -90,7 +90,7 @@ function nc_inboxDelete(u, k, r, c) {
 }
 
 function nc_register(u, p, n) {
-	$.getJSON("/api/register", {username:u, password:p, name:n}, function(data, status, xhr) {
+	$.getJSON("/api/register/", {username:u, password:p, name:n}, function(data, status, xhr) {
 		saveKey(data);
 	});
 }

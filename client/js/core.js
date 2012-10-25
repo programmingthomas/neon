@@ -6,7 +6,7 @@ $(document).ready(function(){
 	var image_width = roundUpWidth(widths, body_width)[1] + ".jpg"
 	var image_path = "splashes/" + image_width;
 
-	$('body').css("background", "url('" + image_path + "') no-repeat");
+	$('body').css("background", "url('" + image_path + "') no-repeat fixed");
 });
 
 $(window).resize(function(){
@@ -17,7 +17,7 @@ $(window).resize(function(){
 	var image_width = roundUpWidth(widths, body_width)[1] + ".jpg"
 	var image_path = "splashes/" + image_width;
 
-	$('body').css("background", "url('" + image_path + "') no-repeat");
+	$('body').css("background", "url('" + image_path + "') no-repeat fixed");
 });
 
 var roundUpWidth = function(a, x) {
@@ -31,7 +31,7 @@ var roundUpWidth = function(a, x) {
 
 $('#signuplink').live("click", (function(e){
 	e.preventDefault();
-	$('#loginbox').animate({'height':'400'}, 700);
+	$('#input_group_signup').animate({'height':'400'}, 700);
 }));
 
 var changeToDashboard = function(){

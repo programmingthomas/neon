@@ -53,7 +53,7 @@ body
 	padding:0;
 }
 
-#navbar {
+header {
 	margin:0;
 	height:60px;
 	width:90%;
@@ -66,33 +66,46 @@ body
 	background-color:#cc3333;
 	@include background-image(linear-gradient(#cc3333 95%, #B24800));
 	color: white;
-	@include single-text-shadow(0,0,4px,rgba(255,255,255,0.5));
 	h1 {
 		margin:0;
 		padding-top:10px;
 		float:left;
 	}
-	/*ul
-	{
-		list-style:none;
-		padding:0;
-		margin:0;
-		cursor: pointer;
-		li
-		{
-			padding-top:10px;
-			width:60px;
-			text-align:center;
-			font-size:xx-large;
+	nav {
+		display:block;
+		margin:5px 0 0 100px;
+		.barbutton {
+			display:block;
 			float:left;
+			text-align:center;
+			padding:0 10px;
+			cursor: pointer;
+			div {
+				display:block;
+				font-size:25px;
+				text-shadow: 0px 0px 15px rgba(255, 255, 255, 0.3);
+				@include single-transition(all,.5s,ease-in-out);
+			}
+			span {
+				font-size: 17px;
+				padding-left: 4px;
+			}
+			&:hover {
+				div {
+					text-shadow: 0px 0px 15px rgba(255, 255, 255, 1);
+				}
+			}
 		}
-	}*/
-	[data-icon]:before {
-		font-family: 'icomoon';
-		content: attr(data-icon);
-		speak: none;
-		font-weight: normal;
-		-webkit-font-smoothing: antialiased;
+		#settings {
+			float: right;
+		}
+		[data-icon]:before {
+			font-family:'icomoon';
+			content:attr(data-icon);
+			speak:none;
+			font-weight:normal;
+			-webkit-font-smoothing:antialiased;
+		}
 	}
 }
 

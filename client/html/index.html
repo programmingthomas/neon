@@ -9,33 +9,24 @@
 		<script src="core.js"></script>		
 	</head>
 	<body>
-		<div id="navbar">
-			<div class="content">
-				<h1>Neon</h1>
-				<nav>
-					<div id="home" aria-hidden="true" data-icon="&#xe001;"></div>
-					<div id="groups" aria-hidden="true" data-icon="&#xe002;"></div>
-					<div id="mail" aria-hidden="true" data-icon="&#xe003;"></div>
-					<div id="settings" aria-hidden="true" data-icon="&#xe004;"></div>
-				</nav>
-			</div>
-		</div>
+		<header>
+			<h1>Neon</h1>
+			<nav>
+				<div class="barbutton" id="home"><div aria-hidden="true" data-icon="&#xe001;"></div><span>Home</span></div>
+				<div class="barbutton" id="groups"><div aria-hidden="true" data-icon="&#xe002;"></div><span>Groups</span></div>
+				<div class="barbutton" id="mail"><div aria-hidden="true" data-icon="&#xe003;"></div><span>Mail</span></div>
+				<div class="barbutton" id="settings"><div aria-hidden="true" data-icon="&#xe004;"></div><span>Settings</span></div>
+			</nav>
+		</header>
 		<section id="loginbox">
-			<!-- Apparently this is the best way of embedding a scaled SVG in a web page. I HATE IT. -->
 			<svg id="svgloginlogo" height="200" width="200" xmlns:xlink="http://www.w3.org/1999/xlink"  version="1.0"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000">
 				<image x="0" y="0" height="1000" width="1000"  xlink:href="images/new_logo_animation_dark.svg"/>
 			</svg>
 			<h1>Welcome to Neon</h1>
 			<h3>The educational blogging network</h3>
 			<form>
-				<div id="input_group">
-					<div id="input_container"><div>Username</div><input type="text" id="login-username" placeholder="Username" required="required"/></div>
-					<div id="input_container"><div>Password</div><input type="password" id="login-password" placeholder="Password" required="required"/></div>
-					<div id="input_group_signup" class="input_hidden">
-						<div id="input_container"><div>Confirm Password</div><input type="password" id="login-password2" placeholder="Confirm Password" required="required"/></div>
-						<div id="input_container"><div>Name</div><input type="text" id="login-name" placeholder="Name" required="required"/></div>
-					</div>
-				</div>
+				<div id="input_container"><div>Username</div><input type="text" id="login-username" placeholder="Username" required="required"/></div>
+				<div id="input_container"><div>Password</div><input type="password" id="login-password" placeholder="Password" required="required"/></div>
 				<input type="submit" value="Login" /><span id="signuplink-outer"> Or <a href="#" id="signuplink">sign up?</a></span>
 			</form>
 		</section>

@@ -2,23 +2,15 @@
 
 body { font-family: Avenir, "Open Sans",Helvetica, sans-serif; background-color: #F0F0FA; background-attachment: fixed; margin: 0; margin-top: 100px; padding: 0; }
 
-#navbar { margin: 0; height: 60px; width: 90%; padding: 0 5%; top: 0; left: 0; position: fixed; z-index: 1000; -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5); -moz-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5); box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5); background-color: #cc3333; background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(95%, #cc3333), color-stop(100%, #b24800)); background-image: -webkit-linear-gradient(#cc3333 95%, #b24800); background-image: -moz-linear-gradient(#cc3333 95%, #b24800); background-image: -o-linear-gradient(#cc3333 95%, #b24800); background-image: linear-gradient(#cc3333 95%, #b24800); color: white; text-shadow: 0 0 4px #aaaaaa, 0 0 4px rgba(255, 255, 255, 0.5) #aaaaaa; text-shadow: 0 0 4px rgba(255, 255, 255, 0.5) #aaaaaa, 0 0 4px rgba(255, 255, 255, 0.5) #aaaaaa; /*ul
-{
-	list-style:none;
-	padding:0;
-	margin:0;
-	cursor: pointer;
-	li
-	{
-		padding-top:10px;
-		width:60px;
-		text-align:center;
-		font-size:xx-large;
-		float:left;
-	}
-}*/ }
-#navbar h1 { margin: 0; padding-top: 10px; float: left; }
-#navbar [data-icon]:before { font-family: 'icomoon'; content: attr(data-icon); speak: none; font-weight: normal; -webkit-font-smoothing: antialiased; }
+header { margin: 0; height: 60px; width: 90%; padding: 0 5%; top: 0; left: 0; position: fixed; z-index: 1000; -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5); -moz-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5); box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5); background-color: #cc3333; background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(95%, #cc3333), color-stop(100%, #b24800)); background-image: -webkit-linear-gradient(#cc3333 95%, #b24800); background-image: -moz-linear-gradient(#cc3333 95%, #b24800); background-image: -o-linear-gradient(#cc3333 95%, #b24800); background-image: linear-gradient(#cc3333 95%, #b24800); color: white; }
+header h1 { margin: 0; padding-top: 10px; float: left; }
+header nav { display: block; margin: 5px 0 0 100px; }
+header nav .barbutton { display: block; float: left; text-align: center; padding: 0 10px; cursor: pointer; }
+header nav .barbutton div { display: block; font-size: 25px; text-shadow: 0px 0px 15px rgba(255, 255, 255, 0.3); -webkit-transition: all 0.5s ease-in-out; -moz-transition: all 0.5s ease-in-out; -o-transition: all 0.5s ease-in-out; transition: all 0.5s ease-in-out; }
+header nav .barbutton span { font-size: 17px; padding-left: 4px; }
+header nav .barbutton:hover div { text-shadow: 0px 0px 15px white; }
+header nav #settings { float: right; }
+header nav [data-icon]:before { font-family: 'icomoon'; content: attr(data-icon); speak: none; font-weight: normal; -webkit-font-smoothing: antialiased; }
 
 hr { width: 90%; height: 1px; background-color: transparent; background-image: -webkit-gradient(linear, 0% 50%, 100% 50%, color-stop(0%, rgba(0, 0, 0, 0)), color-stop(25%, #000000), color-stop(75%, #000000), color-stop(100%, rgba(0, 0, 0, 0))); background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0), #000000 25%, #000000 75%, rgba(0, 0, 0, 0)); background-image: -moz-linear-gradient(left, rgba(0, 0, 0, 0), #000000 25%, #000000 75%, rgba(0, 0, 0, 0)); background-image: -o-linear-gradient(left, rgba(0, 0, 0, 0), #000000 25%, #000000 75%, rgba(0, 0, 0, 0)); background-image: linear-gradient(left, rgba(0, 0, 0, 0), #000000 25%, #000000 75%, rgba(0, 0, 0, 0)); border: none; }
 

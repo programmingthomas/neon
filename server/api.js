@@ -358,7 +358,7 @@ function runApi(request, response, parameters)
 //Writes the information out
 function writeApi(respObj, response, whitespace)
 {
-	response.writeHead(respObj.request.successCode, {"Content-Type": "application/json" });
+	response.writeHead(200, {"Content-Type": "application/json" });
 	if (whitespace)
 		response.write(JSON.stringify(respObj, null, "\t"));
 	else response.write(JSON.stringify(respObj));

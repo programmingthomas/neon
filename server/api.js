@@ -42,6 +42,11 @@ function api(command, option, parameters)
 	{
 		//Good, good
 		log.i("api.js", "User " + parameters.username + " is authenticated");
+		if (command == "user")
+		{
+			if (option == null || option == undefined) response.user = user(parameters.username);
+			response.user = user(option);
+		}
 	}
 	else
 	{
@@ -104,6 +109,15 @@ function login(username, password, response)
 	response.request.message = "Couldn't find user";
 }
 
+function usernameIsValid(username)
+{
+	if (username != null || username == undefined || username.length == 0)
+	{
+
+	}
+	else return false;
+}
+
 function randomKey()
 {
 	var text = "";
@@ -117,12 +131,14 @@ function register(username, password, name, response)
 {
 	if (username.length == 0 || password.length <= 5 || name.length == 0)
 	{
+		log.e("api.js", "Couldn't register " + username)
 		response.request.message = "Username/Name too short or password not at least 5 letters";
 		response.request.successCode = 401;
 		return;
 	}
 	if (db.userForName(username) != null)
 	{
+		log.e("api.js", "Couldn't register " + username + " because " + username + " already taken.");
 		response.request.message = "Username already taken";
 		response.request.successCode = 401;
 		return;
@@ -136,6 +152,15 @@ function register(username, password, name, response)
 	db.users.table[db.users.table.length] = user;
 	db.users.index += 1;
 	db.saveTo(db.users, "users");
+	log.i("api.js", "Successfully registered user " + username);
+}
+
+function user(username)
+{
+	var user;
+	if (isNaN(username)) user = db.userForName(username);
+	else user = db.userForId(username);
+	return user;
 }
 
 function hash(phrase)

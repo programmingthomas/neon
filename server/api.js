@@ -14,7 +14,7 @@ function api(command, option, parameters)
 	response.request.requestType = command;
 	response.request.requestDetail = option;
 	response.request.successCode = 200;
-
+	log.i("api.js", "Request for command " + command);
 	if (command == "register")
 	{
 		if (config.allowsRegister)
@@ -52,6 +52,29 @@ function api(command, option, parameters)
 			servUser.userImage = u.userImage;
 			servUser.id = u.id;
 			response.user = servUser;
+			var groups = currentUserGroups(servUser.id);
+			servUser.groups = groups;
+			var posts = [];
+			for (var i = 0; i < db.posts.table.length; i++)
+			{
+				if (db.posts.table[i].user == servUser.id && db.posts.table[i].deleted == 0)
+				{
+					var doPost = false;
+					for  (var n = 0; n < groups.length; n++)
+					{
+						if (groups[n].id == db.posts.table[i].group)
+						{
+							doPost = true;
+							break;
+						}
+					}
+					if (doPost)
+					{
+						posts[posts.length] = db.posts.table[i];
+					}
+				}
+			}
+			servUser.posts = posts;
 			//This will need some more stuff related to serving up posts...
 		}
 		else if (command == "group" && option == "create")
@@ -68,6 +91,26 @@ function api(command, option, parameters)
 				response.request.message = "I'm sorry. You can't post in that group."
 			}
 		}
+		else if (command == "dashboard")
+		{
+			var posts = [];
+			var groups = currentUserGroups(user(parameters.username).id);
+			for (var i = 0; i < db.posts.table.length; i++)
+			{
+				if (db.posts.table[i].deleted == 0)
+				{
+					for (var n = 0; n < groups.length; n++)
+					{
+						if (groups[n].id == db.posts.table[i].group)
+						{
+							posts[posts.length] = db.posts.table[i];
+							posts[posts.length - 1].group = groups[n];
+						}
+					}
+				}
+			}
+			response.posts = posts;
+		}
 	}
 	else
 	{
@@ -76,6 +119,28 @@ function api(command, option, parameters)
 	}
 
 	return response;
+}
+
+function currentUserGroups(user)
+{
+	var a = [];
+	for (var i = 0; i < db.members.table.length; i++)
+	{
+		if (db.members.table[i].user == user)
+		{
+			var group = db.groupForId(db.members.table[i].group);
+			if (group)
+			{
+				var servGroup = {};
+				servGroup.id = group.id;
+				servGroup.name = group.name;
+				servGroup.color = group.color;
+				//servGroup.role = 1;
+				a[a.length] = servGroup;
+			}
+		}
+	}
+	return a;
 }
 
 function createGroup(name, creator)
@@ -197,6 +262,7 @@ function register(username, password, name, response)
 
 function post(group, user, text)
 {
+	group = parseInt(group);
 	text = text.replace(/(<([^>]+)>)/ig, "");
 	var good = false;
 	for (var i = 0; i < db.members.table.length; i++)
@@ -221,7 +287,7 @@ function post(group, user, text)
 	post.deleted = 0;
 	post.group = group;
 	db.posts.table[db.posts.table.length] = post;
-	db.saveTo(db.posts);
+	db.saveTo(db.posts, "posts");
 	return post.id;
 }
 

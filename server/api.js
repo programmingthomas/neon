@@ -59,18 +59,13 @@ function api(command, option, parameters)
 			{
 				if (db.posts.table[i].user == servUser.id && db.posts.table[i].deleted == 0)
 				{
-					var doPost = false;
 					for  (var n = 0; n < groups.length; n++)
 					{
-						if (groups[n].id == db.posts.table[i].group)
+						if (groups[n].id == db.posts.table[i].groupId)
 						{
-							doPost = true;
+							posts[posts.length] = getPost(db.posts.table[i].id, false, true);
 							break;
 						}
-					}
-					if (doPost)
-					{
-						posts[posts.length] = db.posts.table[i];
 					}
 				}
 			}
@@ -93,7 +88,7 @@ function api(command, option, parameters)
 		}
 		else if (command == "dashboard")
 		{
-			var posts = [];
+			var ps = [];
 			var groups = currentUserGroups(user(parameters.username).id);
 			for (var i = 0; i < db.posts.table.length; i++)
 			{
@@ -101,15 +96,16 @@ function api(command, option, parameters)
 				{
 					for (var n = 0; n < groups.length; n++)
 					{
-						if (groups[n].id == db.posts.table[i].group)
+						if (groups[n].id == db.posts.table[i].groupId)
 						{
-							posts[posts.length] = db.posts.table[i];
-							posts[posts.length - 1].group = groups[n];
+							ps[ps.length] = getPost(db.posts.table[i].id, true, true);
+							break;
 						}
 					}
 				}
 			}
-			response.posts = posts;
+			log.i("api.js", "There are " + ps.length + " items in the dashboard for #" + user(parameters.username).id);
+			response.posts = ps;
 		}
 		else if (command == "logout")
 		{
@@ -126,6 +122,34 @@ function api(command, option, parameters)
 	}
 
 	return response;
+}
+
+function getPost(id, includeUser, includeGroup)
+{
+	var p = db.postForId(id);
+	var u = db.userForId(p.user);
+	var g = db.groupForId(p.groupId);
+	var post = {};
+	post.id = p.id;
+	post.plainText = p.plainText;
+	post.html = "<p>" + post.plainText + "</p>";
+	post.time = p.time;
+	if (includeUser)
+	{
+		post.user = {};
+		post.user.id = u.id;
+		post.user.name = u.name;
+		post.user.username = u.username;
+		post.user.userImage = u.userImage;
+	}
+	if (includeGroup)
+	{
+		post.group = {};
+		post.group.id = g.id;
+		post.group.name = g.name;
+		post.group.color = g.color;
+	}
+	return post;
 }
 
 function currentUserGroups(user)
@@ -292,7 +316,7 @@ function post(group, user, text)
 	post.user = user;
 	post.time = Math.floor(Date.now() / 1000);
 	post.deleted = 0;
-	post.group = group;
+	post.groupId = group;
 	db.posts.table[db.posts.table.length] = post;
 	db.saveTo(db.posts, "posts");
 	return post.id;

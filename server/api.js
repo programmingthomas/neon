@@ -111,6 +111,13 @@ function api(command, option, parameters)
 			}
 			response.posts = posts;
 		}
+		else if (command == "logout")
+		{
+			var userId = user(parameters.username).id;
+			for (var i = 0; i < db.keys.table.length; i++) if (db.keys.table[i] != null && db.keys.table[i].user == userId) delete db.keys.table[i];
+			response.request.message = "All keys destroyed, logged out";
+			db.saveTo(db.keys, "keys");
+		}
 	}
 	else
 	{

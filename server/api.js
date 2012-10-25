@@ -17,10 +17,10 @@ function api(command, option, parameters)
 
 	if (command == "register")
 	{
-		if (config.allowRegister)
+		if (config.allowsRegister)
 		{
 			log.i("api.js", "Asked to register " + parameters.username);
-			register(parameters.username, parameters.password, parameters.password, response);
+			register(parameters.username, parameters.password, parameters.name, response);
 			if (response.request.successCode == 200)
 			{
 				//A login response will be returned if a registration was requested
@@ -125,6 +125,7 @@ function register(username, password, name, response)
 	{
 		response.request.message = "Username already taken";
 		response.request.successCode = 401;
+		return;
 	}
 	var user = {};
 	user.id = db.users.index;

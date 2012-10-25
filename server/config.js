@@ -6,5 +6,9 @@ var port = 8888;
 //Get the client to cache resources so it doesn't slow server up requesting big files like the fonts
 var cache = true;
 
+//Whether or not the server allows registrations
+var allowsRegister = true;
+
 exports.port = port;
 exports.cache = cache;
+exports.allowsRegister = true;

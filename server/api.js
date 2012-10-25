@@ -44,8 +44,29 @@ function api(command, option, parameters)
 		log.i("api.js", "User " + parameters.username + " is authenticated");
 		if (command == "user")
 		{
-			if (option == null || option == undefined || option.length == 0) response.user = user(parameters.username);
-			else response.user = user(option);
+			var servUser, u;
+			if (option == null || option == undefined || option.length == 0) u = user(parameters.username);
+			else u = user(option);
+			servUser = {};
+			servUser.username = u.username;
+			servUser.userImage = u.userImage;
+			servUser.id = u.id;
+			response.user = servUser;
+			//This will need some more stuff related to serving up posts...
+		}
+		else if (command == "group" && option == "create")
+		{
+			log.i("api.js", "Creating a group");
+			response.group = createGroup(parameters.name, parameters.username)
+		}
+		else if (command == "post")
+		{
+			response.id = post(parameters.groupId, user(parameters.username).id, parameters.content);
+			if (response.id < 0)
+			{
+				response.request.statusCode = 401;
+				response.request.message = "I'm sorry. You can't post in that group."
+			}
 		}
 	}
 	else
@@ -55,6 +76,24 @@ function api(command, option, parameters)
 	}
 
 	return response;
+}
+
+function createGroup(name, creator)
+{
+	var group = {};
+	group.id = db.groups.index;
+	db.groups.index++;
+	group.name = name;
+	group.creator = db.userForName(creator).id;
+	group.color = "#FFCC00";
+	db.groups.table[db.groups.table.length] = group;
+	var groupMember = {};
+	groupMember.group = group.id;
+	groupMember.user = group.creator;
+	db.members.table[db.members.table.length] = groupMember;
+	db.saveTo(db.members, "members");
+	db.saveTo(db.groups, "groups");
+	return group;
 }
 
 function login(username, password, response)
@@ -96,7 +135,7 @@ function login(username, password, response)
 						servGroup.id = group.id;
 						servGroup.name = group.name;
 						servGroup.color = group.color;
-						servGroup.role = 1;
+						//servGroup.role = 1;
 						response.login.groups[response.login.groups.length] = servGroup;
 					}
 				}
@@ -113,7 +152,7 @@ function usernameIsValid(username)
 {
 	if (username != null || username == undefined || username.length == 0)
 	{
-
+		return true;
 	}
 	else return false;
 }
@@ -148,12 +187,42 @@ function register(username, password, name, response)
 	user.name = name;
 	user.username = username;
 	user.password = hash(password);
-	user.image = "images/" + user.id.toString() + ".png";
+	user.userImage = "userImages/" + user.id.toString() + ".png";
 	db.users.table[db.users.table.length] = user;
 	db.users.index += 1;
 	db.saveTo(db.users, "users");
 	db.loadUserIndexes();
 	log.i("api.js", "Successfully registered user " + username);
+}
+
+function post(group, user, text)
+{
+	text = text.replace(/(<([^>]+)>)/ig, "");
+	var good = false;
+	for (var i = 0; i < db.members.table.length; i++)
+	{
+		if (db.members.table[i].user == user && db.members.table[i].group == group)
+		{
+			good = true;
+			break;
+		}
+	}
+	if (!good)
+	{
+		log.e("api.js", "Couldn't post to group " + group + " because user " + user + " is not a member.");
+		return -1;
+	}
+	var post = {}
+	post.id = db.posts.index;
+	db.posts.index++;
+	post.plainText = text;
+	post.user = user;
+	post.time = Math.floor(Date.now() / 1000);
+	post.deleted = 0;
+	post.group = group;
+	db.posts.table[db.posts.table.length] = post;
+	db.saveTo(db.posts);
+	return post.id;
 }
 
 function user(username)

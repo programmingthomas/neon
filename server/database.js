@@ -146,6 +146,7 @@ function userForName(username)
 
 function saveTo(objToSave, filename)
 {
+	log.i("database.js", "Saving " + filename);
 	fs.writeFile(filename + ".jsondb", JSON.stringify(objToSave));
 }
 

@@ -51,7 +51,6 @@ function gotData(data, name)
 	if (name == "users")
 	{
 		users = data;
-		exports.users = users;
 		loadUserIndexes();
 	}
 	else if (name == "keys")
@@ -59,15 +58,20 @@ function gotData(data, name)
 		keys = data;
 		exports.keys = keys;
 	}
-	else if (name == "members") 
+	else if (name == "members")
 	{
 		members = data;
 		exports.members = members;
 	}
-	else if (name == "posts") 
+	else if (name == "groups")
+	{
+		groups = data;
+		loadGroupIndexes();
+	}
+	else if (name == "posts")
 	{
 		posts = data;
-		exports.posts = posts;
+		loadPostIndexes();
 	}
 	else if (name == "reposts")
 	{
@@ -79,7 +83,7 @@ function gotData(data, name)
 		likes = data;
 		exports.likes = likes;
 	}
-	else if (name == "messages") 
+	else if (name == "messages")
 	{
 		messages = data;
 		exports.messages = messages;
@@ -91,12 +95,36 @@ function loadUserIndexes()
 	uI = new Array();
 	for (var i = 0; i < users.index; i++) uI[i] = 0;
 	for (var i = 0; i < users.table.length; i++) uI[users.table[i].id] = i;
+	exports.users = users;
+}
+
+function loadPostIndexes()
+{
+	pI = new Array();
+	for (var i = 0; i < posts.index; i++) pI[i] = 0;
+	for (var i = 0; i < posts.tables.length; i++) pI[posts.tables[i].id] = i;
+	exports.posts = posts;
+}
+
+function loadGroupIndexes()
+{
+	gI = new Array();
+	for (var i = 0; i < groups.index; i++) gI[i] = 0;
+	for (var i = 0; i < groups.tables.length; i++) gI[groups.tables[i].id] = i;
+	exports.groups = groups;
 }
 
 function userForId(id)
 {
 	var user = users.table[uI[id]];
 	if (user.id == id) return user;
+	else return null;
+}
+
+function groupForId(id)
+{
+	var group = groups.table[gI[id]];
+	if (group.id == id) return group;
 	else return null;
 }
 
@@ -122,3 +150,4 @@ function saveTo(objToSave, filename)
 exports.saveTo = saveTo;
 exports.userForId = userForId;
 exports.userForName = userForName;
+exports.groupForId = groupForId;

@@ -29,7 +29,12 @@ var roundUpWidth = function(a, x) {
     return [lo, hi];
 }
 
-$('#signuplink').click(function(e){
+$('#signuplink').live("click", (function(e){
 	e.preventDefault();
-	$('#loginbox').animate({'height':'1000'}, 1000);
-});
+	$('#loginbox').animate({'height':'400'}, 700);
+}));
+
+var changeToDashboard = function(){
+	var dashboard_data = nc_dashboard(localStorage.username, localStorage.key);
+	alert("registered, going to dashboard");
+}

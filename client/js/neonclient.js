@@ -5,18 +5,31 @@ It does /api/ calls as documented on the wiki
 All functions in this file are prefixed with nc_
 */
 
-function nc_login(username, password)
-{
-	console.log("Going to attempt a login");
-
+function saveKey(data) {
+	if (data.request.successCode == 200) {
+		localStorage.username = data.login.username;
+		localStorage.key = data.login.key;
+		changeToDashboard();
+	}
+	else {
+		alert(data.request.message);
+	}
 }
 
 function nc_register(u, p, n) {
-	$.getJSON("/api/register", {username:u, password:p, name:n}, function(data, status, xhr)
-	{
-		if (data.request.successCode == 200) {
-			var username = data.login.username;
-			var key = data.login.key;
-		}
+	$.getJSON("/api/register", {username:u, password:p, name:n}, function(data, status, xhr) {
+		saveKey(data);
+	});
+}
+
+function nc_login(u, p) {
+	$.getJSON("/api/login", {username:u, password:p}, function(data, status, xhr) {
+		saveKey(data);
+	});
+}
+
+function nc_dashboard(u, k) {
+	$.getJSON("/api/dashboard", {username:u, key:k}, function(data, status, xhr) {
+		return data;
 	});
 }

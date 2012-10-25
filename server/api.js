@@ -117,33 +117,12 @@ function api(command, option, parameters)
 		log.i("api.js", "User " + parameters.username + " is authenticated");
 		if (command == "user")
 		{
-			var servUser, u;
-			if (option == null || option == undefined || option.length == 0) u = user(parameters.username);
-			else u = user(option);
-			servUser = {};
-			servUser.username = u.username;
-			servUser.userImage = u.userImage;
-			servUser.id = u.id;
-			response.user = servUser;
-			var groups = currentUserGroups(servUser.id);
-			servUser.groups = groups;
-			var posts = [];
-			for (var i = 0; i < db.posts.table.length; i++)
+			response.user = userDetail(option == "" || option == null || option == undefined ? parameters.username : option, true, true, parameters.username);
+			if (response.user == null || response.user == undefined)
 			{
-				if (db.posts.table[i].user == servUser.id && db.posts.table[i].deleted == 0)
-				{
-					for  (var n = 0; n < groups.length; n++)
-					{
-						if (groups[n].id == db.posts.table[i].groupId)
-						{
-							posts[posts.length] = getPost(db.posts.table[i].id, false, true);
-							break;
-						}
-					}
-				}
+				response.request.successCode = 404;
+				response.request.message = "Sorry, user could not be found";
 			}
-			servUser.posts = posts;
-			//This will need some more stuff related to serving up posts...
 		}
 		else if (command == "group" && option == "create")
 		{
@@ -161,24 +140,7 @@ function api(command, option, parameters)
 		}
 		else if (command == "dashboard")
 		{
-			var ps = [];
-			var groups = currentUserGroups(user(parameters.username).id);
-			for (var i = 0; i < db.posts.table.length; i++)
-			{
-				if (db.posts.table[i].deleted == 0)
-				{
-					for (var n = 0; n < groups.length; n++)
-					{
-						if (groups[n].id == db.posts.table[i].groupId)
-						{
-							ps[ps.length] = getPost(db.posts.table[i].id, true, true);
-							break;
-						}
-					}
-				}
-			}
-			log.i("api.js", "There are " + ps.length + " items in the dashboard for #" + user(parameters.username).id);
-			response.posts = ps;
+			response.post = dashboard(parameters.username, parameters.offset != undefined ? parameters.offset : 0);
 		}
 		else if (command == "logout")
 		{
@@ -196,6 +158,10 @@ function api(command, option, parameters)
 
 	return response;
 }
+
+//-------------
+//API FUNCTIONS
+//-------------
 
 function getPost(id, includeUser, includeGroup)
 {
@@ -225,7 +191,52 @@ function getPost(id, includeUser, includeGroup)
 	return post;
 }
 
-function currentUserGroups(user)
+function userDetail(idOrUsername, includeGroups, includePosts, currentUsername)
+{
+	//U is the user detail that gets stored server side, servUser is the content that is served
+	var u, servUser;
+	u = user(idOrUsername);
+	//Ensure that the user can actually be found
+	if (u != null && u != undefined)
+	{
+		servUser = {};
+		servUser.username = u.username;
+		servUser.userImage = u.userImage;
+		servUser.id = u.id;
+		//It's really easy to quickly fetch the appropriate information
+		if (includeGroups) servUser.groups = userGroups(servUser.id);
+		if (includePosts)
+		{
+			//Only get the groups that the current user is a part of
+			var g = userGroups(user(currentUsername).id);
+			//Create an empty array for posts
+			var posts = [];
+			//Iterate over the posts backwards (so sorted by date, descending)
+			for (var i = db.posts.table.length - 1; i >= 0; i--)
+			{
+				//If the post was written by the queried user and it is publically visible
+				if (db.posts.table[i].user == servUser.id && db.posts.table[i].deleted == 0)
+				{
+					//Check that the post was posted in a group visible to the current user
+					for  (var n = 0; n < g.length; n++)
+					{
+						//Get data and add to array
+						if (g[n].id == db.posts.table[i].groupId)
+						{
+							//Don't include user information but do include group information (in case posted in a group the user is no longer in)
+							posts[posts.length] = getPost(db.posts.table[i].id, false, true);
+							break;
+						}
+					}
+				}
+			}
+			servUser.posts = posts;
+		}
+	}
+	return servUser;
+}
+
+function userGroups(user)
 {
 	var a = [];
 	for (var i = 0; i < db.members.table.length; i++)
@@ -249,20 +260,89 @@ function currentUserGroups(user)
 
 function createGroup(name, creator)
 {
+	//Create an empty group object
 	var group = {};
 	group.id = db.groups.index;
 	db.groups.index++;
 	group.name = name;
 	group.creator = db.userForName(creator).id;
+
+	//FYI, this is the world's most disgusting shade of orange
+	//I left it as default to remind me to edit it later
 	group.color = "#FFCC00";
+
+	//Add it to the groups
 	db.groups.table[db.groups.table.length] = group;
-	var groupMember = {};
-	groupMember.group = group.id;
-	groupMember.user = group.creator;
-	db.members.table[db.members.table.length] = groupMember;
-	db.saveTo(db.members, "members");
 	db.saveTo(db.groups, "groups");
+	db.loadGroupIndexes();
+	
+	joinGroup(group.creator, group.id, 2);
+	
 	return group;
+}
+
+function joinGroup(usernameOrId, group, role)
+{
+	//Role = 0 = Not approved into group, Role = 1 = Approved into group, Role = 2 = Staff member or creator
+	
+	//Check that the group does actually exist
+	var g = db.groupForId(group);
+	if (g != null && g != undefined)
+	{
+		var u = user(usernameOrId);
+		if (u != undefined && u != null)
+		{
+			var memberIndex = isMemberOfGroup(u.id, g.id);
+			if (memberIndex)
+				//Ensures that they don't get demoted
+				db.members.table[memberIndex].role = Math.max(db.members.table[memberIndex].role, role);
+			else
+			{
+				var groupMember = {};
+				groupMember.role = role;
+				groupMember.group = group;
+				groupMember.user = u.id;
+				db.members.table[db.members.table.length] = groupMember;
+			}
+			db.saveTo(db.members, "members");
+		}
+		else log.e("api.js", "Couldn't find user " + usernameOrId);
+	}
+	else log.e("api.js", "Couldn't find group " + group);
+}
+
+function isMemberOfGroup(userId, groupId)
+{
+	for (var i = 0; i < db.members.table.length; i++)
+		if (db.members.table[i].group == groupId && db.members.table[i].user == userId) return i;
+	return false;
+}
+
+function dashboard(usernameOrId, offset)
+{
+	var ps = [];
+	var groups = userGroups(user(usernameOrId).id);
+	var count = 0;
+	for (var i = db.posts.table.length - 1; i >= 0; i--)
+	{
+		if (db.posts.table[i].deleted == 0)
+		{
+			for (var n = 0; n < groups.length; n++)
+			{
+				if (groups[n].id == db.posts.table[i].groupId)
+				{
+					count++;
+					if (count >= offset)
+					{
+						ps[ps.length] = getPost(db.posts.table[i].id, true, true);
+						break;
+					}
+				}
+			}
+		}
+	}
+	log.i("api.js", "There are " + ps.length + " items in the dashboard for #" + user(parameters.username).id);
+	return ps;
 }
 
 function login(username, password, response)
@@ -392,6 +472,7 @@ function post(group, user, text)
 	post.groupId = group;
 	db.posts.table[db.posts.table.length] = post;
 	db.saveTo(db.posts, "posts");
+	db.loadPostIndexes();
 	return post.id;
 }
 

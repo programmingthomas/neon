@@ -134,7 +134,6 @@ function loadUserIndexes()
 function loadPostIndexes()
 {
 	pI = new Array();
-	for (var i = 0; i < posts.index; i++) pI[i] = 0;
 	for (var i = 0; i < posts.table.length; i++) pI[posts.table[i].id] = i;
 	exports.posts = posts;
 }
@@ -142,7 +141,6 @@ function loadPostIndexes()
 function loadGroupIndexes()
 {
 	gI = new Array();
-	for (var i = 0; i < groups.index; i++) gI[i] = 0;
 	for (var i = 0; i < groups.table.length; i++) gI[groups.table[i].id] = i;
 	exports.groups = groups;
 }
@@ -161,7 +159,7 @@ function userForId(id)
 function groupForId(id)
 {
 	var group = groups.table[gI[id]];
-	if (group.id == id) return group;
+	if (group != undefined && group.id == id) return group;
 	else return null;
 }
 
@@ -184,7 +182,7 @@ function postForId(id)
 {
 	var post = posts.table[pI[id]];
 	//Simple confirmation checks
-	if (post.id == id) return post;
+	if (post != undefined && post.id == id) return post;
 	else return null;
 }
 

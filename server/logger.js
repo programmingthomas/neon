@@ -41,19 +41,19 @@ function log(color, source, message)
 //Warning function
 function w(source, message)
 {
-	if (config.shoudLog && !config.shouldOnlyLogErrors) log('\033[93m', source, message);
+	if (config.shoudLog == true && !config.shoudOnlyLogErrors) log('\033[93m', source, message);
 }
 
 //Error function
 function e(source, message)
 {
-	if (config.shoudLog) log('\033[91m', source, message);
+	if (config.shouldLog == true) log('\033[91m', source, message);
 }
 
 //Information function
 function i(source, message)
 {
-	if (config.shoudLog && !config.shouldOnlyLogErrors) log('\033[92m', source, message);
+	if (config.shouldLog == true && !config.shoudOnlyLogErrors) log('\033[92m', source, message);
 }
 
 //Gets pretty date string

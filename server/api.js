@@ -4,6 +4,7 @@ var url = require("url");
 var log = require("./logger");
 var db  = require("./database");
 var crypto = require("crypto");
+var config = require("./config");
 
 //THIS IS WHERE ALL CORE API CODE GOES
 function api(command, option, parameters)
@@ -16,12 +17,20 @@ function api(command, option, parameters)
 
 	if (command == "register")
 	{
-		log.i("api.js", "Asked to register " + parameters.username);
-		register(parameters.username, parameters.password, parameters.password, response);
-		if (response.request.successCode == 200)
+		if (config.allowRegister)
 		{
-			//A login response will be returned if a registration was requested
-			login(parameters.username, parameters.password, response);
+			log.i("api.js", "Asked to register " + parameters.username);
+			register(parameters.username, parameters.password, parameters.password, response);
+			if (response.request.successCode == 200)
+			{
+				//A login response will be returned if a registration was requested
+				login(parameters.username, parameters.password, response);
+			}
+		}
+		else
+		{
+			response.request.successCode = 401;
+			response.request.message = "Sorry, this Neon server doesn't allow user registration";
 		}
 	}
 	else if (command == "login")
@@ -70,6 +79,24 @@ function login(username, password, response)
 			response.login.name = db.users.table[i].name;
 			response.login.userImage = db.users.table[i].userImage;
 			response.request.message = "Logged in";
+			response.login.groups = [];
+			for (var n = 0; n < db.members.table.length; n++)
+			{
+				if (db.members.table[i].user == response.login.userId)
+				{
+					var group = db.groupForId(db.members.table[i].group);
+					if (group)
+					{
+						var servGroup = {};
+						servGroup.id = group.id;
+						servGroup.name = group.name;
+						servGroup.color = group.color;
+						servGroup.role = 1;
+						response.login.grous[response.login.groups.length] = servGroup;
+					}
+				}
+			}
+
 			return;
 		}
 	}
@@ -94,7 +121,7 @@ function register(username, password, name, response)
 		response.request.successCode = 401;
 		return;
 	}
-	if (db.userForName(username) != null) 
+	if (db.userForName(username) != null)
 	{
 		response.request.message = "Username already taken";
 		response.request.successCode = 401;
@@ -130,7 +157,7 @@ function isAuthenticated(username, password, key)
 				if (db.keys.table[i].key == key && db.keys.table[i].user == user.id && now < db.keys.table[i].endDate) return true;
 			}
 		}
-	}	
+	}
 	return false;
 }
 
@@ -170,7 +197,7 @@ function runApi(request, response, parameters)
 function writeApi(respObj, response, whitespace)
 {
 	response.writeHead(respObj.request.successCode, {"Content-Type": "application/json" });
-	if (whitespace) 
+	if (whitespace)
 		response.write(JSON.stringify(respObj, null, "\t"));
 	else response.write(JSON.stringify(respObj));
 	response.end();

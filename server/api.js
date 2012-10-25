@@ -20,6 +20,7 @@ function api(command, option, parameters)
 		register(parameters.username, parameters.password, parameters.password, response);
 		if (response.request.successCode == 200)
 		{
+			//A login response will be returned if a registration was requested
 			login(parameters.username, parameters.password, response);
 		}
 	}
@@ -28,22 +29,37 @@ function api(command, option, parameters)
 		log.i("api.js", "Asked to login" + parameters.username);
 		login(parameters.username, parameters.password, response);
 	}
+	else if (isAuthenticated(parameters.username, parameters.password, parameters.key))
+	{
+		//Good, good
+		log.i("api.js", "User " + parameters.username + " is authenticated");
+	}
+	else
+	{
+		response.request.successCode = 401;
+		response.request.message = "Could not authenticate the user";
+	}
 
 	return response;
 }
 
 function login(username, password, response)
 {
+	//Get a hashed copy of the password for quicker searching
 	var hashedPassword = hash(password);
 	for (var i = 0; i < db.users.table.length; i++)
 	{
+		//Does the user match?
 		if (db.users.table[i].username == username && db.users.table[i].password == hashedPassword)
 		{
-			//They are a real user after that!
+			//A key is now generated
 			var key = {};
 			key.user = db.users.table[i].id;
+			//Total seconds since Jan 1 1970
 			key.startDate = Math.floor(Date.now() / 1000);
+			//60 * 60 * 24 * 30 = total number of seconds in 30 days. i.e. thirty days from now
 			key.endDate = key.startDate + (60 * 60 * 24 * 30);
+			//Get random key
 			key.key = randomKey();
 			db.keys.table[db.keys.table.length] = key;
 			db.saveTo(db.keys, "keys");
@@ -64,7 +80,8 @@ function login(username, password, response)
 function randomKey()
 {
 	var text = "";
-	var possible = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,";
+	//These are standard characters when encoding base 64 so I thought I would use those.
+	var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 	for (var i = 0; i < 64; i++) text += possible.charAt(Math.floor(Math.random() * possible.length));
 	return text;
 }
@@ -77,14 +94,10 @@ function register(username, password, name, response)
 		response.request.successCode = 401;
 		return;
 	}
-	for (var i = 0; i < db.users.table.length; i++)
+	if (db.userForName(username) != null) 
 	{
-		if (db.users.table[i].username == username)
-		{
-			response.request.message = "Username already taken";
-			response.request.successCode = 401;
-			return;
-		}
+		response.request.message = "Username already taken";
+		response.request.successCode = 401;
 	}
 	var user = {};
 	user.id = db.users.index;
@@ -92,7 +105,7 @@ function register(username, password, name, response)
 	user.username = username;
 	user.password = hash(password);
 	user.image = "images/" + user.id.toString() + ".png";
-	db.users.table[user.id] = user;
+	db.users.table[db.users.table.length] = user;
 	db.users.index += 1;
 	db.saveTo(db.users, "users");
 }
@@ -100,6 +113,25 @@ function register(username, password, name, response)
 function hash(phrase)
 {
 	return crypto.createHash('md5').update(phrase).digest('hex');
+}
+
+function isAuthenticated(username, password, key)
+{
+	var user = db.userForName(username);
+	var now = Math.floor(Date.now() / 1000);
+	if (user)
+	{
+		if (password == undefined && key == undefined) return true;
+		else if (password != undefined && user.password == hash(password)) return true;
+		else if (key)
+		{
+			for (var i = 0; i < db.keys.table.length; i++)
+			{
+				if (db.keys.table[i].key == key && db.keys.table[i].user == user.id && now < db.keys.table[i].endDate) return true;
+			}
+		}
+	}	
+	return false;
 }
 
 //Checks if an url is an api request

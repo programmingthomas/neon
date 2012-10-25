@@ -2,6 +2,7 @@ var log = require("./logger");
 var fs = require("fs");
 
 var users, keys, groups, members, posts, reposts, likes, messages;
+var uI, kI, gI, mI, pI, rI, lI, eI;
 
 createOrLoad();
 
@@ -37,7 +38,7 @@ function loadTo(filename)
 		{
 			log.i("database.js", "Creating " + filename);
 			var objToModify = {};
-			objToModify.index = 0;
+			objToModify.index = 1;
 			objToModify.table = [];
 			gotData(objToModify, filename);
 			saveTo(objToModify, filename);
@@ -51,6 +52,7 @@ function gotData(data, name)
 	{
 		users = data;
 		exports.users = users;
+		loadUserIndexes();
 	}
 	else if (name == "keys")
 	{
@@ -84,9 +86,39 @@ function gotData(data, name)
 	}
 }
 
+function loadUserIndexes()
+{
+	uI = new Array();
+	for (var i = 0; i < users.index; i++) uI[i] = 0;
+	for (var i = 0; i < users.table.length; i++) uI[users.table[i].id] = i;
+}
+
+function userForId(id)
+{
+	var user = users.table[uI[id]];
+	if (user.id == id) return user;
+	else return null;
+}
+
+function userForName(username)
+{
+	var user;
+	for (var i = 0; i < users.table.length; i++)
+	{
+		if (users.table[i].username == username)
+		{
+			user = users.table[i];
+			break;
+		}
+	}
+	return user;
+}
+
 function saveTo(objToSave, filename)
 {
 	fs.writeFile(filename + ".jsondb", JSON.stringify(objToSave));
 }
 
 exports.saveTo = saveTo;
+exports.userForId = userForId;
+exports.userForName = userForName;

@@ -116,8 +116,6 @@ function loadGroupIndexes()
 
 function userForId(id)
 {
-	log.i("database.js", "Loading data for user #" + id.toString());
-	log.i("database.js", "Array index for #" + id.toString() + " is " + uI[id]);
 	var user = users.table[uI[id]];
 	if (user != undefined && user.id == id) return user;
 	else return null;
@@ -144,6 +142,13 @@ function userForName(username)
 	return user;
 }
 
+function postForId(id)
+{
+	var post = posts.table[pI[id]];
+	if (post.id == id) return post;
+	else return null;
+}
+
 function saveTo(objToSave, filename)
 {
 	log.i("database.js", "Saving " + filename);
@@ -157,3 +162,4 @@ exports.groupForId = groupForId;
 exports.loadUserIndexes = loadUserIndexes;
 exports.loadGroupIndexes = loadGroupIndexes;
 exports.loadPostIndexes = loadPostIndexes;
+exports.postForId = postForId;

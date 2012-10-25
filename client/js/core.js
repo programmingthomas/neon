@@ -3,7 +3,7 @@ $(document).ready(function(){
 	var body_width = $("body").width();
 
 	console.log("width is " + body_width + ", returning image " + roundUpWidth(widths, body_width)[1] + ".jpg");
-	var image_width = roundUpWidth(widths, body_width)[1] + ".jpg"
+	var image_width = roundUpWidth(widths, body_width) + ".jpg"
 	var image_path = "splashes/" + image_width;
 
 	$('body').css("background", "url('" + image_path + "') no-repeat fixed");
@@ -20,13 +20,14 @@ $(window).resize(function(){
 	$('body').css("background", "url('" + image_path + "') no-repeat fixed");
 });
 
-var roundUpWidth = function(a, x) {
-    var lo, hi;
-    for (var i = a.length; i--;) {
-        if (a[i] <= x && (lo === undefined || lo < a[i])) lo = a[i];
-        if (a[i] >= x && (hi === undefined || hi > a[i])) hi = a[i];
-    };
-    return [lo, hi];
+var roundUpWidth = function(widths, width) {
+	var maxWidth = widths[widths.length - 1];
+	for (var i = widths.length - 1; i >= 0; i--)
+	{
+		if (width >= widths[i]) maxWidth = widths[i];
+		else break;
+	}
+	return maxWidth;
 }
 
 $('#signuplink').live("click", (function(e){

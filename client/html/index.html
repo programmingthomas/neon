@@ -8,11 +8,12 @@
 		<script type="text/javascript" src="jquery-1.8.2.min.js"></script>		
 		<script type="text/javascript" src="core.js"></script>
 		<script type="text/javascript">
-			$("#login").submit(function() {
-				alert('hello');
-				nc_login($('#login-username').val(),$('#login-password').val());
-				return false;	
-			});
+			document.ready = function() {
+				$("#login").submit(function() {
+					nc_login($('#login-username').val(),$('#login-password').val());
+					return false;	
+				});
+			}
 		</script>
 	</head>
 	<body>

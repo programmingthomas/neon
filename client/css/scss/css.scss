@@ -120,11 +120,14 @@ header {
 	.bartray {
 		display:none;
 		height:200px;
-		width:100%;
+		width:90%;
 		position:absolute;
 		top:60px;
-		left:0px;
-		background-color:red;
+		left:5%;
+		margin:0 auto;
+		@include border-radius(0 0 15px 15px);
+		background-color:$redlight;
+		@include background-image(linear-gradient(rgba($whitebg,.3),$redlight));
 	}
 }
 [data-icon]:before {

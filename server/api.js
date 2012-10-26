@@ -185,6 +185,13 @@ function api(command, option, parameters)
 				}
 			}
 		}
+		else if (command == "inbox" && option == "compose")
+		{
+			if (isNum(parameters.receiver) && parameters.message != null)
+				response.message = sendMessage(parameters.username, parameters.receiver, parameters.message);
+		}
+		else if (command == "inbox")
+			response.messages = inbox(parameters.username, parameters.read != undefined && parameters.read != null);
 		else if (command == "logout")
 		{
 			var userId = user(parameters.username).id;
@@ -646,6 +653,76 @@ function dislikePost(username, post)
 	if (db.postForId(post) != null)
 		if (userIsInGroup(user(username).id, db.postForId(post).groupId))
 			db.likeForId(user(username).id, post, -1);
+}
+
+function inbox(username, readMessages)
+{
+	var messages = [];
+	var u = user(username);
+	for (var i = 0; i < db.messages.table.length; i++)
+	{
+		if (db.messages.table[i].receiver == u.id)
+		{
+			messages[messages.length] = messageForId(db.messages.table[i].id, false, true);
+		}
+	}
+	return messages;
+}
+
+function messageForId(mId, includeSender, includeReceiver)
+{
+	var m = db.messageForId(mId);
+	var mServ = {};
+	if (m != null)
+	{
+		mServ.id = m.id;
+		mServ.read = m.read;
+		mServ.plainText = m.plainText;
+		mServ.html = "<p>" + mServ.plainText + "</p>";
+		mServ.time = m.time;
+		mServ.prettyDate = (new Date(m.time * 1000)).toJSON();
+		if (includeSender)
+		{
+			var u = user(m.sender);
+			mServ.sender = {};
+			mServ.sender.id = u.id;
+			mServ.sender.username = u.username;
+			mServ.sender.name = u.name;
+			mServ.sender.userImage = u.userImage;
+		}
+		if (includeReceiver)
+		{
+			var u = user(m.receiver);
+			mServ.receiver = {};
+			mServ.receiver.id = u.id;
+			mServ.receiver.username = u.username;
+			mServ.receiver.name = u.name;
+			mServ.receiver.userImage = u.userImage;
+		}
+	}
+	return mServ;
+}
+
+function sendMessage(sender, receiver, messageBody)
+{
+	var s = user(sender);
+	var r = user(receiver);
+	if (s != null && r != null && s.id > 0 && r.id > 0)
+	{
+		var message = {};
+		message.id = db.messages.index;
+		db.messages.index++;
+		message.plainText = messageBody;
+		message.time = Math.floor(Date.now() / 1000);
+		message.sender = s.id;
+		message.receiver = r.id;
+		message.read = false;
+		db.messages.table[db.messages.table.length] = message;
+		db.loadMessageIndexes();
+		db.saveTo(db.messages, "messages");
+		return message.id;
+	}
+	return -1;
 }
 
 //-------

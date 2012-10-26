@@ -20,12 +20,11 @@
 				$('#settings').click(function() {
 					$('#settingstray').slideToggle();
 				});
-				$(function() {
-					$('*').click(function(e) {
-						if(e.target.id != 'settings') {
-							$('#settingstray').slideUp();
-						}
-					});
+				$("#settings").click(function(e) {
+					e.stopPropagation();
+				});
+				$(document).click(function() {
+					$("#settingstray").slideUp();
 				});
 			}
 			

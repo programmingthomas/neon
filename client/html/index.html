@@ -13,6 +13,10 @@
 					nc_login($('#login-username').val(),$('#login-password').val());
 					return false;	
 				});
+				$("#signup").submit(function() {
+					nc_register($('#signup-username').val(),$('#login-password').val(),$('#signup-realname').val());
+					return false;	
+				});
 				$('.switchform').click(function() {
 					$('#signupbox').slideToggle();
 					$('#loginbox').slideToggle();
@@ -56,7 +60,7 @@
 		<aside id="signupbox">
 			<h1>Sign up to Neon</h1>
 			<h3>It's fast, simple and unregrettable</h3>
-			<form>
+			<form id="signup">
 				<div class="hint" id="realnamehint">Your full name<div aria-hidden="true" data-icon="&#xe100;" class="cross"></div></div>
 				<div id="input_container"><div>Name</div><input type="text" id="signup-realname" placeholder="Full Name" required="required"/></div>
 				<div class="hint" id="usernamehint">Must all be lowercase<div aria-hidden="true" data-icon="&#xe100;" class="cross"></div></div>

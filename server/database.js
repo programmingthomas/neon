@@ -186,6 +186,30 @@ function postForId(id)
 	else return null;
 }
 
+function likeForId(userId, post, likeLevel)
+{
+	var like;
+	for (var i = 0; i < likes.table.length; i++)
+	{
+		if (likes.table[i].user == userId && likes.table[i].post == post)
+		{
+			like = likes.table[i];
+			break;
+		}
+	}
+	if (like == undefined || like == null)
+	{
+		like = {};
+		like.post = post;
+		like.user = userId;
+		likes.table[likes.table.length] = like;
+	}
+	saveTo(likes, "likes");
+	if (likeLevel == like.like) like.like = 0;
+	else like.like = likeLevel;
+	saveTo(likes, "likes");
+}
+
 //Finally, export all the functions that the API may need to access
 exports.saveTo = saveTo;
 exports.userForId = userForId;
@@ -195,3 +219,4 @@ exports.loadUserIndexes = loadUserIndexes;
 exports.loadGroupIndexes = loadGroupIndexes;
 exports.loadPostIndexes = loadPostIndexes;
 exports.postForId = postForId;
+exports.likeForId = likeForId;

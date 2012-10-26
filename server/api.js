@@ -139,8 +139,22 @@ function api(command, option, parameters)
 			}
 		}
 		else if (command == "dashboard")
-		{
 			response.post = dashboard(parameters.username, parameters.offset != undefined ? parameters.offset : 0);
+		else if (command == "addNoteToPost")
+		{
+			if (parameters.id != undefined && parameters.id != null)
+			{
+				if (parameters.operation == "like" || option == "like")
+				{
+					likePost(parameters.username, parseInt(parameters.id));
+					response.post = getPost(parseInt(parameters.id), true, true);
+				}
+				else if (parameters.operation == "dislike" || option == "dislike")
+				{
+					dislikePost(parameters.username, parseInt(parameters.id));
+					response.post = getPost(parseInt(parameters.id), true, true);
+				}
+			}
 		}
 		else if (command == "logout")
 		{
@@ -506,6 +520,18 @@ function isAuthenticated(username, password, key)
 		}
 	}
 	return false;
+}
+
+function likePost(username, post)
+{
+	if (db.postForId(post) != null)
+		db.likeForId(user(username).id, post, 1);
+}
+
+function dislikePost(username, post)
+{
+	if (db.postForId(post) != null)
+		db.likeForId(user(username).id, post, -1);
 }
 
 exports.api = api;

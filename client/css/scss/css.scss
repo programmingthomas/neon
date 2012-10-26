@@ -13,6 +13,9 @@
 	font-style: normal;
 }
 
+// colors
+$whitebg: #f5f5ff;
+
 // dimensions
 
 
@@ -131,14 +134,13 @@ a {
 	color:blue;
 }
 
-#formbox
-{
+#formbox {
 	position:relative;
 	width:90%;
 	max-width:600px;
 	margin:0px auto 30px auto;
 	box-shadow: rgba(0,0,0,0.5) 0px 0px 10px;
-	background-color:white;
+	background-color:$whitebg;
 	@include border-radius(10px);
 	padding:15px 10px;
 	@include breakpoint(smaller) {
@@ -163,11 +165,28 @@ a {
 				text-align:justify;
 			}
 		}
+		input[type="text"], input[type="password"] {
+			margin:0;
+			display:block;
+			@include breakpoint(smaller) {
+				width:240px;
+				margin: 5px auto;
+			}
+			@include breakpoint(larger) {
+				position:absolute;
+				right:0;
+				width:200px;
+				&:focus {
+					width:318px;
+				}
+			}
+		}
 	}
 	input[type="text"], input[type="password"] {
 		margin:2px;
 		padding:5px;
 		border:1px #dedede solid;
+		background-color:$whitebg;
 		font-size:large;
 		font-family:Avenir, "Open Sans",Helvetica, sans-serif;
 		@include single-transition(all,.5s,ease-in-out);
@@ -178,6 +197,7 @@ a {
 		&:focus {
 			outline:none;
 			border:1px #cc3333 solid;
+			background-color:#fff;
 		}
 	}
 	input[type="submit"] {
@@ -221,47 +241,13 @@ a {
 			height:200px;
 		}
 	}
-	#input_container {
-		@include breakpoint(larger) {
-			display:block;
-			width:330px;
-			height:38px;
-			position:relative;
-			overflow-y:hidden;
-			div {
-				display: block;
-				float: left;
-				line-height:36px;
-				width:70px;
-				text-align:justify;
-			}
-		}
-		input[type="text"], input[type="password"] {
-			margin:0;
-			display:block;
-			@include breakpoint(smaller) {
-				width:240px;
-				margin: 5px auto;
-			}
-			@include breakpoint(larger) {
-				position:absolute;
-				right:0;
-				width:200px;
-				&:focus {
-					width:318px;
-				}
-			}
-		}
-	}
 }
 #signupbox {
 	@extend #formbox;
-	input[type="submit"] {
-		
-	}
+	display:none;
 }
 footer {
 	text-align: center;
-	padding:20px 0;
-	@include background-image(linear-gradient(rgba(#f0f0f0,0), rgba(#f0f0f0,.75) 70%, rgba(#f0f0f0,0) 100%));
+	padding:30px 0;
+	@include background-image(linear-gradient(rgba(#f0f0f0,0),rgba($whitebg,.75) 40%,rgba($whitebg,.75) 70%,rgba(#f0f0f0,0) 100%));
 }

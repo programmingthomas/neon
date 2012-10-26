@@ -24,25 +24,33 @@ function nc_login(u, p) {
 }
 
 function nc_user(u, k, q, o) {
-	var html = $("<article class='nc_user'>");
+	var html = "<section class='nc_user'>";
 	$.getJSON("/api/user/" + q, {username:u, key:k, offset:o}, function(data, status, xhr) {
-		$.each(data, function(i, item) {
-			html.append("<section>");
-			html.append("<span class='nc_user_id'>" + data.user.id.toString() + "</span>");
-			html.append("<span class='nc_user_username'>" + data.user.username + "</span>");			
-			html.append("<span class='nc_user_name'>" + data.user.name.toString() + "</span>");		
-			html.append("<img src='images/" + data.user.username + ".jpg' class='nc_user_userImage'></img>");
-			html.append("<ul class='nc_user_posts'>");
-			data.user.posts.forEach(function(post) {
-				html.append("<li>" + data.user.posts[post] + "</li>");
-				console.log(data.user.posts[post]);
-			});
-			html.append("</ul>");
-			html.append("</section>");
-		});
-	});		
-	html.append("</article>").show();
-	return html;	
+			html += "<article>";
+			html += ("<span class='nc_user_id'>" + data.user.id.toString() + "</span>");
+			html += ("<span class='nc_user_username'>" + data.user.username + "</span>");			
+			html += ("<span class='nc_user_name'>" + data.user.name.toString() + "</span>");		
+			html += ("<img src='" + data.user.userImage + "' class='nc_user_userImage'></img>");
+			html += ("<ul class='nc_user_posts'>");
+			for (var n = 0; n < data.user.posts.length; n++)
+			{
+				html += ("<li>" + data.user.posts[n].html + "</li>");
+			}
+			html += ("</ul>");
+			html += ("<ul class='nc_user_groups'>");
+			for (var n = 0; n < data.user.groups.length; n++)
+			{
+				html += ("<li>" + data.user.groups[n].html + "</li>");
+			}
+			html += ("</ul>");		
+			html += ("</article>");
+			html += ("</section>");
+		displayData(html);
+	});
+}
+
+function displayData(h){
+	console.log(h);
 }
 
 function nc_group(u, k, q, o) {
@@ -52,8 +60,16 @@ function nc_group(u, k, q, o) {
 }
 
 function nc_dashboard(u, k, o) {
+	var html = "<section class='nc_dashboard'>";
 	$.getJSON("/api/dashboard/", {username:u, key:k, offset:o}, function(data, status, xhr) {
-		return data;
+			html += ("<ul class='nc_dashboard_posts'>");
+			for (var n = 0; n < data.dashboard.posts.length; n++)
+			{
+				html += ("<li>" + data.dashboard.posts[n].html + "</li>");
+			}
+			html += ("</ul>");
+			html += ("</section>");
+		displayData(html);
 	});
 }
 

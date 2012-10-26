@@ -6,7 +6,12 @@
 		<link href='fonts.css' rel='stylesheet' type='text/css'>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<script type="text/javascript" src="jquery-1.8.2.min.js"></script>		
-		<script src="core.js"></script>		
+		<script type="text/javascript" src="core.js"></script>
+		<script type="text/javascript">
+			function login() {
+				nc_login($("#login-username").value,$("#login-password").value);
+			}
+		</script>
 	</head>
 	<body>
 		<header>
@@ -24,7 +29,7 @@
 			</svg>
 			<h1>Welcome to Neon</h1>
 			<h3>The educational blogging network</h3>
-			<form>
+			<form onSubmit="login()">
 				<div id="input_container"><div>Username</div><input type="text" id="login-username" placeholder="Username" required="required"/></div>
 				<div id="input_container"><div>Password</div><input type="password" id="login-password" placeholder="Password" required="required"/></div>
 				<input type="submit" value="Login" /><span id="signuplink-outer"> Or <a href="#" id="signuplink">sign up?</a></span>

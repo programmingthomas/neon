@@ -8,7 +8,7 @@ var config = require("./config");
 var users, keys, groups, members, posts, reposts, likes, messages;
 
 //The second row is arrays for indexes so that you don't have to search through
-var uI, kI, gI, mI, pI, rI, lI, eI;
+var uI, gI, mI, pI;
 
 //--------------------
 //DATA STORE FUNCTIONS
@@ -108,7 +108,7 @@ function gotData(data, name)
 	else if (name == "messages")
 	{
 		messages = data;
-		exports.messages = messages;
+		loadMessageIndexes();
 	}
 }
 
@@ -143,6 +143,14 @@ function loadGroupIndexes()
 	gI = new Array();
 	for (var i = 0; i < groups.table.length; i++) gI[groups.table[i].id] = i;
 	exports.groups = groups;
+}
+
+function loadMessageIndexes()
+{
+	mI = new Array();
+	for (var i = 0; i < messages.table.length; i++)
+		mI[messages.table[i].id] = i;
+	exports.messages = messages;
 }
 
 //---------------------
@@ -210,6 +218,13 @@ function likeForId(userId, post, likeLevel)
 	saveTo(likes, "likes");
 }
 
+function messageForId(id)
+{
+	var message = messages.table[mI[id]];
+	if (message != undefined && message.id == id) return message;
+	return null;
+}
+
 //Finally, export all the functions that the API may need to access
 exports.saveTo = saveTo;
 exports.userForId = userForId;
@@ -218,5 +233,7 @@ exports.groupForId = groupForId;
 exports.loadUserIndexes = loadUserIndexes;
 exports.loadGroupIndexes = loadGroupIndexes;
 exports.loadPostIndexes = loadPostIndexes;
+exports.loadMessageIndexes = loadMessageIndexes;
 exports.postForId = postForId;
 exports.likeForId = likeForId;
+exports.messageForId = messageForId;

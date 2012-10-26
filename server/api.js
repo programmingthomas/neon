@@ -139,7 +139,7 @@ function api(command, option, parameters)
 			}
 		}
 		else if (command == "dashboard")
-			response.post = dashboard(parameters.username, parameters.offset != undefined ? parameters.offset : 0);
+			response.posts = dashboard(parameters.username, parameters.offset != undefined ? parameters.offset : 0);
 		else if (command == "addNoteToPost")
 		{
 			if (parameters.id != undefined && parameters.id != null)
@@ -153,6 +153,12 @@ function api(command, option, parameters)
 				{
 					dislikePost(parameters.username, parseInt(parameters.id));
 					response.post = getPost(parseInt(parameters.id), true, true);
+				}
+				else if (parameters.operation == "repost" || option == "repost")
+				{
+					response.repostId = repostPost(parameters.username, parseInt(parameters.id));
+					if (response.repostId > 0) response.request.message = "Successfully reposted";
+					else response.request.message = "Failed to repost";
 				}
 			}
 		}
@@ -212,6 +218,10 @@ function getPost(id, includeUser, includeGroup)
 			else if (db.likes.table[i].like == -1) post.dislikes++;
 		}
 	}
+	post.reposts = [];
+	for (var i = 0; i < db.reposts.table.length; i++)
+		if (db.reposts.table[i].original == post.id)
+			post.reposts[post.reposts.length] = db.reposts.table[i].repost;
 	return post;
 }
 
@@ -280,6 +290,14 @@ function userGroups(user)
 		}
 	}
 	return a;
+}
+
+function userIsInGroup(user, group)
+{
+	var gs = userGroups(user);
+	for (var i = 0; i < gs.length; i++)
+		if (gs[i].id == group) return true;
+	return false;
 }
 
 function createGroup(name, creator)
@@ -365,7 +383,6 @@ function dashboard(usernameOrId, offset)
 			}
 		}
 	}
-	log.i("api.js", "There are " + ps.length + " items in the dashboard for #" + user(parameters.username).id);
 	return ps;
 }
 
@@ -513,6 +530,26 @@ function post(group, user, text)
 	return post.id;
 }
 
+function repostPost(username, postId)
+{
+	var u = user(username);
+	var p = db.postForId(postId);
+	if (u != undefined && u != null & p != null)
+	{
+		if (userIsInGroup(u.id, p.groupId))
+		{
+			var repostId = post(p.groupId, u.id, p.plainText);
+			var repost = {};
+			repost.original = p.id;
+			repost.repost = repostId;
+			db.reposts.table[db.reposts.table.length] = repost;
+			db.saveTo(db.reposts, "reposts");
+			return repostId;
+		}
+	}
+	return -1;
+}
+
 function user(username)
 {
 	var user;
@@ -548,13 +585,15 @@ function isAuthenticated(username, password, key)
 function likePost(username, post)
 {
 	if (db.postForId(post) != null)
-		db.likeForId(user(username).id, post, 1);
+		if (userIsInGroup(user(username).id, db.postForId(post).groupId));
+			db.likeForId(user(username).id, post, 1);
 }
 
 function dislikePost(username, post)
 {
 	if (db.postForId(post) != null)
-		db.likeForId(user(username).id, post, -1);
+		if (userIsInGroup(user(username).id, db.postForId(post).groupId))
+			db.likeForId(user(username).id, post, -1);
 }
 
 exports.api = api;

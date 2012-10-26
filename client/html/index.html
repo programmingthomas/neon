@@ -13,6 +13,11 @@
 					nc_login($('#login-username').val(),$('#login-password').val());
 					return false;	
 				});
+				$('.switchform').click(function() {
+					$('#signupbox').slideToggle();
+					$('#loginbox').slideToggle();
+				});
+				
 			}
 		</script>
 	</head>
@@ -35,18 +40,22 @@
 			<form id="login">
 				<div id="input_container"><div>Username</div><input type="text" id="login-username" placeholder="Username" required="required"/></div>
 				<div id="input_container"><div>Password</div><input type="password" id="login-password" placeholder="Password" required="required"/></div>
-				<input type="submit" value="Login" />Or <a href="#" id="signuplink">sign up?</a>
+				<input type="submit" value="Login" />Or <a href="#" class="switchform">sign up?</a>
 			</form>
 		</section>
 		<aside id="signupbox">
 			<h1>Sign up to Neon</h1>
 			<h3>It's fast, simple and unregrettable</h3>
 			<form>
-				Name <input type="text" id="signup-realname" placeholder="Full Name" required="required"/><br/>
-				Username <input type="text" id="signup-username" placeholder="Choose a username" required="required"/><br/>
-				Password <input type="password" id="signup-password-1" placeholder="Password" required="required"/><br/>
-				Verify <input type="password" id="signup-password-2" placeholder="Verify Password" required="required"/><br/>
-				<input type="submit" value="Sign Up" />
+				<div class="hint" id="namehint">Your full name</div>
+				<div id="input_container"><div>Name</div><input type="text" id="signup-realname" placeholder="Full Name" required="required"/></div>
+				<div class="hint" id="usernamehint">Must all be lowercase</div>
+				<div id="input_container"><div>Username</div><input type="text" id="signup-username" placeholder="Choose a username" required="required"/></div>
+				<div class="hint" id="passwordhint">Must be 6 characters long</div>
+				<div id="input_container"><div>Password</div><input type="password" id="signup-password-1" placeholder="Password" required="required"/></div>
+				<div class="hint" id="verifyhint">Must match other password</div>
+				<div id="input_container"><div>Verify</div><input type="password" id="signup-password-2" placeholder="Verify Password" required="required"/></div>
+				<input type="submit" value="Sign Up" />Or <a href="#" class="switchform">log in?</a>
 			</form>
 		</aside>
 		<footer id="footer" class="content">

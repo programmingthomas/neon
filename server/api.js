@@ -202,6 +202,16 @@ function getPost(id, includeUser, includeGroup)
 		post.group.name = g.name;
 		post.group.color = g.color;
 	}
+	post.likes = 0;
+	post.dislikes = 0;
+	for (var i = 0; i < db.likes.table.length; i++)
+	{
+		if (db.likes.table[i].post == post.id)
+		{
+			if (db.likes.table[i].like == 1) post.likes++;
+			else if (db.likes.table[i].like == -1) post.dislikes++;
+		}
+	}
 	return post;
 }
 
@@ -398,7 +408,6 @@ function login(username, password, response)
 						servGroup.id = group.id;
 						servGroup.name = group.name;
 						servGroup.color = group.color;
-						//servGroup.role = 1;
 						response.login.groups[response.login.groups.length] = servGroup;
 					}
 				}
@@ -415,7 +424,14 @@ function usernameIsValid(username)
 {
 	if (username != null || username == undefined || username.length == 0)
 	{
-		return true;
+		var allLowerCase = true;
+		var regex = /^[a-z]/i;
+		for (var i = 0; i < username.length; i++)
+		{
+			allLowerCase = regex.test(username.charAt(i)) && username.charAt(i).toLowerCase() == username.charAt(i);
+			if (!allLowerCase) break;
+		}
+		return allLowerCase;
 	}
 	else return false;
 }
@@ -442,6 +458,13 @@ function register(username, password, name, response)
 	{
 		log.e("api.js", "Couldn't register " + username + " because " + username + " already taken.");
 		response.request.message = "Username already taken";
+		response.request.successCode = 401;
+		return;
+	}
+	if (!usernameIsValid(username))
+	{
+		log.e("api.js", username + " is not a valid username");
+		response.request.message = "Username is not all lowercase";
 		response.request.successCode = 401;
 		return;
 	}

@@ -85,7 +85,7 @@ function api(command, option, parameters)
 	if (command == "register")
 	{
 		//Some schools may choose to block registrations
-		if (config.allowsRegister)
+		if (config.allowsRegister && parameters.username != undefined && parameters.password != undefined && parameters.name != undefined)
 		{
 			log.i("api.js", "Asked to register " + parameters.username);
 			//There is a helper function for this!
@@ -106,9 +106,12 @@ function api(command, option, parameters)
 	}
 	else if (command == "login")
 	{
-		//This will push out the default login stuff
-		log.i("api.js", "Asked to login" + parameters.username);
-		login(parameters.username, parameters.password, response);
+		if (parameters.username != undefined && parameters.password != undefined)
+		{
+			//This will push out the default login stuff
+			log.i("api.js", "Asked to login" + parameters.username);
+			login(parameters.username, parameters.password, response);
+		}
 	}
 	//Login and register are the only methods that don't require authentication. I check here that a username and either password or key is sent
 	else if (isAuthenticated(parameters.username, parameters.password, parameters.key))
@@ -126,16 +129,22 @@ function api(command, option, parameters)
 		}
 		else if (command == "group" && option == "create")
 		{
-			log.i("api.js", "Creating a group");
-			response.group = createGroup(parameters.name, parameters.username)
+			if (parameters.name != undefined)
+			{
+				log.i("api.js", "Creating a group");
+				response.group = createGroup(parameters.name, parameters.username);
+			}
 		}
 		else if (command == "post")
 		{
-			response.id = post(parameters.groupId, user(parameters.username).id, parameters.content);
-			if (response.id < 0)
+			if (parameters.groupId != undefined && parameters.content != undefined)
 			{
-				response.request.statusCode = 401;
-				response.request.message = "I'm sorry. You can't post in that group."
+				response.id = post(parameters.groupId, user(parameters.username).id, parameters.content);
+				if (response.id < 0)
+				{
+					response.request.statusCode = 401;
+					response.request.message = "I'm sorry. You can't post in that group."
+				}
 			}
 		}
 		else if (command == "dashboard")
@@ -236,6 +245,7 @@ function userDetail(idOrUsername, includeGroups, includePosts, currentUsername)
 		servUser = {};
 		servUser.username = u.username;
 		servUser.userImage = u.userImage;
+		servUser.name = u.name;
 		servUser.id = u.id;
 		//It's really easy to quickly fetch the appropriate information
 		if (includeGroups) servUser.groups = userGroups(servUser.id);

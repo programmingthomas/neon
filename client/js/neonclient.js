@@ -31,9 +31,14 @@ function nc_user(u, k, q, o) {
 			html.append("<span class='nc_user_id'>" + data.user.id.toString() + "</span>");
 			html.append("<span class='nc_user_username'>" + data.user.username + "</span>");			
 			html.append("<span class='nc_user_name'>" + data.user.name.toString() + "</span>");		
-			html.append("<span class='nc_user_groupIds'>" + data.user.username + "</span>");
-			html.append("<span class='nc_user_groups'>" + data.user.groups + "</span>");
-			html.append("<img src='" + data.user.username + ".jpg' class='nc_user_userImage'></img>");
+			html.append("<img src='images/" + data.user.username + ".jpg' class='nc_user_userImage'></img>");
+			html.append("<ul class='nc_user_posts'>");
+			data.user.posts.forEach(function(post) {
+				html.append("<li>" + data.user.posts[post] + "</li>");
+				console.log(data.user.posts[post]);
+			});
+			html.append("</ul>");
+			html.append("</section>");
 		});
 	});		
 	html.append("</article>").show();

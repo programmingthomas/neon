@@ -132,12 +132,26 @@ function api(command, option, parameters)
 			if (parameters.name != undefined)
 			{
 				log.i("api.js", "Creating a group");
-				response.group = createGroup(parameters.name, parameters.username);
+				if (!isNum(parameters.name))
+					response.group = createGroup(parameters.name, parameters.username);
 			}
+		}
+		else if (command == "group" && option == "join")
+		{
+			if (parameters.groupId != undefined && isNum(parameters.groupId))
+			{
+				log.i("api.js", parameters.username + " wants to join " + parameters.groupId);
+				response.joined = joinGroup(parameters.username, parseInt(parameters.groupId), 0);
+			}
+		}
+		else if (command == "group")
+		{
+			if (parameters.groupId != undefined && isNum(parameters.groupId))
+				response.group = groupDetail(parseInt(parameters.groupId), parameters.username);
 		}
 		else if (command == "post")
 		{
-			if (parameters.groupId != undefined && parameters.content != undefined)
+			if (parameters.groupId != undefined && parameters.content != undefined && isNum(parameters.groupId))
 			{
 				response.id = post(parameters.groupId, user(parameters.username).id, parameters.content);
 				if (response.id < 0)
@@ -151,7 +165,7 @@ function api(command, option, parameters)
 			response.posts = dashboard(parameters.username, parameters.offset != undefined ? parameters.offset : 0);
 		else if (command == "addNoteToPost")
 		{
-			if (parameters.id != undefined && parameters.id != null)
+			if (parameters.id != undefined && parameters.id != null && isNum(parameters.id))
 			{
 				if (parameters.operation == "like" || option == "like")
 				{
@@ -285,7 +299,7 @@ function userGroups(user)
 	var a = [];
 	for (var i = 0; i < db.members.table.length; i++)
 	{
-		if (db.members.table[i].user == user)
+		if (db.members.table[i].user == user && db.members.table[i].role > 0)
 		{
 			var group = db.groupForId(db.members.table[i].group);
 			if (group)
@@ -357,10 +371,38 @@ function joinGroup(usernameOrId, group, role)
 				db.members.table[db.members.table.length] = groupMember;
 			}
 			db.saveTo(db.members, "members");
+			return true;
 		}
 		else log.e("api.js", "Couldn't find user " + usernameOrId);
 	}
 	else log.e("api.js", "Couldn't find group " + group);
+	return false;
+}
+
+function groupDetail(groupId, currentUser)
+{
+	var g = db.groupForId(groupId);
+	var servGroup = {};
+	if (g != null)
+	{
+		servGroup.id = g.id;
+		servGroup.name = g.name;
+		servGroup.creator = userDetail(servGroup.creator, false, false, null);
+		servGroup.color = g.color;
+		servGroup.posts = [];
+		if (userIsInGroup(user(currentUser).id, groupId))
+		{
+			for (var i = 0; i < db.posts.table.length; i++)
+			{
+				if (db.posts.table[i].groupId == servGroup.id)
+					servGroup.posts[servGroup.posts.length] = getPost(db.posts.table[i].id, true, false);
+			}
+		}
+		servGroup.posts.sort(function(a,b) {
+			return a.time > b.time ? -1 : 1;
+		});
+	}
+	return servGroup;
 }
 
 function isMemberOfGroup(userId, groupId)
@@ -500,7 +542,7 @@ function register(username, password, name, response)
 	user.name = name;
 	user.username = username;
 	user.password = hash(password);
-	user.userImage = "userImages/" + user.id.toString() + ".png";
+	user.userImage = "userImages/default.png";
 	db.users.table[db.users.table.length] = user;
 	db.users.index += 1;
 	db.saveTo(db.users, "users");
@@ -604,6 +646,15 @@ function dislikePost(username, post)
 	if (db.postForId(post) != null)
 		if (userIsInGroup(user(username).id, db.postForId(post).groupId))
 			db.likeForId(user(username).id, post, -1);
+}
+
+//-------
+//HELPERS
+//-------
+
+function isNum(num)
+{
+	return !isNaN(num);
 }
 
 exports.api = api;

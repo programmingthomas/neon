@@ -8,9 +8,11 @@
 		<script type="text/javascript" src="jquery-1.8.2.min.js"></script>		
 		<script type="text/javascript" src="core.js"></script>
 		<script type="text/javascript">
-			function login() {
-				nc_login($("#login-username").value,$("#login-password").value);
-			}
+			$("#login").submit(function() {
+				alert('hello');
+				nc_login($('#login-username').val(),$('#login-password').val());
+				return false;	
+			});
 		</script>
 	</head>
 	<body>
@@ -29,10 +31,10 @@
 			</svg>
 			<h1>Welcome to Neon</h1>
 			<h3>The educational blogging network</h3>
-			<form onSubmit="login()">
+			<form id="login">
 				<div id="input_container"><div>Username</div><input type="text" id="login-username" placeholder="Username" required="required"/></div>
 				<div id="input_container"><div>Password</div><input type="password" id="login-password" placeholder="Password" required="required"/></div>
-				<input type="submit" value="Login" /><span id="signuplink-outer"> Or <a href="#" id="signuplink">sign up?</a></span>
+				<input type="submit" value="Login" />Or <a href="#" id="signuplink">sign up?</a>
 			</form>
 		</section>
 		<aside id="signupbox">

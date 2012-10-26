@@ -245,6 +245,11 @@ a {
 #signupbox {
 	@extend #formbox;
 	display:none;
+	.hint {
+		float:right;
+		line-height:34px;
+		color:#666;
+	}
 }
 footer {
 	text-align: center;

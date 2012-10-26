@@ -17,6 +17,9 @@
 					$('#signupbox').slideToggle();
 					$('#loginbox').slideToggle();
 				});
+				$('#settings').click(function() {
+					$('#settingstray').slideToggle();
+				});
 				function verify(field) {
 					var value = $('#signup-'+field).val();
 					if(field=="realname") {
@@ -40,6 +43,7 @@
 				<div class="barbutton" id="groups"><div aria-hidden="true" data-icon="&#xe002;"></div><span>Groups</span></div>
 				<div class="barbutton" id="mail"><div aria-hidden="true" data-icon="&#xe003;"></div><span>Mail</span></div>
 				<div class="barbutton" id="settings"><div aria-hidden="true" data-icon="&#xe004;"></div><span>Settings</span></div>
+				<div class="bartray" id="settingstray"></div>
 			</nav>
 		</header>
 		<section id="loginbox">

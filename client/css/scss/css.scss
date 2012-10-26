@@ -85,6 +85,7 @@ header {
 			cursor:pointer;
 			height:48px;
 			padding:2px 10px 10px 10px;
+			@include single-transition(all,.5s,ease-in-out);
 			div {
 				display:block;
 				font-size:25px;
@@ -98,19 +99,23 @@ header {
 				opacity: 0.5;
 				@include single-transition(all,.5s,ease-in-out);
 			}
+			&#settings {
+				float: right;
+			}
 			&:hover {
-				@include background-image(linear-gradient(left, #dd4444, #ee5555, #dd4444));
+				//@include background-image(linear-gradient(left, #dd4444, #ee5555, #dd4444));
+				background-color:rgba($whitebg,.3);
 				div {
 					text-shadow: 0px 0px 15px rgba(255, 255, 255, 1);
-					opacity: 1;
+					opacity:1;
 				}
 				span {
-					opacity: 1;
+					opacity:1;
 				}
 			}
 		}
-		#settings {
-			float: right;
+		.bartray {
+			
 		}
 	}
 }

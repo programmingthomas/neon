@@ -1,6 +1,15 @@
 
 $(document).ready(function(){
 	setBackground();
+
+	$('#signup-realname').bind("keyup", function(){
+		verify('realname');
+	});
+
+	$('#signup-username').bind("keyup", function(){
+		verify('username');
+	});
+
 });
 
 $(window).resize(function(){
@@ -36,14 +45,25 @@ var roundUpWidth = function(a, x) {
     return [lo, hi];
 }
 
-$('#signuplink').live("click", function(e){
-	e.preventDefault();
-	$('#input_group').animate({'height':'200'}, 700, function(){
-		$('#input-group-signup').attr('style', 'display:block');;
-	});
-});
-
 var changeToDashboard = function(){
 	var dashboard_data = nc_dashboard(localStorage.username, localStorage.key);
 	alert("registered, going to dashboard");
+}
+
+
+
+
+var verify = function(field){
+	var value = $('#signup-'+field).val();
+	console.log(value);
+
+	if(field=="realname") {
+		if(value.length>=0) {
+			var result = "Your <b>full</b> name";
+		}
+		else {
+			var result = "It's good";
+		}
+	}
+	$('#'+field+'hint').innerHTML = result;
 }

@@ -27,19 +27,8 @@
 						}
 					});
 				});
-				function verify(field) {
-					var value = $('#signup-'+field).val();
-					if(field=="realname") {
-						if(value.length>=0) {
-							var result = "Your <b>full</b> name";
-						}
-						else {
-							var result = "It's good";
-						}
-					}
-					$('#'+field+'hint').innerHTML = result;
-				}
 			}
+			
 		</script>
 	</head>
 	<body>
@@ -70,7 +59,7 @@
 			<h3>It's fast, simple and unregrettable</h3>
 			<form>
 				<div class="hint" id="realnamehint">Your full name<div aria-hidden="true" data-icon="&#xe100;" class="cross"></div></div>
-				<div id="input_container"><div>Name</div><input type="text" id="signup-realname" placeholder="Full Name" required="required" onkeyup="verify('realname');"/></div>
+				<div id="input_container"><div>Name</div><input type="text" id="signup-realname" placeholder="Full Name" required="required"/></div>
 				<div class="hint" id="usernamehint">Must all be lowercase<div aria-hidden="true" data-icon="&#xe100;" class="cross"></div></div>
 				<div id="input_container"><div>Username</div><input type="text" id="signup-username" placeholder="Choose a username" required="required"/></div>
 				<div class="hint" id="passwordhint">Must be 6 characters long<div aria-hidden="true" data-icon="&#xe100;" class="cross"></div></div>

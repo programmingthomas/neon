@@ -67,7 +67,7 @@ header {
 	top:0;
 	left:0;
 	position:fixed;
-	z-index:1000;
+	z-index:100;
 	@include single-box-shadow(rgba(white,.5),0,1px,5px);
 	background-color:$redlight;
 	@include background-image(linear-gradient($reddark,$redlight));
@@ -108,7 +108,7 @@ header {
 				float: right;
 			}
 			&:hover, &.open {
-				background-color:rgba($whitebg,.3);
+				background-color:rgba($whitebg,.2);
 				div {
 					text-shadow: 0px 0px 15px rgba(255, 255, 255, 1);
 					opacity:1;
@@ -129,7 +129,8 @@ header {
 		margin:0 auto;
 		@include border-radius(0 0 15px 15px);
 		background-color:$redlight;
-		@include background-image(linear-gradient(rgba($whitebg,.3),$redlight));
+		z-index:101;
+		@include background-image(linear-gradient(rgba($whitebg,.2),$redlight));
 		nav {
 			position:absolute;
 			width:50px;

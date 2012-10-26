@@ -45,7 +45,7 @@ function nc_user(u, k, q, o) {
 			html += ("</ul>");		
 			html += ("</article>");
 			html += ("</section>");
-		displayData(html);
+			displayData(html);
 	});
 }
 
@@ -54,8 +54,27 @@ function displayData(h){
 }
 
 function nc_group(u, k, q, o) {
+	var html = "<section class='nc_group'>";
 	$.getJSON("/api/group/" + q, {username:u, key:k, offset:o}, function(data, status, xhr) {
-		return data;
+			html += "<article>";
+			html += ("<span class='nc_group_id'>" + data.group.groupId.toString() + "</span>");
+			html += ("<span class='nc_group_groupname'>" + data.group.groupName + "</span>");	
+			html += ("<ul class='nc_group_groupcreator'>");
+			for (var n = 0; n < data.group.groupCreator.length; n++)
+			{
+				html += ("<li>" + data.user.groupCreator[n].html + "</li>");
+			}
+			html += ("</ul>");				
+			html += ("<span class='nc_group_groupcolor'>" + data.group.groupColor + "</span>");		
+			html += ("<ul class='nc_group_posts'>");
+			for (var n = 0; n < data.group.posts.length; n++)
+			{
+				html += ("<li>" + data.group.posts[n].html + "</li>");
+			}
+			html += ("</ul>");
+			html += ("</article>");
+			html += ("</section>");
+			displayData(html);
 	});
 }
 
@@ -69,32 +88,55 @@ function nc_dashboard(u, k, o) {
 			}
 			html += ("</ul>");
 			html += ("</section>");
-		displayData(html);
+			displayData(html);
 	});
 }
 
-function nc_dashboardSearch(u, k, q, o) {
-	$.getJSON("/api/dashboard/search/" + q, {username:u, key:k, offset:o}, function(data, status, xhr) {
-		return data;
+function nc_dashboardSearch(u, k, o) {
+	var html = "<section class='nc_dashboardsearch'>";
+	$.getJSON("/api/dashboard/search/", {username:u, key:k, offset:o}, function(data, status, xhr) {
+			html += ("<ul class='nc_dashboardsearch_posts'>");
+			for (var n = 0; n < data.dashboard.posts.length; n++)
+			{
+				html += ("<li>" + data.dashboard.posts[n].html + "</li>");
+			}
+			html += ("</ul>");
+			html += ("</section>");
+			displayData(html);
 	});
 }
 
 function nc_post(u, k, g, c, r) {
+	var html = "<section class='nc_post'>";	
 	$.getJSON("/api/post/", {username:u, key:k, groupId:g, content:c, responding:r}, function(data, status, xhr) {
-		return data;
+		html += "<span class='nc_post_id'>" + data.id + "</span>";
+		html += "</section";
+		displayData(html);
 	});
 }
 
 function nc_addNoteToPost(u, k, o, i) {
+	var html = "<section class='nc_addnotetopost'>";
 	$.getJSON("/api/post/", {username:u, key:k, operation:o, id:i}, function(data, status, xhr) {
-
-		return data;
+		html += "<span class='nc_addnotetopost_likes'>" + data.likes + "</span>";
+		html += "<span class='nc_addnotetopost_dislikes'>" + data.dislikes + "</span>";
+		html += "<span class='nc_addnotetopost_repostid'>" + data.repostId + "</span>";				
+		html += "</section>";
+		displayData(html);
 	});
 }
 
 function nc_searchUsers(u, k, q, o) {
+	var html = "<section class='nc_searchusers'>";
 	$.getJSON("/api/searchusers/", {username:u, key:k, q:q, offset:o}, function(data, status, xhr) {
-		return data;
+		html += ("<ul class='nc_searchusers_users'>");
+		for (var n = 0; n < data.users.length; n++)
+		{
+			html += ("<li>" + data.users[n].html + "</li>");
+		}
+		html += ("</ul>");
+		html += ("</section>");
+		displayData(html);
 	});
 }
 

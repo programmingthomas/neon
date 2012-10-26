@@ -112,16 +112,15 @@ header {
 		#settings {
 			float: right;
 		}
-		[data-icon]:before {
-			font-family:'icomoon';
-			content:attr(data-icon);
-			speak:none;
-			font-weight:normal;
-			-webkit-font-smoothing:antialiased;
-		}
 	}
 }
-
+[data-icon]:before {
+	font-family:'icomoon';
+	content:attr(data-icon);
+	speak:none;
+	font-weight:normal;
+	-webkit-font-smoothing:antialiased;
+}
 hr {
 	width: 90%;
 	height:1px;
@@ -249,6 +248,12 @@ a {
 		float:right;
 		line-height:34px;
 		color:#666;
+		&.cross {
+			color: #dd3333;
+		}
+		&.tick {
+			color: #33dd33;
+		}
 	}
 }
 footer {

@@ -105,7 +105,7 @@ header {
 			&#settings {
 				float: right;
 			}
-			&:hover {
+			&:hover, &.open {
 				background-color:rgba($whitebg,.3);
 				div {
 					text-shadow: 0px 0px 15px rgba(255, 255, 255, 1);

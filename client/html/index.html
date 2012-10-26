@@ -23,12 +23,14 @@
 				});
 				$('#settings').click(function() {
 					$('#settingstray').slideToggle();
+					$('#settings').toggleClass('open');
 				});
 				$("#settings").click(function(e) {
 					e.stopPropagation();
 				});
 				$(document).click(function() {
 					$("#settingstray").slideUp();
+					$('#settings').removeClass('open');
 				});
 			}
 			

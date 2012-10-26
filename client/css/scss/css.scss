@@ -14,7 +14,9 @@
 }
 
 // colors
-$whitebg: #f5f5ff;
+$whitebg:#f5f5ff;
+$redlight:#cc3333;
+$reddark:#C52222;
 
 // dimensions
 
@@ -58,16 +60,17 @@ body
 
 header {
 	margin:0;
-	height:60px;
+	//height:60px;
+	height:auto;
 	width:90%;
 	padding:0 5%;
 	top:0;
 	left:0;
 	position:fixed;
 	z-index:1000;
-	@include single-box-shadow(rgba(0,0,0,.5),0,1px,5px);
-	background-color:#cc3333;
-	@include background-image(linear-gradient(#cc3333 95%, #B24800));
+	@include single-box-shadow(rgba(white,.5),0,1px,5px);
+	background-color:$redlight;
+	@include background-image(linear-gradient($reddark,$redlight));
 	color: white;
 	h1 {
 		margin:0;
@@ -103,7 +106,6 @@ header {
 				float: right;
 			}
 			&:hover {
-				//@include background-image(linear-gradient(left, #dd4444, #ee5555, #dd4444));
 				background-color:rgba($whitebg,.3);
 				div {
 					text-shadow: 0px 0px 15px rgba(255, 255, 255, 1);
@@ -114,9 +116,15 @@ header {
 				}
 			}
 		}
-		.bartray {
-			
-		}
+	}
+	.bartray {
+		display:none;
+		height:200px;
+		width:100%;
+		position:absolute;
+		top:60px;
+		left:0px;
+		background-color:red;
 	}
 }
 [data-icon]:before {
@@ -200,7 +208,7 @@ a {
 		}
 		&:focus {
 			outline:none;
-			border:1px #cc3333 solid;
+			border:1px $redlight solid;
 			background-color:#fff;
 		}
 	}

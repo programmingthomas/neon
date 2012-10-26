@@ -20,6 +20,13 @@
 				$('#settings').click(function() {
 					$('#settingstray').slideToggle();
 				});
+				$(function() {
+					$('*').click(function(e) {
+						if(e.target.id != 'settings') {
+							$('#settingstray').slideUp();
+						}
+					});
+				});
 				function verify(field) {
 					var value = $('#signup-'+field).val();
 					if(field=="realname") {
@@ -43,8 +50,8 @@
 				<div class="barbutton" id="groups"><div aria-hidden="true" data-icon="&#xe002;"></div><span>Groups</span></div>
 				<div class="barbutton" id="mail"><div aria-hidden="true" data-icon="&#xe003;"></div><span>Mail</span></div>
 				<div class="barbutton" id="settings"><div aria-hidden="true" data-icon="&#xe004;"></div><span>Settings</span></div>
-				<div class="bartray" id="settingstray"></div>
 			</nav>
+			<div class="bartray" id="settingstray"></div>
 		</header>
 		<section id="loginbox">
 			<svg id="svgloginlogo" height="200" width="200" xmlns:xlink="http://www.w3.org/1999/xlink"  version="1.0"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000">

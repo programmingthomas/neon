@@ -22,7 +22,7 @@
 		</div>
 		<section id="loginbox">
 			<!-- Apparently this is the best way of embedding a scaled SVG in a web page. I HATE IT. -->
-			<svg id="svgloginlogo" height="64" width="64" xmlns:xlink="http://www.w3.org/1999/xlink"  version="1.0"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000">
+			<svg id="svgloginlogo" height="200" width="200" xmlns:xlink="http://www.w3.org/1999/xlink"  version="1.0"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000">
 				<image x="0" y="0" height="1000" width="1000"  xlink:href="images/new_logo_animation_dark.svg"/>
 			</svg>
 			<h1>Welcome to Neon</h1>
@@ -39,19 +39,22 @@
 				<input type="submit" value="Login" /><span id="signuplink-outer"> Or <a href="#" id="signuplink">sign up?</a></span>
 			</form>
 		</section>
-		<!--
-		<div class="content">
-			<div class="small left">Small</div>An <aside>?
-			<div class="large right">Large</div>An <article>?
-		</div>
-		-->
+		<aside id="signupbox">
+			<h1>Sign up to Neon</h1>
+			<h3>It's fast, simple and unregrettable</h3>
+			<form>
+				Name <input type="text" id="signup-realname" placeholder="Full Name" required="required"/><br/>
+				Username <input type="text" id="signup-username" placeholder="Choose a username" required="required"/><br/>
+				Password <input type="password" id="signup-password-1" placeholder="Password" required="required"/><br/>
+				Verify <input type="password" id="signup-password-2" placeholder="Verify Password" required="required"/><br/>
+				<input type="submit" value="Sign Up" />
+			</form>
+		</aside>
 		<footer id="footer" class="content">
 				<hr />
 				Neon is an open-source project. Its <a href="http://github.com/TDimaline/neon">source is available on GitHub</a>.
 		</footer>
-
 		<script type="text/javascript" src="neonclient.js"></script>
-
 		<!--[if lt IE 9]>
 			<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
 		<![endif]-->

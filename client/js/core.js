@@ -1,24 +1,31 @@
+
 $(document).ready(function(){
-	var widths = [1024, 1280, 1360, 1366, 1440, 1680, 1920, 1920];
-	var body_width = $("body").width();
-
-	console.log("width is " + body_width + ", returning image " + roundUpWidth(widths, body_width)[1] + ".jpg");
-	var image_width = roundUpWidth(widths, body_width)[1] + ".jpg"
-	var image_path = "splashes/" + image_width;
-
-	$('body').css("background", "url('" + image_path + "') no-repeat fixed");
+	setBackground();
 });
 
 $(window).resize(function(){
-	var widths = [1024, 1280, 1360, 1366, 1440, 1680, 1920, 1920];
+	setBackground();
+});
+
+setBackground = function(){
+	var widths = [1024, 1280, 1366, 1440, 1920, 1920];
 	var body_width = $("body").width();
 
-	console.log("width is " + body_width + ", returning image " + roundUpWidth(widths, body_width)[1] + ".jpg");
-	var image_width = roundUpWidth(widths, body_width)[1] + ".jpg"
-	var image_path = "splashes/" + image_width;
+	if(body_width > 1920) { //too big
+		var image_path = "splashes/1920.jpg";
+	}
+	else if(body_width < 1024) { //too small
+		var image_path = "splashes/1024.jpg";
+	}
+	else { //juuust right
+		var image_width = roundUpWidth(widths, body_width)[1] + ".jpg"
+		var image_path = "splashes/" + image_width;
+	}
 
-	$('body').css("background", "url('" + image_path + "') no-repeat fixed");
-});
+
+	$('body').css("background", "url('" + image_path + "') 100% no-repeat fixed ");
+}
+
 
 var roundUpWidth = function(a, x) {
     var lo, hi;

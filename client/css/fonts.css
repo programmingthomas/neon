@@ -2,7 +2,7 @@
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 700;
-  src: local('Open Sans Bold'), local('OpenSans-Bold'), url(font/opensans-bold.woff) format('woff');
+  src: local('Open Sans Bold'), local('OpenSans-Bold'), url(fonts/opensans-bold.woff) format('woff');
 }
 
 /*@font-face {
@@ -22,5 +22,5 @@
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 400;
-  src: local('Open Sans'), local('OpenSans'), url(font/opensans.woff) format('woff');
+  src: local('Open Sans'), local('OpenSans'), url(fonts/opensans.woff) format('woff');
 }

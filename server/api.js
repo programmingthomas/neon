@@ -1,4 +1,4 @@
-//Api.js Have fun!
+//Api.js
 var qs = require("querystring");
 var url = require("url");
 var log = require("./logger");
@@ -6,21 +6,91 @@ var db  = require("./database");
 var crypto = require("crypto");
 var config = require("./config");
 
-//THIS IS WHERE ALL CORE API CODE GOES
+//---------------
+//API ENTRY POINT
+//---------------
+
+function isApiRequest(requestUrl)
+{
+	//Split the array into component sessions
+	var split = requestUrl.split("/");
+	for (var i = 0; i < split.length; i++)
+	{
+		//Probably worth noting that this does mean that you cannot have api in a folder or filename
+		//Never mind :P
+		if (split[i] === "api") return true;
+	}
+	return false;
+}
+
+function runApi(request, response, parameters)
+{
+	var pathname = url.parse(request.url).href;
+	var split = pathname.split("/");
+	var method = "";
+	var option = "";
+	//This iterates over and sets the method and option (if URL is /api/user/thomas method = user and option = thomas)
+	for (var i = 0; i < split.length; i++)
+	{
+		if (split[i] == "api")
+		{
+			if (i < split.length - 1) method = split[i + 1];
+			if (i <  split.length - 2) option = split[i + 2];
+			break;
+		}
+	}
+	//Gets rid of ? in the method or option variables because they appear on GET requests and screw things up big time
+	if (method.indexOf("?") >= 0) method = method.substr(0, method.indexOf("?"));
+	if (option.indexOf("?") >= 0) option = option.substr(0, option.indexOf("?"));
+
+	//Get the JSON response for the API and send it to the writeApi function so that it can be written out
+	//You can optionally include ?whitespace on API requests which produces indented JSON which makes development easier
+	writeApi(api(method, option, parameters), response, parameters.whitespace != null);
+}
+
+//Writes the information out
+function writeApi(respObj, response, whitespace)
+{
+	//I send a 200 response by default because it was causing jQuery onresult code not to execute
+	//You could reflect respoObj.request.successCode but this will probably screw things up
+	//I'm sorry
+	response.writeHead(200, {"Content-Type": "application/json" });
+	//I can't remember what the null did but the \t ensures that there is a tab
+	//Alternatively switch it to four spaces
+	if (whitespace)
+		response.write(JSON.stringify(respObj, null, "\t"));
+	else response.write(JSON.stringify(respObj));
+	//End the response and send back to the client
+	response.end();
+}
+
+//--------------
+//API CONTROLLER
+//--------------
+
 function api(command, option, parameters)
 {
+	//The response object is a native JavaScript that gets returned
+	//It is fed back to the client as a JSON object
 	var response = {};
 	response.request = {};
 	response.request.requestType = command;
 	response.request.requestDetail = option;
 	response.request.successCode = 200;
+
+	//This logs a lot. You can disable logging in config
 	log.i("api.js", "Request for command " + command);
+
+	//This if-elseif branch manages all API reqiests 
 	if (command == "register")
 	{
+		//Some schools may choose to block registrations
 		if (config.allowsRegister)
 		{
 			log.i("api.js", "Asked to register " + parameters.username);
+			//There is a helper function for this!
 			register(parameters.username, parameters.password, parameters.name, response);
+			//After registration a login object will be carried out, but registration could fail
 			if (response.request.successCode == 200)
 			{
 				//A login response will be returned if a registration was requested
@@ -29,48 +99,30 @@ function api(command, option, parameters)
 		}
 		else
 		{
+			//Send back a message to say that the server doesn't support registrations
 			response.request.successCode = 401;
 			response.request.message = "Sorry, this Neon server doesn't allow user registration";
 		}
 	}
 	else if (command == "login")
 	{
+		//This will push out the default login stuff
 		log.i("api.js", "Asked to login" + parameters.username);
 		login(parameters.username, parameters.password, response);
 	}
+	//Login and register are the only methods that don't require authentication. I check here that a username and either password or key is sent
 	else if (isAuthenticated(parameters.username, parameters.password, parameters.key))
 	{
 		//Good, good
 		log.i("api.js", "User " + parameters.username + " is authenticated");
 		if (command == "user")
 		{
-			var servUser, u;
-			if (option == null || option == undefined || option.length == 0) u = user(parameters.username);
-			else u = user(option);
-			servUser = {};
-			servUser.username = u.username;
-			servUser.userImage = u.userImage;
-			servUser.id = u.id;
-			response.user = servUser;
-			var groups = currentUserGroups(servUser.id);
-			servUser.groups = groups;
-			var posts = [];
-			for (var i = 0; i < db.posts.table.length; i++)
+			response.user = userDetail(option == "" || option == null || option == undefined ? parameters.username : option, true, true, parameters.username);
+			if (response.user == null || response.user == undefined)
 			{
-				if (db.posts.table[i].user == servUser.id && db.posts.table[i].deleted == 0)
-				{
-					for  (var n = 0; n < groups.length; n++)
-					{
-						if (groups[n].id == db.posts.table[i].groupId)
-						{
-							posts[posts.length] = getPost(db.posts.table[i].id, false, true);
-							break;
-						}
-					}
-				}
+				response.request.successCode = 404;
+				response.request.message = "Sorry, user could not be found";
 			}
-			servUser.posts = posts;
-			//This will need some more stuff related to serving up posts...
 		}
 		else if (command == "group" && option == "create")
 		{
@@ -88,24 +140,7 @@ function api(command, option, parameters)
 		}
 		else if (command == "dashboard")
 		{
-			var ps = [];
-			var groups = currentUserGroups(user(parameters.username).id);
-			for (var i = 0; i < db.posts.table.length; i++)
-			{
-				if (db.posts.table[i].deleted == 0)
-				{
-					for (var n = 0; n < groups.length; n++)
-					{
-						if (groups[n].id == db.posts.table[i].groupId)
-						{
-							ps[ps.length] = getPost(db.posts.table[i].id, true, true);
-							break;
-						}
-					}
-				}
-			}
-			log.i("api.js", "There are " + ps.length + " items in the dashboard for #" + user(parameters.username).id);
-			response.posts = ps;
+			response.post = dashboard(parameters.username, parameters.offset != undefined ? parameters.offset : 0);
 		}
 		else if (command == "logout")
 		{
@@ -123,6 +158,10 @@ function api(command, option, parameters)
 
 	return response;
 }
+
+//-------------
+//API FUNCTIONS
+//-------------
 
 function getPost(id, includeUser, includeGroup)
 {
@@ -152,7 +191,52 @@ function getPost(id, includeUser, includeGroup)
 	return post;
 }
 
-function currentUserGroups(user)
+function userDetail(idOrUsername, includeGroups, includePosts, currentUsername)
+{
+	//U is the user detail that gets stored server side, servUser is the content that is served
+	var u, servUser;
+	u = user(idOrUsername);
+	//Ensure that the user can actually be found
+	if (u != null && u != undefined)
+	{
+		servUser = {};
+		servUser.username = u.username;
+		servUser.userImage = u.userImage;
+		servUser.id = u.id;
+		//It's really easy to quickly fetch the appropriate information
+		if (includeGroups) servUser.groups = userGroups(servUser.id);
+		if (includePosts)
+		{
+			//Only get the groups that the current user is a part of
+			var g = userGroups(user(currentUsername).id);
+			//Create an empty array for posts
+			var posts = [];
+			//Iterate over the posts backwards (so sorted by date, descending)
+			for (var i = db.posts.table.length - 1; i >= 0; i--)
+			{
+				//If the post was written by the queried user and it is publically visible
+				if (db.posts.table[i].user == servUser.id && db.posts.table[i].deleted == 0)
+				{
+					//Check that the post was posted in a group visible to the current user
+					for  (var n = 0; n < g.length; n++)
+					{
+						//Get data and add to array
+						if (g[n].id == db.posts.table[i].groupId)
+						{
+							//Don't include user information but do include group information (in case posted in a group the user is no longer in)
+							posts[posts.length] = getPost(db.posts.table[i].id, false, true);
+							break;
+						}
+					}
+				}
+			}
+			servUser.posts = posts;
+		}
+	}
+	return servUser;
+}
+
+function userGroups(user)
 {
 	var a = [];
 	for (var i = 0; i < db.members.table.length; i++)
@@ -176,20 +260,89 @@ function currentUserGroups(user)
 
 function createGroup(name, creator)
 {
+	//Create an empty group object
 	var group = {};
 	group.id = db.groups.index;
 	db.groups.index++;
 	group.name = name;
 	group.creator = db.userForName(creator).id;
+
+	//FYI, this is the world's most disgusting shade of orange
+	//I left it as default to remind me to edit it later
 	group.color = "#FFCC00";
+
+	//Add it to the groups
 	db.groups.table[db.groups.table.length] = group;
-	var groupMember = {};
-	groupMember.group = group.id;
-	groupMember.user = group.creator;
-	db.members.table[db.members.table.length] = groupMember;
-	db.saveTo(db.members, "members");
 	db.saveTo(db.groups, "groups");
+	db.loadGroupIndexes();
+	
+	joinGroup(group.creator, group.id, 2);
+	
 	return group;
+}
+
+function joinGroup(usernameOrId, group, role)
+{
+	//Role = 0 = Not approved into group, Role = 1 = Approved into group, Role = 2 = Staff member or creator
+	
+	//Check that the group does actually exist
+	var g = db.groupForId(group);
+	if (g != null && g != undefined)
+	{
+		var u = user(usernameOrId);
+		if (u != undefined && u != null)
+		{
+			var memberIndex = isMemberOfGroup(u.id, g.id);
+			if (memberIndex)
+				//Ensures that they don't get demoted
+				db.members.table[memberIndex].role = Math.max(db.members.table[memberIndex].role, role);
+			else
+			{
+				var groupMember = {};
+				groupMember.role = role;
+				groupMember.group = group;
+				groupMember.user = u.id;
+				db.members.table[db.members.table.length] = groupMember;
+			}
+			db.saveTo(db.members, "members");
+		}
+		else log.e("api.js", "Couldn't find user " + usernameOrId);
+	}
+	else log.e("api.js", "Couldn't find group " + group);
+}
+
+function isMemberOfGroup(userId, groupId)
+{
+	for (var i = 0; i < db.members.table.length; i++)
+		if (db.members.table[i].group == groupId && db.members.table[i].user == userId) return i;
+	return false;
+}
+
+function dashboard(usernameOrId, offset)
+{
+	var ps = [];
+	var groups = userGroups(user(usernameOrId).id);
+	var count = 0;
+	for (var i = db.posts.table.length - 1; i >= 0; i--)
+	{
+		if (db.posts.table[i].deleted == 0)
+		{
+			for (var n = 0; n < groups.length; n++)
+			{
+				if (groups[n].id == db.posts.table[i].groupId)
+				{
+					count++;
+					if (count >= offset)
+					{
+						ps[ps.length] = getPost(db.posts.table[i].id, true, true);
+						break;
+					}
+				}
+			}
+		}
+	}
+	log.i("api.js", "There are " + ps.length + " items in the dashboard for #" + user(parameters.username).id);
+	return ps;
 }
 
 function login(username, password, response)
@@ -319,6 +472,7 @@ function post(group, user, text)
 	post.groupId = group;
 	db.posts.table[db.posts.table.length] = post;
 	db.saveTo(db.posts, "posts");
+	db.loadPostIndexes();
 	return post.id;
 }
 
@@ -353,49 +507,6 @@ function isAuthenticated(username, password, key)
 	}
 	return false;
 }
-
-//Checks if an url is an api request
-function isApiRequest(requestUrl)
-{
-	var split = requestUrl.split("/");
-	for (var i = 0; i < split.length; i++)
-	{
-		if (split[i] === "api") return true;
-	}
-	return false;
-}
-
-//Runs the API
-function runApi(request, response, parameters)
-{
-	var pathname = url.parse(request.url).href;
-	var split = pathname.split("/");
-	var method = "";
-	var option = "";
-	for (var i = 0; i < split.length; i++)
-	{
-		if (split[i] == "api")
-		{
-			if (i < split.length - 1) method = split[i + 1];
-			if (i <  split.length - 2) option = split[i + 2];
-			break;
-		}
-	}
-	if (method.indexOf("?") >= 0) method = method.substr(0, method.indexOf("?"));
-	if (option.indexOf("?") >= 0) option = option.substr(0, option.indexOf("?"));
-	writeApi(api(method, option, parameters), response, parameters.whitespace != null);
-}
-
-//Writes the information out
-function writeApi(respObj, response, whitespace)
-{
-	response.writeHead(200, {"Content-Type": "application/json" });
-	if (whitespace)
-		response.write(JSON.stringify(respObj, null, "\t"));
-	else response.write(JSON.stringify(respObj));
-	response.end();
-}
-
 
 exports.api = api;
 exports.isApiRequest = isApiRequest;

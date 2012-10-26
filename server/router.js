@@ -10,6 +10,7 @@ function route(pathname, request, response, parameters) {
 		pathname = "index.html";
 	}
 
+	//If it is an API request, route it the API rather than the serving up a file
 	if (api.isApiRequest(pathname)) api.runApi(request, response, parameters);
 	else
 	{

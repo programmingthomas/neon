@@ -25,8 +25,20 @@ function nc_login(u, p) {
 
 function nc_user(u, k, q, o) {
 	$.getJSON("/api/user/" + q, {username:u, key:k, offset:o}, function(data, status, xhr) {
-		return data;
+		var html = $("<article class='nc_user'>");
+		$.each(data, function(i, item) {
+			html.append("<span class='nc_user_userID'>" + data.user.userId + "</span>");
+			html.append("<span class='nc_user_username'>" + data.user.username + "</span>");			
+			html.append("<span class='nc_user_name'>" + data.user.name + "</span>");		
+			html.append("<span class='nc_user_groupIds'>" + data.user.username + "</span>");
+			html.append("<span class='nc_user_groupNames'>" + data.user.groupnames + "</span>");
+			html.append("<img src='" + data.user.username + "' class='nc_user_userImage'></img>");
+		});
+		html.append("</article>").show();
+
 	});
+	console.log("testing");
+	return html;	
 }
 
 function nc_group(u, k, q, o) {
@@ -55,6 +67,7 @@ function nc_post(u, k, g, c, r) {
 
 function nc_addNoteToPost(u, k, o, i) {
 	$.getJSON("/api/post/", {username:u, key:k, operation:o, id:i}, function(data, status, xhr) {
+
 		return data;
 	});
 }

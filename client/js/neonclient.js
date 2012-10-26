@@ -24,20 +24,19 @@ function nc_login(u, p) {
 }
 
 function nc_user(u, k, q, o) {
+	var html = $("<article class='nc_user'>");
 	$.getJSON("/api/user/" + q, {username:u, key:k, offset:o}, function(data, status, xhr) {
-		var html = $("<article class='nc_user'>");
 		$.each(data, function(i, item) {
-			html.append("<span class='nc_user_userID'>" + data.user.userId + "</span>");
+			html.append("<section>");
+			html.append("<span class='nc_user_id'>" + data.user.id.toString() + "</span>");
 			html.append("<span class='nc_user_username'>" + data.user.username + "</span>");			
-			html.append("<span class='nc_user_name'>" + data.user.name + "</span>");		
+			html.append("<span class='nc_user_name'>" + data.user.name.toString() + "</span>");		
 			html.append("<span class='nc_user_groupIds'>" + data.user.username + "</span>");
-			html.append("<span class='nc_user_groupNames'>" + data.user.groupnames + "</span>");
-			html.append("<img src='" + data.user.username + "' class='nc_user_userImage'></img>");
+			html.append("<span class='nc_user_groups'>" + data.user.groups + "</span>");
+			html.append("<img src='" + data.user.username + ".jpg' class='nc_user_userImage'></img>");
 		});
-		html.append("</article>").show();
-
-	});
-	console.log("testing");
+	});		
+	html.append("</article>").show();
 	return html;	
 }
 

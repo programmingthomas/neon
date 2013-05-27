@@ -178,6 +178,10 @@ log.txt
 #Custom database
 *.jsondb
 
+#Executables
+.exe
+main
+
 *.sublime-project
 *.sublime-workspace
 *.scss

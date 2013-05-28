@@ -62,7 +62,6 @@ func ViewHandler(w http.ResponseWriter, r *http.Request) {
 		if (cache) {
 			w.Header().Add("Last-Modified", lastModTime.Format(time.RFC1123))
 		}
-		info("API", "Served up " + fullPath + " for " + r.URL.Path)
 		http.ServeFile(w, r, fullPath)
 	} else {
 		w.WriteHeader(http.StatusNotFound)

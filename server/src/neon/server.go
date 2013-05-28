@@ -40,7 +40,7 @@ func ViewHandler(w http.ResponseWriter, r *http.Request) {
 	//Defaults to index.html if the request is empty
 	ext := "html"
 	directory := "html"
-	filename := "index.html"
+	filename := "index-new.html"
 	//Request is not empty, navigate to differnt resource
 	if r.URL.Path != "/" {
 		ext = path.Ext(r.URL.Path)[1:]

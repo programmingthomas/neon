@@ -1,5 +1,3 @@
-//fonts
-
 @font-face {
 	font-family: 'icomoon';
 	src:url('fonts/icomoon.eot');
@@ -23,10 +21,11 @@ body
 #loginbox
 {
 	background:#FFF;	
-	border-radius:10px;
+	border-radius:5px;
 	box-shadow: rgba(0,0,0,0.5) 0px 0px 10px;
 	text-align:center;
 	padding:10px;
+	margin-bottom:10px;
 	max-width:500px;
 	position:relative;
 	overflow:hidden;
@@ -40,10 +39,11 @@ body
 #signupbox {
 	display:none;
 	background:#FFF;	
-	border-radius:10px;
+	border-radius:5px;
 	box-shadow: rgba(0,0,0,0.5) 0px 0px 10px;
 	text-align:center;
 	padding:10px;
+	margin-top:10px;
 	max-width:500px;
 	position:relative;
 	overflow:hidden;

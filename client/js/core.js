@@ -40,7 +40,7 @@ setBackground = function()
 	}
 
 
-	$('body').css("background", "url('" + image_path + "') 100% no-repeat fixed ");
+	$('body').css("background", "url('" + image_path + "') 50% no-repeat fixed ");
 }
 
 

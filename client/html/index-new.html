@@ -37,74 +37,70 @@
 			
 		</script>
 	</head>
-	<body>
-	
-    <div class="navbar navbar-fixed-top">
-              <div class="navbar-inner">
-                <div class="container">
-                  <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                  </a>
-                  <a class="brand" href="#"><img src="../images/logo_bar.png" style="width:16px; height:16px" alt="Neon"> Neon</a>
-                  <div class="nav-collapse collapse navbar-collapse">
-                    <ul class="nav">
-                      <li class="active"><a href="#">Home</a></li>
-                      <li><a href="#">Groups</a></li>
-                      <li><a href="#">Mail</a></li>
-                    </ul>
-                    <ul class="nav pull-right">
-                    	<form class="navbar-search">
- 					 		<input type="text" class="search-query" placeholder="Search">
-						</form>
-                        <li class="dropdown">
-                        	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Settings <b class="caret"></b></a>
-                        	<ul class="dropdown-menu">
-                         	 <li><a href="#">Picture</a></li>
-                        	  <li><a href="#">Details</a></li>
-                        	  <li><a href="#">Password</a></li>
-                        	  <li class="divider"></li>
-                        	  <li><a href="#">Log Out</a></li>
-                       		</ul>
-                      	</li>
-                    </ul>
-                  </div><!-- /.nav-collapse -->
-                </div>
-              </div><!-- /navbar-inner -->
-            </div>
-
-	<section id="loginbox" class="container">
-			<svg id="svgloginlogo" height="150" width="150" xmlns:xlink="http://www.w3.org/1999/xlink"  version="1.0"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000">
-				<image x="0" y="0" height="1000" width="1000"  xlink:href="images/new_logo_animation_dark.svg"/>
-			</svg>
-			
-		<h1>Welcome to Neon</h1>
-			<h3>The educational blogging network</h3>
-			<form id="loginform">
-				<div id="input_container"><input type="text" id="login-username" placeholder="Username" required/></div>
-				<div id="input_container"><input type="password" id="login-password" placeholder="Password" required/></div>
-                <br/>
-				<button class="btn btn-primary" type="submit">Login</button> or <a href="#" class="switchform">sign up?</a>
-			</form>
-             Neon is an open-source project. Its <a href="https://github.com/programmingthomas/neon-2013">source is available on GitHub</a>.
-		</section>
-		<aside id="signupbox" class="container">
-			<h1>Sign up to Neon</h1>
-			<h3>It's fast, simple and unregrettable</h3>
-			<form id="signup">
-				<div class="hint" id="realnamehint">Your full name<div aria-hidden="true" data-icon="&#xe100;" class="cross"></div></div>
-				<div id="input_container"><div>Name</div><input type="text" id="signup-realname" placeholder="Full Name" required/></div>
-				<div class="hint" id="usernamehint">Must all be lowercase<div aria-hidden="true" data-icon="&#xe100;" class="cross"></div></div>
-				<div id="input_container"><div>Username</div><input type="text" id="signup-username" placeholder="Choose a username" required/></div>
-				<div class="hint" id="passwordhint">Must be 6 characters long<div aria-hidden="true" data-icon="&#xe100;" class="cross"></div></div>
-				<div id="input_container"><div>Password</div><input type="password" id="signup-password-1" placeholder="Password" required/></div>
-				<div class="hint" id="verifyhint">Must match other password<div aria-hidden="true" data-icon="&#xe100;" class="cross"></div></div>
-				<div id="input_container"><div>Verify</div><input type="password" id="signup-password-2" placeholder="Verify Password" required/></div>
-                <br/>
-				<button class="btn btn-primary" type="submit">Sign Up</button> or <a href="#" class="switchform">log in?</a>
-			</form>
-		</aside>
+	<body> 
+      <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+              <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-collapse">
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </a>
+                <a class="brand" href="#"><img src="../images/logo_bar.png" style="width:16px; height:16px" alt="Neon"> Neon</a>
+                <div class="nav-collapse collapse navbar-collapse">
+                  <ul class="nav">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#">Groups</a></li>
+                    <li><a href="#">Mail</a></li>
+                  </ul>
+                  <ul class="nav pull-right">
+                      <form class="navbar-search">
+                          <input type="text" class="search-query" placeholder="Search">
+                      </form>
+                      <li class="dropdown">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Settings <b class="caret"></b></a>
+                          <ul class="dropdown-menu">
+                           <li><a href="#">Picture</a></li>
+                            <li><a href="#">Details</a></li>
+                            <li><a href="#">Password</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Log Out</a></li>
+                          </ul>
+                      </li>
+                  </ul>
+                </div><!-- /.nav-collapse -->
+              </div>
+            </div><!-- /navbar-inner -->
+        </div>
+        <div id="welcomebox" class="container">
+          <section id="loginbox">
+              <svg id="svgloginlogo" height="150" width="150" xmlns:xlink="http://www.w3.org/1999/xlink"  version="1.0"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000">
+                  <image x="0" y="0" height="1000" width="1000"  xlink:href="images/new_logo_animation_dark.svg"/>
+              </svg>
+              
+          <h1>Welcome to Neon</h1>
+              <h3>The educational blogging network</h3>
+              <form id="loginform">
+                  <div id="input_container"><input type="text" id="login-username" placeholder="Username" required/></div>
+                  <div id="input_container"><input type="password" id="login-password" placeholder="Password" required/></div>
+                  <br/>
+                  <button class="btn btn-primary" type="submit">Login</button> or <a href="#" class="switchform">sign up?</a>
+              </form>
+               Neon is an open-source project. Its <a href="https://github.com/programmingthomas/neon-2013">source is available on GitHub</a>.
+          </section>
+          <aside id="signupbox">
+              <h1>Sign up to Neon</h1>
+              <h3>It's fast, simple and unregrettable</h3>
+              <form id="signup">
+                  <div id="input_container"><input type="text" id="signup-realname" placeholder="Full Name" required/></div>
+                  <div id="input_container"><input type="text" id="signup-username" placeholder="Choose a username" required/></div>
+                  <div id="input_container"><input type="password" id="signup-password-1" placeholder="Password" required/></div>
+                  <div id="input_container"><input type="password" id="signup-password-2" placeholder="Verify Password" required/></div>
+                  <br/>
+                  <button class="btn btn-primary" type="submit">Sign Up</button> or <a href="#" class="switchform">log in?</a>
+              </form>
+          </aside>
+        </div>
 		<script type="text/javascript" src="neonclient.js"></script>
 		<!--[if lt IE 9]>
 			<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>

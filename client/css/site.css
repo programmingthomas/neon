@@ -1,0 +1,55 @@
+//fonts
+
+@font-face {
+	font-family: 'icomoon';
+	src:url('fonts/icomoon.eot');
+	src:url('fonts/icomoon.eot?#iefix') format('embedded-opentype'),
+		url('fonts/icomoon.svg#icomoon') format('svg'),
+		url('fonts/icomoon.woff') format('woff'),
+		url('fonts/icomoon.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+body
+{
+	font-family: "Segoe UI", Avenir, "Open Sans",Helvetica, sans-serif;
+	background-color:#F0F0FA;
+	background-attachment: fixed;
+	margin:0;
+	padding-top:100px;
+}
+
+#loginbox
+{
+	background:#FFF;	
+	border-radius:10px;
+	box-shadow: rgba(0,0,0,0.5) 0px 0px 10px;
+	text-align:center;
+	padding:10px;
+	max-width:500px;
+	position:relative;
+	overflow:hidden;
+
+	#svgloginlogo {
+			width: 220px;
+			height: 220px;
+
+	}
+}
+#signupbox {
+	display:none;
+	background:#FFF;	
+	border-radius:10px;
+	box-shadow: rgba(0,0,0,0.5) 0px 0px 10px;
+	text-align:center;
+	padding:10px;
+	max-width:500px;
+	position:relative;
+	overflow:hidden;
+}
+footer {
+	text-align: center;
+	padding:30px 0;
+	color:#fff;
+}

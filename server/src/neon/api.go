@@ -269,9 +269,8 @@ func UserDetailPublic(r * http.Request, response * APIResponse) {
 		
 		//The user will only have posts if they are actually a member of a group
 		if len(apiUserResponse.GroupIDs) > 0 {
-			for i := 0; i < len(Posts); i++ {
+			for i := len(Posts) - 1; i >= 0; i-- {
 				if Posts[i].User == userDetail.ID {
-					
 					apiPostResponse := PostResponseForPost(Posts[i])
 					apiUserResponse.Posts = append(apiUserResponse.Posts, apiPostResponse)
 				}

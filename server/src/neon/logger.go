@@ -17,7 +17,7 @@ func e(source, message string) {
 }
 
 //Log a warning
-func warn(source, message string) {
+func w(source, message string) {
 	if !shouldOnlyLogErrors {
 		log("\033[93m", source, message)
 	}
@@ -28,4 +28,9 @@ func info(source, message string) {
 	if !shouldOnlyLogErrors {
 		log("\033[92m", source, message)
 	}
+}
+
+//What a Terrible Failure
+func wtf(source, message string) {
+	e(source, message)
 }

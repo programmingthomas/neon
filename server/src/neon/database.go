@@ -18,10 +18,9 @@ type User struct {
 }
 
 type Key struct {
-	ID int
 	Key string
 	User int
-	StartDate time.Time
+	StartTime time.Time
 	EndTime time.Time
 }
 
@@ -173,6 +172,15 @@ func UserForName(username string) User {
 		}
 	}
 	return User{}
+}
+
+
+func IsUser(user User) bool {
+	return user.Username != ""
+}
+
+func UserForUserNameExists(username string) bool {
+	return IsUser(UserForName(username))
 }
 
 func UserLikesDislikesPost(user, post, level int) {

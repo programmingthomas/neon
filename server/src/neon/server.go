@@ -10,7 +10,7 @@ import (
 )
 
 //Some requests - such as index.html, css.css, *.js can be done without
-//the need to specify the folder that they are in
+//the need to specify the folder tat they are in
 func FolderForType(ext, directory string) string {
 	if ext == "html" || ext == "js" || ext == "css" {
 		return "/" + ext + "/"

@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 	<head>
-<<<<<<< HEAD
 		<meta http-equiv="content-type" content="text/html; charset=utf-8">
 		<title>
 			Dashboard - Neon
@@ -52,79 +51,6 @@
 				</div>
 			</div><!-- /navbar-inner -->
 		</div>
-=======
-		<title>Dashboard - Neon</title>
-		<link rel="stylesheet" href="site.css" type="text/css" />
-        <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<script type="text/javascript" src="jquery-1.8.2.min.js"></script>		
-		<script type="text/javascript" src="core.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-		<script type="text/javascript">
-			document.ready = function() {
-				$("#login").submit(function() {
-					nc_login($('#login-username').val(),$('#login-password').val());
-					return false;	
-				});
-				$("#signup").submit(function() {
-					nc_register($('#signup-username').val(),$('#login-password').val(),$('#signup-realname').val());
-					return false;	
-				});
-				$('.switchform').click(function() {
-					$('#signupbox').slideToggle();
-					$('#loginbox').slideToggle();
-				});
-				$('#settings').click(function() {
-					$('#settingstray').slideToggle();
-					$('#settings').toggleClass('open');
-				});
-				$("#settings").click(function(e) {
-					e.stopPropagation();
-				});
-				$(document).click(function() {
-					$("#settingstray").slideUp();
-					$('#settings').removeClass('open');
-				});
-			}
-			
-		</script>
-	</head>
-	<body>
-
-    <div class="navbar navbar-fixed-top">
-              <div class="navbar-inner">
-                <div class="container">
-                  <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                  </a>
-                  <a class="brand" href="#"><img src="../images/logo_bar.png" width="16" height="16" alt="Neon"> Neon</a>
-                  <div class="nav-collapse collapse navbar-collapse">
-                    <ul class="nav">
-                      <li class="active"><a href="#">Home</a></li>
-                      <li><a href="#">Groups</a></li>
-                      <li><a href="#">Mail</a></li>
-                    </ul>
-                    <ul class="nav pull-right">
-                    	<form class="navbar-search">
- 					 		<input type="text" class="search-query" placeholder="Search">
-						</form>
-                        <li class="dropdown">
-                        	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Settings <b class="caret"></b></a>
-                        	<ul class="dropdown-menu">
-                         	 <li><a href="#">Picture</a></li>
-                        	  <li><a href="#">Details</a></li>
-                        	  <li><a href="#">Password</a></li>
-                        	  <li class="divider"></li>
-                        	  <li><a href="#">Log Out</a></li>
-                       		</ul>
-                      	</li>
-                    </ul>
-                  </div><!-- /.nav-collapse -->
-                </div>
-              </div><!-- /navbar-inner -->
-            </div>
 
 	<section id="loginbox" class="container">
 			<svg id="svgloginlogo" height="150" width="150" xmlns:xlink="http://www.w3.org/1999/xlink"  version="1.0"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000">
@@ -156,6 +82,7 @@
 				<button class="btn btn-primary" type="submit">Sign Up</button> or <a href="#" class="switchform">log in?</a>
 			</form>
 		</aside>
+	</section>
 		<footer id="footer" class="content">
 			  Neon is an open-source project. Its <a href="https://github.com/programmingthomas/neon-2013">source is available on GitHub</a>.
 		</footer>
@@ -163,6 +90,5 @@
 		<!--[if lt IE 9]>
 			<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
 		<![endif]-->
->>>>>>> 28ad88231ce8ac2f753d9d6924f80f1a000a71e3
 	</body>
 </html>

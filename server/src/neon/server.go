@@ -3,7 +3,6 @@ package neon
 import (
 	"net/http"
 	"fmt"
-	"io/ioutil"
 	"path"
 	"time"
 	"encoding/json"
@@ -64,10 +63,7 @@ func ViewHandler(w http.ResponseWriter, r *http.Request) {
 			w.Header().Add("Last-Modified", lastModTime.Format(time.RFC1123))
 		}
 		info("API", "Served up " + fullPath + " for " + r.URL.Path)
-		w.Header().Add("Content-Type", ContentTypeForExtension(ext))
-		w.WriteHeader(http.StatusFound)
-		fileContent, _ := ioutil.ReadFile(fullPath)
-		w.Write(fileContent)
+		http.ServeFile(w, r, fullPath)
 	} else {
 		w.WriteHeader(http.StatusNotFound)
 	}

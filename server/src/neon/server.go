@@ -37,9 +37,16 @@ func ContentTypeForExtension(ext string) string {
 
 //Handles all regular non-API requests that require loading a file
 func ViewHandler(w http.ResponseWriter, r *http.Request) {
-	ext := path.Ext(r.URL.Path)[1:]
-	directory, filename := path.Split(r.URL.Path)
-	fullPath := "client" + FolderForType(ext, directory) + filename
+	//Defaults to index.html if the request is empty
+	ext := "html"
+	directory := "html"
+	filename := "index.html"
+	//Request is not empty, navigate to differnt resource
+	if r.URL.Path != "/" {
+		ext = path.Ext(r.URL.Path)[1:]
+		directory, filename = path.Split(r.URL.Path)
+	}
+	fullPath := "../client" + FolderForType(ext, directory) + filename
 	fileExists := FileExists(fullPath)
 	lastModTime := LastMod(fullPath)
 	if fileExists {

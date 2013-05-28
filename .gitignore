@@ -181,6 +181,7 @@ log.txt
 #Executables
 .exe
 main
+neon
 
 *.sublime-project
 *.sublime-workspace

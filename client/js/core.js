@@ -22,12 +22,12 @@ $(window).resize(function()
 
 setBackground = function()
 {
-	var widths = [1024, 1280, 1366, 1440, 1920, 1920];
+	var widths = [1024, 1280, 1366, 1440, 1680, 1920, 3000];
 	var body_width = $("body").width();
 
-	if(body_width > 1920) 
+	if(body_width > 3000) 
 	{ //too big
-		var image_path = "splashes/1920.jpg";
+		var image_path = "splashes/3000.jpg";
 	}
 	else if(body_width < 1024) 
 	{ //too small
@@ -38,9 +38,8 @@ setBackground = function()
 		var image_width = roundUpWidth(widths, body_width)[1] + ".jpg"
 		var image_path = "splashes/" + image_width;
 	}
-
-
-	$('body').css("background", "url('" + image_path + "') 50% no-repeat fixed ");
+   
+	$('body').css("background", "url('" + image_path + "') 50% 50% no-repeat fixed cover"); 
 }
 
 

@@ -35,7 +35,7 @@ type APIPostResponse struct {
 	PostID int
 	HTML string
 	PlainText string
-	GroupID string
+	GroupID int
 	GroupName string
 	Likes int
 	Dislikes int
@@ -237,14 +237,13 @@ func UserDetailPublic(r * http.Request, response * APIResponse) {
 		response.Message = "Found user " + userDetail.Username
 		apiUserResponse := APIUserResponse{}
 		
-		//GroupIDs []int
-		//GroupNames []string
-		//Posts []APIPostResponse
-		
 		apiUserResponse.Username = userDetail.Username
 		apiUserResponse.UserID = userDetail.ID
 		apiUserResponse.Name = userDetail.RealName
 		apiUserResponse.UserImage = userDetail.UserImageURL
+		apiUserResponse.GroupIDs = make([]int, 0)
+		apiUserResponse.GroupNames = make([]string, 0)
+		apiUserResponse.Posts = make([]APIPostResponse, 0)
 		
 		for i := 0; i < len(GroupMembers); i++ {
 			if GroupMembers[i].User == userDetail.ID {
@@ -255,7 +254,13 @@ func UserDetailPublic(r * http.Request, response * APIResponse) {
 		
 		//The user will only have posts if they are actually a member of a group
 		if len(apiUserResponse.GroupIDs) > 0 {
-			
+			for i := 0; i < len(Posts); i++ {
+				if Posts[i].User == userDetail.ID {
+					
+					apiPostResponse := PostResponseForPost(Posts[i])
+					apiUserResponse.Posts = append(apiUserResponse.Posts, apiPostResponse)
+				}
+			}
 		}
 		
 		response.Data = apiUserResponse
@@ -265,4 +270,45 @@ func UserDetailPublic(r * http.Request, response * APIResponse) {
 		response.Message = "Couldn't find user"
 		e("API", "Couldn't find user " + userSearchKey)
 	}
+}
+
+func PostResponseForPost(post Post) APIPostResponse {
+	apiPostResponse := APIPostResponse{}
+	apiPostResponse.PostID = post.ID
+	apiPostResponse.UserID = post.User
+	user := UserForId(post.User)
+	apiPostResponse.UserName = user.Username
+	apiPostResponse.UserFullName = user.RealName
+	apiPostResponse.PlainText = post.Text
+	apiPostResponse.HTML = HTMLForText(post.Text)
+	apiPostResponse.PostTime = post.PostTime
+	apiPostResponse.GroupID = post.Group
+	apiPostResponse.GroupName = GroupNameFromID(post.Group)
+	apiPostResponse.Likes = 0
+	apiPostResponse.Dislikes = 0
+	apiPostResponse.Reposts = make([]int, 0)
+	
+	for i := 0; i < len(Likes); i++ {
+		if Likes[i].Post == post.ID {
+			if Likes[i].Like == 1 {
+				apiPostResponse.Likes++
+			} else if Likes[i].Like == -1 {
+				apiPostResponse.Dislikes++
+			}
+		}
+	}
+	
+	for i := 0; i < len(Reposts); i++ {
+		if Reposts[i].Original == post.ID {
+			apiPostResponse.Reposts = append(apiPostResponse.Reposts, Reposts[i].Repost)
+		}
+	}
+	
+	return apiPostResponse
+}
+
+//This function generates the HTML from the plain text of a post. I plan to allow it
+//to pass Markdown (esp. links) in the future
+func HTMLForText(text string) string {
+	return "<p>" + text + "</p>"
 }

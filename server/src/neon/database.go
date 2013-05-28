@@ -204,3 +204,17 @@ func UserLikesDislikesPost(user, post, level int) {
 	}
 	SaveDatabase(&Likes, "likes")
 }
+
+//Replace with a binary tree search because it will be much faster
+func GroupIndexForId(id int) int {
+	for i := 0; i < len(Groups); i++ {
+		if Groups[i].ID == id {
+			return i
+		}
+	}
+	return -1
+}
+
+func GroupNameFromID(id int) string {
+	return Groups[GroupIndexForId(id)].Name
+}

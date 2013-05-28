@@ -227,17 +227,42 @@ func UserDetailPublic(r * http.Request, response * APIResponse) {
 	}
 	userId, err := strconv.ParseInt(userSearchKey, 0, 0)
 	var userDetail User
-	if err != nil {
+	if err == nil {
 		userDetail = UserForId(int(userId))
 	} else {
 		userDetail = UserForName(userSearchKey)
 	}
-	if userDetail.ID <= 0 {
+	if userDetail.ID > 0 {
 		response.SuccessCode = 200
-		response.Message = "Found user"
+		response.Message = "Found user " + userDetail.Username
+		apiUserResponse := APIUserResponse{}
+		
+		//GroupIDs []int
+		//GroupNames []string
+		//Posts []APIPostResponse
+		
+		apiUserResponse.Username = userDetail.Username
+		apiUserResponse.UserID = userDetail.ID
+		apiUserResponse.Name = userDetail.RealName
+		apiUserResponse.UserImage = userDetail.UserImageURL
+		
+		for i := 0; i < len(GroupMembers); i++ {
+			if GroupMembers[i].User == userDetail.ID {
+				apiUserResponse.GroupIDs = append(apiUserResponse.GroupIDs, GroupMembers[i].Group)
+				apiUserResponse.GroupNames = append(apiUserResponse.GroupNames, GroupNameFromID(GroupMembers[i].Group))
+			}
+		}
+		
+		//The user will only have posts if they are actually a member of a group
+		if len(apiUserResponse.GroupIDs) > 0 {
+			
+		}
+		
+		response.Data = apiUserResponse
+		
 	} else {
 		response.SuccessCode = 404
 		response.Message = "Couldn't find user"
-		info("API", "Couldn't find user " + userSearchKey)
+		e("API", "Couldn't find user " + userSearchKey)
 	}
 }

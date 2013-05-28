@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<title>Dashboard - Neon</title>
-		<link rel="stylesheet" href="css.css" type="text/css" />
+		<link rel="stylesheet" href="site.css" type="text/css" />
         <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<script type="text/javascript" src="jquery-1.8.2.min.js"></script>		
@@ -55,39 +55,40 @@
                       <li><a href="#">Mail</a></li>
                     </ul>
                     <ul class="nav pull-right">
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Settings <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                          <li><a href="#">Picture</a></li>
-                          <li><a href="#">Details</a></li>
-                          <li><a href="#">Password</a></li>
-                          <li class="divider"></li>
-                          <li><a href="#">Log Out</a></li>
-                        </ul>
-                      </li>
+                    	<form class="navbar-search">
+ 					 		<input type="text" class="search-query" placeholder="Search">
+						</form>
+                        <li class="dropdown">
+                        	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Settings <b class="caret"></b></a>
+                        	<ul class="dropdown-menu">
+                         	 <li><a href="#">Picture</a></li>
+                        	  <li><a href="#">Details</a></li>
+                        	  <li><a href="#">Password</a></li>
+                        	  <li class="divider"></li>
+                        	  <li><a href="#">Log Out</a></li>
+                       		</ul>
+                      	</li>
                     </ul>
                   </div><!-- /.nav-collapse -->
                 </div>
               </div><!-- /navbar-inner -->
             </div>
-            
-   <h1>&nbsp;</h1>
-			<p>&nbsp;</p>
-	<section id="loginbox">
-			<svg id="svgloginlogo" height="200" width="200" xmlns:xlink="http://www.w3.org/1999/xlink"  version="1.0"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000">
+
+	<section id="loginbox" class="container">
+			<svg id="svgloginlogo" height="150" width="150" xmlns:xlink="http://www.w3.org/1999/xlink"  version="1.0"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000">
 				<image x="0" y="0" height="1000" width="1000"  xlink:href="images/new_logo_animation_dark.svg"/>
 			</svg>
 			
 		<h1>Welcome to Neon</h1>
 			<h3>The educational blogging network</h3>
-			<form id="login">
+			<form id="loginform">
 				<div id="input_container"><div>Username</div><input type="text" id="login-username" placeholder="Username" required/></div>
 				<div id="input_container"><div>Password</div><input type="password" id="login-password" placeholder="Password" required/></div>
                 <br/>
 				<button class="btn btn-primary" type="submit">Login</button> or <a href="#" class="switchform">sign up?</a>
 			</form>
 		</section>
-		<aside id="signupbox">
+		<aside id="signupbox" class="container">
 			<h1>Sign up to Neon</h1>
 			<h3>It's fast, simple and unregrettable</h3>
 			<form id="signup">

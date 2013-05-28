@@ -56,6 +56,15 @@ type APIUserResponse struct {
 	Posts []APIPostResponse
 }
 
+type APIGroupResponse struct  {
+	GroupID int
+	GroupCreatorID int
+	GroupCreatorName string
+	GroupCreatorUsername string
+	GroupCreatorUserImage string
+	Posts []APIPostResponse
+}
+
 //Examines the API request and delegates work out to the appropriate
 //function before returning the APIResponse object for JSONification
 func APIResponseForRequest(r * http.Request) APIResponse {
@@ -83,6 +92,12 @@ func APIResponseForRequest(r * http.Request) APIResponse {
 	} else if RequestIsAuth(r) {
 		if response.RequestType == "user" {
 			UserDetailPublic(r, &response)
+		} else if response.RequestType == "group" {
+			if response.RequestDetail == "create" {
+				CreateGroup(r, &response)
+			} else if response.RequestDetail == "join" {
+				JoinGroup(r, &response)
+			}
 		}
 	} else {
 		response.Message = "Authorisation is required"
@@ -272,6 +287,9 @@ func UserDetailPublic(r * http.Request, response * APIResponse) {
 	}
 }
 
+//This will get an APIPostResponse based on a Post object, removing unnecessary detail
+//and adding additional detail that reduces the number of future requests client side
+//logic has to request
 func PostResponseForPost(post Post) APIPostResponse {
 	apiPostResponse := APIPostResponse{}
 	apiPostResponse.PostID = post.ID
@@ -311,4 +329,81 @@ func PostResponseForPost(post Post) APIPostResponse {
 //to pass Markdown (esp. links) in the future
 func HTMLForText(text string) string {
 	return "<p>" + text + "</p>"
+}
+
+
+//Create Group
+func CreateGroup(r * http.Request, response * APIResponse) {
+	if r.FormValue("name") != "" && r.FormValue("name") != "create" && r.FormValue("name") != "join" {
+		group := Group{}
+		group.ID = len(Groups) + 1
+		group.Creator = UserForName(r.FormValue("username")).ID
+		group.Name = r.FormValue("name")
+		
+		Groups = append(Groups, group)
+		SaveDatabase(Groups, "groups")
+		
+		addUserToGroup(group.Creator, group.ID, 1)
+		
+		response.Data = getGroupInfo(group.ID)
+	} else {
+		response.SuccessCode = 400
+		response.Message = "Group name required"
+	}
+}
+
+//TODO Check whether user is already a member of the group
+func addUserToGroup(user, group, role int) {
+	groupMember := GroupMember{}
+	groupMember.ID = len(GroupMembers) + 1
+	groupMember.Group = group
+	groupMember.User = user
+	groupMember.Role = role
+	
+	GroupMembers = append(GroupMembers, groupMember)
+	SaveDatabase(GroupMembers, "groupmembers")
+}
+
+//Join group
+func JoinGroup(r * http.Request, response * APIResponse) {
+	if r.FormValue("group") != "" {
+		groupId, err := strconv.ParseInt(r.FormValue("group"), 0, 0)
+		if err == nil {
+			index := GroupIndexForId(int(groupId))
+			if index >= 0 {
+				//Group exists
+				group := Groups[GroupIndexForId(int(groupId))]
+				addUserToGroup(UserForName(r.FormValue("username")).ID, group.ID, 0)
+				response.Data = getGroupInfo(int(groupId))
+			} else {
+				response.SuccessCode = 404
+				response.Message = "Group ID not found"
+			}
+		} else {
+			response.SuccessCode = 400
+			response.Message = "Group ID not valid integer"
+		}
+	} else {
+		response.SuccessCode = 400
+		response.Message = "Group ID required"
+	}
+}
+
+func GroupInfo(r * http.Request, response * APIResponse) {
+	if r.FormValue("group") != "" {
+		groupId, err := strconv.ParseInt(r.FormValue("group"), 0, 0)
+		if err == nil {
+			response.Data = getGroupInfo(int(groupId))
+		} else {
+			response.SuccessCode = 400
+			response.Message = "Group ID not valid integer"
+		}
+	} else {
+		response.SuccessCode = 404
+		response.Message = "Group ID required"
+	}
+}
+
+func getGroupInfo(groupId int) APIGroupResponse {
+	return APIGroupResponse{}
 }

@@ -28,7 +28,6 @@ type Group struct {
 	ID int
 	Name string
 	Creator int
-	GroupColor int
 }
 
 type GroupMember struct {

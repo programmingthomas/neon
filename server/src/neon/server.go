@@ -24,8 +24,8 @@ func FolderForType(ext, directory string) string {
 func ContentTypeForExtension(ext string) string {
 	extensionTypes := map[string] string {
 		"html"	: "text/html",
-		"js"	: "application/javascript",
-		"css"	: "text/css",
+		"js"	: "application/javascript; charset=utf-8",
+		"css"	: "text/css; charset=utf-8",
 		"svg"	: "image/svg+xml",
 	}
 	contentType, exists := extensionTypes[ext]
@@ -63,6 +63,7 @@ func ViewHandler(w http.ResponseWriter, r *http.Request) {
 		if (cache) {
 			w.Header().Add("Last-Modified", lastModTime.Format(time.RFC1123))
 		}
+		info("API", "Served up " + fullPath + " for " + r.URL.Path)
 		w.Header().Add("Content-Type", ContentTypeForExtension(ext))
 		w.WriteHeader(http.StatusFound)
 		fileContent, _ := ioutil.ReadFile(fullPath)

@@ -97,6 +97,8 @@ func APIResponseForRequest(r * http.Request) APIResponse {
 				CreateGroup(r, &response)
 			} else if response.RequestDetail == "join" {
 				JoinGroup(r, &response)
+			} else {
+				GroupInfo(r, &response)
 			}
 		}
 	} else {
@@ -389,10 +391,11 @@ func JoinGroup(r * http.Request, response * APIResponse) {
 }
 
 func GroupInfo(r * http.Request, response * APIResponse) {
-	if r.FormValue("group") != "" {
-		groupId, err := strconv.ParseInt(r.FormValue("group"), 0, 0)
+	if response.RequestDetail != "" {
+		groupId, err := strconv.ParseInt(response.RequestDetail, 0, 0)
 		if err == nil {
 			response.Data = getGroupInfo(int(groupId))
+			response.Message = "Found group"
 		} else {
 			response.SuccessCode = 400
 			response.Message = "Group ID not valid integer"
@@ -404,5 +407,23 @@ func GroupInfo(r * http.Request, response * APIResponse) {
 }
 
 func getGroupInfo(groupId int) APIGroupResponse {
-	return APIGroupResponse{}
+	apiGroupResponse := APIGroupResponse{}
+	group := GroupForId(groupId)
+	apiGroupResponse.GroupID = group.ID
+	apiGroupResponse.GroupCreatorID = group.Creator
+	groupCreatorUser := UserForId(group.Creator)
+	apiGroupResponse.GroupCreatorUsername = groupCreatorUser.Username
+	apiGroupResponse.GroupCreatorName = groupCreatorUser.RealName
+	apiGroupResponse.GroupCreatorUserImage = groupCreatorUser.UserImageURL
+	
+	apiGroupResponse.Posts = make([]APIPostResponse, 0)
+	
+	for i := len(Posts) - 1; i >= 0; i-- {
+		if Posts[i].Group == groupId {
+			apiPostResponse := PostResponseForPost(Posts[i])
+			apiGroupResponse.Posts = append(apiGroupResponse.Posts, apiPostResponse)
+		}
+	}
+	
+	return apiGroupResponse
 }

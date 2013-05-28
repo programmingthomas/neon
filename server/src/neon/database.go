@@ -44,6 +44,7 @@ type Post struct {
 	User int
 	PostTime time.Time
 	Deleted int
+	Group int
 }
 
 type Repost struct {

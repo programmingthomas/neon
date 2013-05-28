@@ -10,6 +10,7 @@ import (
 	"fmt"
 	"bytes"
 	"regexp"
+	"strconv"
 )
 
 //A type that will return the API response which can be JSONified and
@@ -25,9 +26,34 @@ type APIResponse struct {
 type APILoginResponse struct {
 	Username string
 	KeyCode string
-	UserID string
+	UserID int
 	Name string
 	UserImage string
+}
+
+type APIPostResponse struct {
+	PostID int
+	HTML string
+	PlainText string
+	GroupID string
+	GroupName string
+	Likes int
+	Dislikes int
+	Reposts []int
+	UserID int
+	UserName string
+	UserFullName string
+	PostTime time.Time
+}
+
+type APIUserResponse struct {
+	Username string
+	UserID int
+	Name string
+	UserImage string
+	GroupIDs []int
+	GroupNames []string
+	Posts []APIPostResponse
 }
 
 //Examines the API request and delegates work out to the appropriate
@@ -55,7 +81,9 @@ func APIResponseForRequest(r * http.Request) APIResponse {
 	} else if response.RequestType == "register" {
 		Register(r, &response)
 	} else if RequestIsAuth(r) {
-		info("API", "Request is authorised")
+		if response.RequestType == "user" {
+			UserDetailPublic(r, &response)
+		}
 	} else {
 		response.Message = "Authorisation is required"
 		wtf("API", "Authorisation is required")
@@ -85,6 +113,7 @@ func Login(r * http.Request, response * APIResponse) {
 				apiLoginResponse.KeyCode = keyString
 				apiLoginResponse.UserImage = user.UserImageURL
 				apiLoginResponse.Name = user.RealName
+				apiLoginResponse.UserID = user.ID
 				
 				response.Data = apiLoginResponse
 				
@@ -120,7 +149,7 @@ func Register(r * http.Request, response * APIResponse) {
 					user.Username = username
 					user.HashedPassword = hashString(password)
 					user.UserImageURL = "userImages/default.png"
-					user.ID = len(Users)
+					user.ID = len(Users) + 1
 					user.RealName = realName
 					Users = append(Users, user)
 					SaveDatabase(Users, "users")
@@ -189,4 +218,26 @@ func randomKey() string {
 		buffer.Write([]byte{possibles[rand.Intn(len(possibles))]})
 	}
 	return buffer.String()
+}
+
+func UserDetailPublic(r * http.Request, response * APIResponse) {
+	userSearchKey := response.RequestDetail
+	if userSearchKey == "" {
+		userSearchKey = r.FormValue("username")
+	}
+	userId, err := strconv.ParseInt(userSearchKey, 0, 0)
+	var userDetail User
+	if err != nil {
+		userDetail = UserForId(int(userId))
+	} else {
+		userDetail = UserForName(userSearchKey)
+	}
+	if userDetail.ID <= 0 {
+		response.SuccessCode = 200
+		response.Message = "Found user"
+	} else {
+		response.SuccessCode = 404
+		response.Message = "Couldn't find user"
+		info("API", "Couldn't find user " + userSearchKey)
+	}
 }

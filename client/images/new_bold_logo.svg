@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="1000px" height="1000px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve">
+<g id="nuc">
+	<title>Nucleus</title>
+	<g id="nuc_outer">
+		<title>Nucleus Outer Ring</title>
+		<circle id="nuc_2_1" stroke="#000000" stroke-width="5" cx="500" cy="430" r="25"/>
+		<circle id="nuc_2_2" stroke="#000000" stroke-width="5" cx="537.845" cy="441.112" r="25"/>
+		<circle id="nuc_2_3" stroke="#000000" stroke-width="5" cx="563.674" cy="470.92" r="25"/>
+		<circle id="nuc_2_4" stroke="#000000" stroke-width="5" cx="569.288" cy="509.961" r="25"/>
+		<circle id="nuc_2_5" stroke="#000000" stroke-width="5" cx="552.903" cy="545.839" r="25"/>
+		<circle id="nuc_2_6" stroke="#000000" stroke-width="5" cx="519.723" cy="567.164" r="25"/>
+		<circle id="nuc_2_7" stroke="#000000" stroke-width="5" cx="480.281" cy="567.165" r="25"/>
+		<circle id="nuc_2_8" stroke="#000000" stroke-width="5" cx="447.01" cy="545.842" r="25"/>
+		<circle id="nuc_2_9" stroke="#000000" stroke-width="5" cx="430.713" cy="509.965" r="25"/>
+		<circle id="nuc_2_10" stroke="#000000" stroke-width="5" cx="436.325" cy="470.924" r="25"/>
+		<circle id="nuc_2_11" stroke="#000000" stroke-width="5" cx="462.152" cy="441.114" r="25"/>
+	</g>
+	<g id="nuc_inner">
+		<title>Nucleus Inner Ring</title>
+		<circle id="nuc_1_1" stroke="#000000" stroke-width="5" cx="500" cy="450" r="25"/>
+		<circle id="nuc_1_2" stroke="#000000" stroke-width="5" cx="535.355" cy="464.645" r="25"/>
+		<circle id="nuc_1_3" stroke="#000000" stroke-width="5" cx="550" cy="500" r="25"/>
+		<circle id="nuc_1_4" stroke="#000000" stroke-width="5" cx="535.355" cy="535.354" r="25"/>
+		<circle id="nuc_1_5" stroke="#000000" stroke-width="5" cx="500" cy="550" r="25"/>
+		<circle id="nuc_1_6" stroke="#000000" stroke-width="5" cx="464.645" cy="535.354" r="25"/>
+		<circle id="nuc_1_7" stroke="#000000" stroke-width="5" cx="450" cy="500" r="25"/>
+		<circle id="nuc_1_8" stroke="#000000" stroke-width="5" cx="464.645" cy="464.645" r="25"/>
+	</g>
+	<g id="nuc_middle">
+		<title>Nucleus middle blob</title>
+		<circle id="nuc_mid" stroke="#000000" stroke-width="5" cx="500" cy="500" r="25"/>
+	</g>
+</g>
+<title>Electrons</title>
+<g id="rings">
+	<title>Rings</title>
+	
+		<ellipse id="ring_ne" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -207.1068 500)" fill="none" stroke="#000000" stroke-width="48" cx="500" cy="500" rx="570" ry="150.001"/>
+	
+		<ellipse id="ring_nw" transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 500 1207.1067)" fill="none" stroke="#000000" stroke-width="48" cx="500" cy="500" rx="570" ry="150"/>
+</g>
+<g id="elec_ne">
+	<title>Electron Ring 1 (NE)</title>
+	<circle id="elec_ne_1" stroke="#000000" stroke-width="40" cx="666" cy="172" r="25"/>
+	<circle id="elec_ne_2" stroke="#000000" stroke-width="40" cx="268" cy="872" r="25"/>
+</g>
+<g id="elec_nw">
+	<title>Electron Ring 2 (NW)</title>
+	<circle id="elec_nw_1" stroke="#000000" stroke-width="40" cx="306" cy="150" r="25"/>
+	<circle id="elec_nw_2" stroke="#000000" stroke-width="40" cx="542" cy="332" r="25"/>
+	<circle id="elec_nw_3" stroke="#000000" stroke-width="40" cx="750" cy="552" r="25"/>
+	<circle id="elec_nw_4" stroke="#000000" stroke-width="40" cx="916" cy="848" r="25"/>
+	<circle id="elec_nw_5" stroke="#000000" stroke-width="40" cx="580" cy="772" r="25"/>
+	<circle id="elec_nw_6" stroke="#000000" stroke-width="40" cx="368" cy="584" r="25"/>
+	<circle id="elec_nw_7" stroke="#000000" stroke-width="40" cx="192" cy="368" r="25"/>
+	<circle id="elec_nw_8" stroke="#000000" stroke-width="40" cx="86" cy="138" r="25"/>
+</g>
+</svg>

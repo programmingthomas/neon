@@ -1,6 +1,6 @@
 #Neon-2013
 
-![Screenshot of login screen](https://raw.github.com/TDimaline/neon/master/screenshots/login.png "Screenshot of login screen")
+![Screenshot of login screen](https://raw.github.com/programmingthomas/neon-2013/master/screenshots/login.png "Screenshot of login screen")
 
 Neon-2013 is a fork of [Neon](http://github.com/TDimaline/neon) that runs off of Go instead of Node.js. The aim is to create a simple educational micro blogging virtual learning environment (EMBVLE) that is a mix of Twitter, Tumblr, Google+'s circles and Moodle.
 

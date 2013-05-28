@@ -592,7 +592,7 @@ a.text-error:focus {
 }
 a.text-info:hover,
 a.text-info:focus {
-  color: #2d6987;
+  color: #e80000;
 }
 .text-success {
   color: #468847;
@@ -1299,14 +1299,14 @@ input[type="search"]:focus,
 input[type="tel"]:focus,
 input[type="color"]:focus,
 .uneditable-input:focus {
-  border-color: rgba(82, 168, 236, 0.8);
+  border-color: rgba(232, 0, 0, 0.8);
   outline: 0;
   outline: thin dotted \9;
   /* IE6-9 */
 
-  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6);
-  -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6);
-  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6);
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(232, 0, 0,.6);
+  -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(232, 0, 0,.6);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(232,0,0,.6);
 }
 input[type="radio"],
 input[type="checkbox"] {
@@ -1679,7 +1679,7 @@ input[type="checkbox"][readonly] {
 .control-group.info input:focus,
 .control-group.info select:focus,
 .control-group.info textarea:focus {
-  border-color: #2d6987;
+  border-color: #e80000;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #7ab5d3;
   -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #7ab5d3;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #7ab5d3;

@@ -48,8 +48,8 @@ func ViewHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	fullPath := "../client" + FolderForType(ext, directory) + filename
 	fileExists := FileExists(fullPath)
-	lastModTime := LastMod(fullPath)
 	if fileExists {
+		lastModTime := LastMod(fullPath)
 		//This checks whether or not the Header was submitted with If-Modified-Since, which reduces server IO
 		if r.Header["If-Modified-Since"] != nil && cache {
 			//RFC1123 is the standard date format used with HTTP

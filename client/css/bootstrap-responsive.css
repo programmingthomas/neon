@@ -1093,7 +1093,7 @@
     overflow: hidden;
   }
   .navbar .btn-navbar {
-    display: block;
+    display: fixed;
   }
   .navbar-static .navbar-inner {
     padding-right: 10px;
@@ -1105,5 +1105,14 @@
   .nav-collapse.collapse {
     height: auto !important;
     overflow: visible !important;
+  }
+}
+
+@media (max-width: 979px) {
+  .navbar-fixed-top,
+  .navbar-fixed-bottom { 
+      position: fixed;
+      margin-left: 0px;
+      margin-right: 0px;
   }
 }

@@ -272,7 +272,7 @@ function updateDashboard()
 			var html = "<section class=\"post row\" id=\"post" + post.PostID + "\">" +
 			"<div class=\"span1\"><img src=\"" + post.UserImage + "\" /></div>" +
 			"<div class=\"span7\">" +
-			"<h4 style=\"margin:0;padding:0;\">" + post.UserFullName + "<span style=\"color:grey\"> &#9658 </span>" + post.GroupName + "</h4>" + post.HTML + 
+			"<h4 style=\"margin:0;padding:0;\">" + post.UserFullName + "<span style=\"color:grey\"> &#9658 " + post.GroupName + "</span></h4>" + post.HTML + 
 			"<p style=\"font-size:smaller;color:#777;\">" + post.PostTime + " &#8226 <a href=\"#\">" + post.Likes + " Likes</a> &#8226 " + 
 			"<a href=\"#\">" + post.Dislikes + " dislikes</a></p></div></section>";
 			dashPosts.innerHTML += html;

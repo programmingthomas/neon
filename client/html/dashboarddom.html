@@ -53,6 +53,7 @@
 <script>
 $("#postform").submit(function(){
 	nc_post(localStorage.username, localStorage.passkey, $("#postgroup").val(), $("#postentry").val());
+	$("#postentry").val("");
 	return false;
 });
 </script>

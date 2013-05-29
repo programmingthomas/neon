@@ -1,18 +1,32 @@
-<div class="hero-unit">
-	<h1>Groups</h1>
-	<p>The following shows a list of all the groups that you are a member of. Groups could be anything from your science class to the school football team.</p>
-	<a class="btn btn-primary btn-large" onclick="showCreateGroupForm()">Create a group</a>
-	<form id="creategroupform">
-		<br>
-			<input type="text" id="groupformname" placeholder="Group name" required />    <button class="btn btn-primary" type="submit">Create group</button>
-		<br/>
-		<p id="creategrouperror"></p>
-	</form>
+<div class="container-fluid">
+	<div class="row-fluid">
+      <div class="span8">
+          <div class="hero-unit">
+              <h1>Groups</h1>
+              <br/>
+              <p>The following shows a list of all the groups that you are a member of. Groups could be anything from your science class to the school football team.</p>
+              <a class="btn btn-primary btn-large" onclick="showCreateGroupForm()">Create a group</a>
+              <br/> <br/>
+              <form id="creategroupform">
+              <div class="whitecontainer">
+                  <input type="text" id="groupformname" placeholder="Group name" required />    <button class="btn btn-primary" type="submit">Create group</button>
+                  <br/>
+                  <p id="creategrouperror"></p>
+              </div>
+          </form>
+        </div>
+    </div>
+    <div class="span4">
+      <div class="whitecontainer">
+        <h1>My Groups</h1>
+        <br/>
+        <div  id="grouplist">
+            List of all groups...
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-<div class="whitecontainer" id="grouplist">
-	List of all groups...
-</div>
-
 <script>
 function showCreateGroupForm()
 {

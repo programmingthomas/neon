@@ -154,6 +154,10 @@ footer {
 	}
 }
 
+select {
+	outline: none !important;
+}
+
 input[type="search"] {
 	background-image: url(images/search.png);
 	background-repeat: no-repeat;

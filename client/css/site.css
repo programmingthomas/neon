@@ -138,6 +138,29 @@ footer {
 	box-shadow: rgba(0,0,0,0.5) 0px 0px 10px;
 }
 
+input[type="search"] {
+	background-image: url(images/search.png);
+	background-repeat: no-repeat;
+	background-position: 8px 5px;
+	padding-left:33px !important;
+}
+
+input[type="search"]::-webkit-input-placeholder {
+ 	font-size: 15px;
+}
+
+input[type="search"]:-moz-placeholder {
+ 	font-size: 15px;
+}
+
+input[type="search"]::-moz-placeholder {
+ 	font-size: 15px; 
+}
+
+input[type="search"]:-ms-input-placeholder {  
+ 	font-size: 15px;
+}
+
 /* Large desktop */
 @media (min-width: 1200px) {
 	  .groupsHeader {

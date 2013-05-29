@@ -273,6 +273,7 @@ function changeToDashboard()
 				"<p style=\"font-size:smaller;color:#777;\">" + post.PostTime + " &#8226 <a href=\"#\">" + post.Likes + " Likes</a> &#8226 " + 
 				"<a href=\"#\">" + post.Dislikes + " dislikes</a></p></div></section>";
 				dashPosts.innerHTML += html;
+				if (i != data.Data.Posts.length - 1) dashPosts.innerHTML += "<hr />";
 			}
 		});
 	}, "html");

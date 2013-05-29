@@ -22,23 +22,26 @@ $(document).ready(function() {
 	if (!loaded) {
 		setBackground();
 		loaded = true;
-		
+		console.log(window.location.hash);
 		if (localStorage.username != undefined && localStorage.passkey != undefined && localStorage.username != null && localStorage.passkey != null && localStorage.username != "null" && localStorage.passkey != "null") {
-			changeToDashboard();
+			if (window.location.hash == "" || window.location.hash == "#home")
+				changeToDashboard();
+			else if (window.location.hash == "#groups")
+				showGroups();
 		} else {
 			$.get("welcomedom.html", {}, function(data, status, xhr) {
 				$("#pagecontent").html(data);
 			}, "html");
 		}
 		
-		if ("-ms-user-select" in document.documentElement.style && navigator.userAgent.match(/IEMobile\/10\.0/)) {
-		var msViewportStyle = document.createElement("style");
-		msViewportStyle.appendChild(
-			document.createTextNode("@-ms-viewport{width:auto!important}")
-		);
-		document.getElementsByTagName("head")[0].appendChild(msViewportStyle);
-	}
-		
+		if ("-ms-user-select" in document.documentElement.style && navigator.userAgent.match(/IEMobile\/10\.0/))
+		{
+			var msViewportStyle = document.createElement("style");
+			msViewportStyle.appendChild(
+				document.createTextNode("@-ms-viewport{width:auto!important}")
+			);
+			document.getElementsByTagName("head")[0].appendChild(msViewportStyle);	
+		}
 	}
 });
 
@@ -272,6 +275,7 @@ function updateDashboard()
 {
 	$.getJSON("/api/dashboard", {username:localStorage.username, key:localStorage.passkey}, function (data, status, xhr)
 	{
+		document.title = "Dashboard - Neon";
 		$("#dashrealname").text(data.Data.User.Name);
 		$("#dashusername").text("@" + data.Data.User.Username);
 		document.getElementById("dashuserimage").src = data.Data.User.UserImage;
@@ -294,8 +298,9 @@ function updateDashboard()
 		groupEntry.innerHTML = ""
 		for (var i = 0; i < data.Data.User.GroupIDs.length; i++) {
 			groupEntry.innerHTML += "<option value=\"" + data.Data.User.GroupIDs[i] + "\">" + data.Data.User.GroupNames[i] + "</option>";
-			console.log(data.Data.User.GroupNames[i]);
 		}
+		
+		changeMenuHighlight("home");
 	});
 }
 
@@ -305,5 +310,38 @@ function logout()
 	localStorage.username = null;
 	$.get("welcomedom.html", {}, function(data, status, xhr){
 		$("#pagecontent").html(data);
+		changeMenuHighlight("home");
+		document.title = "Neon";
 	}, "html");
+}
+
+function changeMenuHighlight(newpage) {
+	$("#homelink").removeClass("active");
+	$("#groupslink").removeClass("active");
+	$("#maillink").removeClass("active");
+	$("#" + newpage + "link").addClass("active");
+}
+
+function showGroups() {
+	$.get("groupsdom.html", {}, function(data, status, xhr){
+		document.title = "Groups - Neon";
+		$("#pagecontent").html(data);
+		$.getJSON("/api/group/mine", {username:localStorage.username, key:localStorage.passkey}, function(data, status, xhr){
+			var html = "<ul>"
+			for (var i = 0; i < data.Data.length; i++)
+			{
+				html += "<li><a href=\"#group-" + data.Data[i].GroupID + "\">" + data.Data[i].GroupName + "</a> <span class=\"label " + (data.Data[i].MyRole == 1 ? "label-success" : "") + "\">" + (data.Data[i].MyRole == 1 ? "Staff" : "Member") + "</span></li>";
+			}
+			html += "</ul>"
+			$("#grouplist").html(html);
+		});
+		changeMenuHighlight("groups");
+	}, "html");
+}
+
+function nc_creategroup(n)
+{
+	$.postJSON("/api/group/create", {username:localStorage.username, key:localStorage.passkey, name:n}, function(data, status, xhr) {
+		showGroups();
+	});
 }

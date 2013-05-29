@@ -1,0 +1,26 @@
+<div class="hero-unit">
+	<h1>Groups</h1>
+	<p>The following shows a list of all the groups that you are a member of. Groups could be anything from your science class to the school football team.</p>
+	<a class="btn btn-primary btn-large" onclick="showCreateGroupForm()">Create a group</a>
+	<form id="creategroupform">
+		<br>
+			<input type="text" id="groupformname" placeholder="Group name" required />    <button class="btn btn-primary" type="submit">Create group</button>
+		<br/>
+		<p id="creategrouperror"></p>
+	</form>
+</div>
+<div class="whitecontainer" id="grouplist">
+	List of all groups...
+</div>
+
+<script>
+function showCreateGroupForm()
+{
+	$("#creategroupform").slideToggle();
+}
+
+$("#creategroupform").submit(function(){
+	nc_creategroup($("#groupformname").val());
+	return false;
+});
+</script>

@@ -60,10 +60,12 @@ type APIUserResponse struct {
 
 type APIGroupResponse struct  {
 	GroupID int
+	GroupName string
 	GroupCreatorID int
 	GroupCreatorName string
 	GroupCreatorUsername string
 	GroupCreatorUserImage string
+	MyRole int
 	Posts []APIPostResponse
 }
 
@@ -104,6 +106,8 @@ func APIResponseForRequest(r * http.Request) APIResponse {
 				CreateGroup(r, &response)
 			} else if response.RequestDetail == "join" {
 				JoinGroup(r, &response)
+			} else if response.RequestDetail == "mine" {
+				MyGroups(r, &response)
 			} else {
 				GroupInfo(r, &response)
 			}
@@ -359,7 +363,7 @@ func CreateGroup(r * http.Request, response * APIResponse) {
 		
 		addUserToGroup(group.Creator, group.ID, 1)
 		
-		response.Data = getGroupInfo(group.ID)
+		response.Data = getGroupInfo(group.ID, 0)
 	} else {
 		response.SuccessCode = 400
 		response.Message = "Group name required"
@@ -386,7 +390,7 @@ func JoinGroup(r * http.Request, response * APIResponse) {
 				//Group exists
 				group := Groups[GroupIndexForId(int(groupId))]
 				addUserToGroup(UserForName(r.FormValue("username")).ID, group.ID, 0)
-				response.Data = getGroupInfo(int(groupId))
+				response.Data = getGroupInfo(int(groupId), 100)
 			} else {
 				response.SuccessCode = 404
 				response.Message = "Group ID not found"
@@ -405,7 +409,7 @@ func GroupInfo(r * http.Request, response * APIResponse) {
 	if response.RequestDetail != "" {
 		groupId, err := strconv.ParseInt(response.RequestDetail, 0, 0)
 		if err == nil {
-			response.Data = getGroupInfo(int(groupId))
+			response.Data = getGroupInfo(int(groupId), 100)
 			response.Message = "Found group"
 		} else {
 			response.SuccessCode = 400
@@ -417,10 +421,11 @@ func GroupInfo(r * http.Request, response * APIResponse) {
 	}
 }
 
-func getGroupInfo(groupId int) APIGroupResponse {
+func getGroupInfo(groupId, maxPosts int) APIGroupResponse {
 	apiGroupResponse := APIGroupResponse{}
 	group := GroupForId(groupId)
 	apiGroupResponse.GroupID = group.ID
+	apiGroupResponse.GroupName = group.Name
 	apiGroupResponse.GroupCreatorID = group.Creator
 	groupCreatorUser := UserForId(group.Creator)
 	apiGroupResponse.GroupCreatorUsername = groupCreatorUser.Username
@@ -429,7 +434,7 @@ func getGroupInfo(groupId int) APIGroupResponse {
 	
 	apiGroupResponse.Posts = make([]APIPostResponse, 0)
 	
-	for i := len(Posts) - 1; i >= 0; i-- {
+	for i := len(Posts) - 1; i >= 0 && len(apiGroupResponse.Posts) < maxPosts; i-- {
 		if Posts[i].Group == groupId {
 			apiPostResponse := PostResponseForPost(Posts[i])
 			apiGroupResponse.Posts = append(apiGroupResponse.Posts, apiPostResponse)
@@ -563,4 +568,18 @@ func GetTimeDescription(datetime time.Time) string {
 		s = "s"
 	}
 	return fmt.Sprintf("%d day%s ago", daysAgo, s)
+}
+
+func MyGroups(r * http.Request, response * APIResponse) {
+	user := UserForName(r.FormValue("username"))
+	var groups []APIGroupResponse = make([]APIGroupResponse, 0)
+	for i := 0; i < len(GroupMembers); i++ {
+		if GroupMembers[i].User == user.ID {
+			groupInfo := getGroupInfo(GroupMembers[i].Group, 0)
+			groupInfo.MyRole = GroupMembers[i].Role
+			groups = append(groups, groupInfo)
+		}
+	}
+	response.Data = groups
+	response.Message = "Found all groups user is member of"
 }

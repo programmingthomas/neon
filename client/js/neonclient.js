@@ -22,8 +22,7 @@ $(document).ready(function() {
 		setBackground();
 		loaded = true;
 		
-		if (localStorage.username != undefined && localStorage.passkey != undefined) {
-			console.log("Hast un username");
+		if (localStorage.username != undefined && localStorage.passkey != undefined && localStorage.username != null && localStorage.passkey != null && localStorage.username != "null" && localStorage.passkey != "null") {
 			$.get("dashboarddom.html", {}, function(data, status, xhr){
 				$("#pagecontent").html(data);
 			}, "html")
@@ -255,5 +254,9 @@ function nc_inboxDelete(u, k, r, c)
 
 function changeToDashboard()
 {
-	$("#welcomebox").fadeOut()
+	$("#welcomebox").fadeOut(500, function() {
+		$.get("dashboarddom.html", {}, function(data, status, xhr){
+			$("#pagecontent").html(data);
+		}, "html")
+	})
 }

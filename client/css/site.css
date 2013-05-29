@@ -114,6 +114,7 @@ footer {
 	display:none;
 }
 
+<<<<<<< HEAD
 #groupListContent ul
 {
 	list-style:none;
@@ -139,4 +140,10 @@ footer {
 #groupListContent a
 {
 	color:black;
+}
+
+.hero-unit{
+	padding:40px !important;
+	border-radius: 5px;
+	box-shadow: rgba(0,0,0,0.5) 0px 0px 10px;
 }

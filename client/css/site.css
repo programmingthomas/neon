@@ -94,22 +94,6 @@ footer {
 	padding-bottom:0px;
 }
 
-@media (max-width:767px) { 
-	.profileContainer {
-		display:none;
-	}
-	
-	.postContainer {
-		padding-bottom:20px !important;
-	}
-}
-
-@media (max-width:979px) { 
-	#pagecontent {
-		margin-top:80px;
-	}
-}
-
 #creategroupform
 {
 	display:none;
@@ -148,8 +132,76 @@ footer {
 	color:black;
 }
 
-.hero-unit{
+.groupsHeader{
 	padding:40px !important;
 	border-radius: 5px;
 	box-shadow: rgba(0,0,0,0.5) 0px 0px 10px;
 }
+
+/* Large desktop */
+@media (min-width: 1200px) {
+	  .groupsHeader {
+		  position:fixed;
+		  max-width:567px;
+	  }
+}
+
+/*Normal desktop */
+@media (min-width: 980px) and (max-width: 1199px) {
+	.groupsHeader{
+		position:fixed;
+		max-width:427px !important;	
+	}
+}
+
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 979px) {
+	.groupsHeader{
+		position:fixed;
+		max-width:311px !important;	
+	}
+	
+	#pagecontent {
+		margin-top:80px;
+	}
+}
+ 
+/* Landscape phone to portrait tablet */
+@media (max-width: 768px) {
+	.profileContainer {
+		display:none;
+	}
+	
+	.postContainer {
+		padding-bottom:20px !important;
+	}
+	
+	#pagecontent {
+		margin-top:80px;
+	}
+	
+	.groupsHeader{
+		position:relative;
+	}
+}
+ 
+/* Landscape phones and down */
+@media (max-width: 480px) {
+	.profileContainer {
+		display:none;
+	}
+	
+	.postContainer {
+		padding-bottom:20px !important;
+		margin-top:80px;
+	}
+	
+	#pagecontent {
+		margin-top:80px;
+	}
+	
+	.groupsHeader{
+		position:relative;
+	}
+}
+

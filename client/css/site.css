@@ -90,6 +90,10 @@ footer {
 	position:fixed;
 }
 
+.profileContainer .span2 {
+	margin-top: 15px;
+}
+
 .postContainer {
 	padding-bottom:0px;
 }
@@ -136,6 +140,18 @@ footer {
 	padding:40px !important;
 	border-radius: 5px;
 	box-shadow: rgba(0,0,0,0.5) 0px 0px 10px;
+}
+
+#dashposts #postUserImage {
+	max-width: 50px;
+	max-height: 50px;
+	padding-left:20px;
+}
+
+@media screen and (max-width: 979px) {
+	#postUserImage {
+		padding-left:0 !important;
+	}
 }
 
 input[type="search"] {

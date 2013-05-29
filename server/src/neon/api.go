@@ -65,6 +65,11 @@ type APIGroupResponse struct  {
 	Posts []APIPostResponse
 }
 
+type APIDashboardResponse struct {
+	User APIUserResponse
+	Posts []APIPostResponse
+}
+
 //Examines the API request and delegates work out to the appropriate
 //function before returning the APIResponse object for JSONification
 func APIResponseForRequest(r * http.Request) APIResponse {
@@ -100,6 +105,10 @@ func APIResponseForRequest(r * http.Request) APIResponse {
 			} else {
 				GroupInfo(r, &response)
 			}
+		} else if response.RequestType == "dashboard" {
+			Dashboard(r, &response)
+		} else if response.RequestType == "post" {
+			PostToGroup(r, &response)
 		}
 	} else {
 		response.Message = "Authorisation is required"
@@ -120,8 +129,7 @@ func Login(r * http.Request, response * APIResponse) {
 				keyEndTime := dateNow.AddDate(0, 1, 0) //New date one month away
 				keyString := randomKey()
 				key := Key{keyString, user.ID, dateNow, keyEndTime}
-				Keys = append(Keys, key)
-				SaveDatabase(Keys, "keys")
+				AddKey(&key)
 				
 				response.Message = "User successfully logged in"
 				
@@ -166,11 +174,8 @@ func Register(r * http.Request, response * APIResponse) {
 					user.Username = username
 					user.HashedPassword = hashString(password)
 					user.UserImageURL = "userImages/default.png"
-					user.ID = len(Users) + 1
 					user.RealName = realName
-					Users = append(Users, user)
-					SaveDatabase(Users, "users")
-				
+					AddUser(&user)
 					info("API", "Successfully signed up user " + username)
 				
 					//Log the user in
@@ -252,40 +257,44 @@ func UserDetailPublic(r * http.Request, response * APIResponse) {
 	if userDetail.ID > 0 {
 		response.SuccessCode = 200
 		response.Message = "Found user " + userDetail.Username
-		apiUserResponse := APIUserResponse{}
-		
-		apiUserResponse.Username = userDetail.Username
-		apiUserResponse.UserID = userDetail.ID
-		apiUserResponse.Name = userDetail.RealName
-		apiUserResponse.UserImage = userDetail.UserImageURL
-		apiUserResponse.GroupIDs = make([]int, 0)
-		apiUserResponse.GroupNames = make([]string, 0)
-		apiUserResponse.Posts = make([]APIPostResponse, 0)
-		
-		for i := 0; i < len(GroupMembers); i++ {
-			if GroupMembers[i].User == userDetail.ID {
-				apiUserResponse.GroupIDs = append(apiUserResponse.GroupIDs, GroupMembers[i].Group)
-				apiUserResponse.GroupNames = append(apiUserResponse.GroupNames, GroupNameFromID(GroupMembers[i].Group))
-			}
-		}
-		
-		//The user will only have posts if they are actually a member of a group
-		if len(apiUserResponse.GroupIDs) > 0 {
-			for i := len(Posts) - 1; i >= 0; i-- {
-				if Posts[i].User == userDetail.ID {
-					apiPostResponse := PostResponseForPost(Posts[i])
-					apiUserResponse.Posts = append(apiUserResponse.Posts, apiPostResponse)
-				}
-			}
-		}
-		
-		response.Data = apiUserResponse
+		response.Data = apiUserResponseForUser(userDetail, true)
 		
 	} else {
 		response.SuccessCode = 404
 		response.Message = "Couldn't find user"
 		e("API", "Couldn't find user " + userSearchKey)
 	}
+}
+
+func apiUserResponseForUser(userDetail User, posts bool) APIUserResponse {
+	apiUserResponse := APIUserResponse{}
+	
+	apiUserResponse.Username = userDetail.Username
+	apiUserResponse.UserID = userDetail.ID
+	apiUserResponse.Name = userDetail.RealName
+	apiUserResponse.UserImage = userDetail.UserImageURL
+	apiUserResponse.GroupIDs = make([]int, 0)
+	apiUserResponse.GroupNames = make([]string, 0)
+	apiUserResponse.Posts = make([]APIPostResponse, 0)
+	
+	for i := 0; i < len(GroupMembers); i++ {
+		if GroupMembers[i].User == userDetail.ID {
+			apiUserResponse.GroupIDs = append(apiUserResponse.GroupIDs, GroupMembers[i].Group)
+			apiUserResponse.GroupNames = append(apiUserResponse.GroupNames, GroupNameFromID(GroupMembers[i].Group))
+		}
+	}
+	
+	//The user will only have posts if they are actually a member of a group
+	if len(apiUserResponse.GroupIDs) > 0 && posts {
+		for i := len(Posts) - 1; i >= 0; i-- {
+			if Posts[i].User == userDetail.ID {
+				apiPostResponse := PostResponseForPost(Posts[i])
+				apiUserResponse.Posts = append(apiUserResponse.Posts, apiPostResponse)
+			}
+		}
+	}
+	
+	return apiUserResponse
 }
 
 //This will get an APIPostResponse based on a Post object, removing unnecessary detail
@@ -337,12 +346,10 @@ func HTMLForText(text string) string {
 func CreateGroup(r * http.Request, response * APIResponse) {
 	if r.FormValue("name") != "" && r.FormValue("name") != "create" && r.FormValue("name") != "join" {
 		group := Group{}
-		group.ID = len(Groups) + 1
 		group.Creator = UserForName(r.FormValue("username")).ID
 		group.Name = r.FormValue("name")
 		
-		Groups = append(Groups, group)
-		SaveDatabase(Groups, "groups")
+		AddGroup(&group)
 		
 		addUserToGroup(group.Creator, group.ID, 1)
 		
@@ -356,13 +363,11 @@ func CreateGroup(r * http.Request, response * APIResponse) {
 //TODO Check whether user is already a member of the group
 func addUserToGroup(user, group, role int) {
 	groupMember := GroupMember{}
-	groupMember.ID = len(GroupMembers) + 1
 	groupMember.Group = group
 	groupMember.User = user
 	groupMember.Role = role
 	
-	GroupMembers = append(GroupMembers, groupMember)
-	SaveDatabase(GroupMembers, "groupmembers")
+	AddGroupMember(&groupMember)
 }
 
 //Join group
@@ -426,4 +431,102 @@ func getGroupInfo(groupId int) APIGroupResponse {
 	}
 	
 	return apiGroupResponse
+}
+
+func Dashboard(r * http.Request, response * APIResponse) {
+	dashboard := APIDashboardResponse{}
+	dashboard.User = apiUserResponseForUser(UserForName(r.FormValue("username")), false)
+	dashboard.Posts = make([]APIPostResponse, 0)
+	
+	total := 0
+	limit := 100
+	offset := 0
+	
+	if r.FormValue("offset") != "" {
+		off, err := strconv.ParseInt(r.FormValue("offset"), 0, 0)
+		if err == nil {
+			offset = int(off)
+		}
+	}
+	
+	//Do a backwards search
+	for i := len(Posts) - 1; i >= 0; i-- {
+		if Posts[i].User == dashboard.User.UserID || in(Posts[i].Group, dashboard.User.GroupIDs) {
+			total++
+				if total - offset <= limit && total - offset > 0 {
+					dashboard.Posts = append(dashboard.Posts, PostResponseForPost(Posts[i]))
+				} else if total - offset > limit {
+					break
+				}
+			
+		}
+	}
+	
+	response.Message = "Fetched Dashboard for User " + r.FormValue("username")
+	response.SuccessCode = 200
+	response.Data = dashboard
+}
+
+func PostToGroup(r * http.Request, response * APIResponse) {
+	if r.FormValue("content") != "" && r.FormValue("group") != "" {
+		postContent := r.FormValue("content")
+		groupIdInt64, err := strconv.ParseInt(r.FormValue("group"), 0, 0)
+		userDetail := UserForName(r.FormValue("username"))
+		if len(postContent) > 0 && len(postContent) < 1000 && err == nil {
+			groupId := int(groupIdInt64)
+			//This function will also confirm whether or not the group exists
+			if UserIsMemberOfGroup(userDetail.ID, groupId) {
+				post := Post{}
+				post.Text = postContent
+				post.User = userDetail.ID
+				post.Group = groupId
+				post.PostTime = time.Now()
+				AddPost(&post)
+				response.Data = PostResponseForPost(post)
+				response.SuccessCode = 200
+				response.Message = "Successfully created post"
+			} else {
+				response.Message = "User is not a member of this group"
+				response.SuccessCode = 400
+			}
+		} else {
+			response.Message = "Group ID not valid or post not within correct length"
+			response.SuccessCode = 400
+		}
+	} else {
+		response.Message = "No content for post / group ID"
+		response.SuccessCode = 400
+	}
+}
+
+//Confirm whether or not a user is a member of a group
+func UserIsMemberOfGroup(user, group int) bool {
+	if !GroupExists(group) {
+		return false
+	}
+	for i := 0; i < len(GroupMembers); i++ {
+		if GroupMembers[i].User == user && GroupMembers[i].Group == group {
+			return true
+		}
+	}
+	return false
+}
+
+//Confirm whether or not a group exists
+func GroupExists(group int) bool {
+	for i := 0; i < len(Groups); i++ {
+		if Groups[i].ID == group {
+			return true
+		}
+	}
+	return false
+}
+
+func in(value int, list []int) bool {
+	for i := 0; i < len(list); i++ {
+		if list[i] == value {
+			return true
+		}
+	}
+	return false
 }

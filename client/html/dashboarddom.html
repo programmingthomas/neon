@@ -15,12 +15,8 @@
 	<div class="span9">
 		<div class="postContainer whitecontainer">
 			<form id="postform" style="margin:0px;">
-				<input type="text" class="span5" placeholder="Post something... anything..."/>
-				<select class="span3">
- 					<option value="french">French</option>
-  					<option value="english">English</option>
-  					<option value="maths">Maths</option>
-  					<option value="biology">Biology</option>
+				<input type="text" class="span5" placeholder="Post something... anything..." id="postentry"/>
+				<select class="span3" id="postgroup">
 				</select>
 				<button class="btn btn-primary pull-right" type="submit">Post</button>
                                 <br/>     
@@ -54,3 +50,9 @@
 		<br>
 	</div>
 </div>
+<script>
+$("#postform").submit(function(){
+	nc_post(localStorage.username, localStorage.passkey, $("#postgroup").val(), $("#postentry").val());
+	return false;
+});
+</script>

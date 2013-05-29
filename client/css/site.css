@@ -18,9 +18,17 @@ body {
 	margin: 0;
 	padding-top: 80px;
 	padding-bottom:10px;
+}
+
+#fixedbg {
 	background: url(../splashes/1920.jpg) no-repeat 50% 100% fixed;
 	background-size: cover;
 	background-position: center;
+	height:100%;
+    position:fixed;
+    width:100%;
+    z-index:-1;
+    top:0;
 }
 
 #welcomebox {

@@ -180,7 +180,7 @@ log.txt
 *.uimg
 
 #Executables
-.exe
+*.exe
 main
 neon
 

@@ -73,8 +73,19 @@ footer {
 	padding: 10px;
 }
 
-.fixedContainer {
+.profileContainer {
+	margin-bottom:20px;
 	position:fixed;
+}
+
+@media (max-width:767px) { 
+	.profileContainer {
+		display:none;
+	}
+	
+	.postContainer {
+		padding-bottom:20px !important;
+	}
 }
 
 .postContainer {

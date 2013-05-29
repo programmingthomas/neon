@@ -43,6 +43,7 @@ type APIPostResponse struct {
 	UserID int
 	UserName string
 	UserFullName string
+	UserImage string
 	PostTime time.Time
 }
 
@@ -307,6 +308,7 @@ func PostResponseForPost(post Post) APIPostResponse {
 	user := UserForId(post.User)
 	apiPostResponse.UserName = user.Username
 	apiPostResponse.UserFullName = user.RealName
+	apiPostResponse.UserImage = user.UserImageURL
 	apiPostResponse.PlainText = post.Text
 	apiPostResponse.HTML = HTMLForText(post.Text)
 	apiPostResponse.PostTime = post.PostTime

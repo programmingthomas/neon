@@ -71,5 +71,12 @@ footer {
 	border-radius: 5px;
 	box-shadow: rgba(0,0,0,0.5) 0px 0px 10px;
 	padding: 10px;
-	min-height:70px;
+}
+
+.fixedContainer {
+	position:fixed;
+}
+
+.postContainer {
+	padding-bottom:0px;
 }

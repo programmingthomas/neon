@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="span3">
-		<div class="whitecontainer">
+		<div class="fixedContainer whitecontainer">
 			<div class="row">
 				<div class="span1">
 					<img src="/userImages/default.png" />
@@ -13,13 +13,18 @@
 		</div>
 	</div>
 	<div class="span9">
-		<div class="whitecontainer">
+		<div class="postContainer whitecontainer">
 			<form id="postform">
-				<input type="text" placeholder="Post something... anything... (Neeeds to stretch full width)"/>
-				Some sort of combo box for choosing which group to post to...
-				<button class="btn btn-primary" type="submit">Post</button> 
-			</form>
-		</div>
+				<input type="text" class="span5" placeholder="Post something... anything..."/>
+				<select class="span3">
+ 					<option value="french">French</option>
+  					<option value="english">English</option>
+  					<option value="maths">Maths</option>
+  					<option value="biology">Biology</option>
+				</select>
+				<button class="btn btn-primary pull-right" type="submit">Post</button>     
+            </form>
+        </div>
 		<br />
 		<div class="whitecontainer">
 			<section class="post row">

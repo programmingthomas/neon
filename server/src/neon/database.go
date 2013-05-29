@@ -75,6 +75,11 @@ var Reposts []Repost
 var Likes []LikeDislike
 var Messages []Message
 
+var UserIndicies []int
+var GroupIndicies []int
+var PostIndicies []int
+var MessageIndicies []int
+
 var InsertIndicies map[string] int
 
 func StartDatabase() {
@@ -109,6 +114,8 @@ func LoadAllDatabases() {
 		InsertIndicies["messages"] = intMax(1, len(Messages) + 1)
 		SaveDatabase(InsertIndicies, "indicies")
 	}
+	
+	LoadAllIndicies()
 	
 	info("Database", "Loaded all databases")
 }
@@ -171,21 +178,18 @@ func DatabasesExist() bool {
 //API Helper functions
 
 func UserForId(id int) User {
-	for i := 0; i < len(Users); i++ {
-		if Users[i].ID == id {
-			return Users[i]
-		}
+	if id < len(UserIndicies) && id > 0 {
+		return Users[UserIndicies[id]]
 	}
 	return User{}
 }
 
 func GroupForId(id int) Group {
-	for i := 0; i < len(Groups); i++ {
-		if Groups[i].ID == id {
-			return Groups[i]
-		}
+	if id < len(GroupIndicies) && id > 0 {
+		return Groups[GroupIndicies[id]]
 	}
 	return Group{}
+	
 }
 
 func UserForName(username string) User {
@@ -241,6 +245,41 @@ func GroupNameFromID(id int) string {
 	return Groups[GroupIndexForId(id)].Name
 }
 
+func LoadAllIndicies() {
+	LoadUserIndicies()
+	LoadGroupIndicies()
+	LoadPostIndicies()
+	LoadMessageIndicies()
+}
+
+func LoadUserIndicies() {
+	UserIndicies = make([]int, InsertIndicies["users"])
+	for i := 0; i < len(Users); i++ {
+		UserIndicies[Users[i].ID] = i
+	}
+}
+
+func LoadGroupIndicies() {
+	GroupIndicies = make([]int, InsertIndicies["groups"])
+	for i := 0; i < len(Groups); i++ {
+		GroupIndicies[Groups[i].ID] = i
+	}
+}
+
+func LoadPostIndicies() {
+	PostIndicies = make([]int, InsertIndicies["posts"])
+	for i := 0; i < len(Posts); i++ {
+		PostIndicies[Posts[i].ID] = i
+	}
+}
+
+func LoadMessageIndicies() {
+	MessageIndicies = make([]int, InsertIndicies["messages"])
+	for i := 0; i < len(Messages); i++ {
+		MessageIndicies[Messages[i].ID] = i
+	}
+}
+
 /*
 ADD FUNCTIONS
 These should be preffered to other ways of adding data to the database
@@ -254,6 +293,7 @@ func AddPost(post * Post) {
 	Posts = append(Posts, *post) //Have to add the pointer value, not the pointer
 	SaveDatabase(Posts, "posts")
 	SaveDatabase(InsertIndicies, "indicies")
+	LoadPostIndicies()
 }
 
 //Add a user
@@ -263,6 +303,7 @@ func AddUser(user * User) {
 	Users = append(Users, *user)
 	SaveDatabase(Users, "users")
 	SaveDatabase(InsertIndicies, "indicies")
+	LoadUserIndicies()
 }
 
 //Add a group
@@ -272,6 +313,7 @@ func AddGroup(group * Group) {
 	Groups = append(Groups, *group)
 	SaveDatabase(Groups, "groups")
 	SaveDatabase(InsertIndicies, "indicies")
+	LoadGroupIndicies()
 }
 
 //Add a key (doesn't require an ID)

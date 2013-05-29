@@ -205,3 +205,18 @@ footer {
 	}
 }
 
+#groupmembers
+{
+	margin-top:10px;
+	overflow:hidden;
+	height:50px;
+}
+
+#groupmembers img
+{
+	width:46px;
+	height:46px;
+	padding:2px;
+	float:left;
+}
+

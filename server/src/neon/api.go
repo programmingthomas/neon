@@ -67,6 +67,8 @@ type APIGroupResponse struct  {
 	GroupCreatorUserImage string
 	MyRole int
 	Posts []APIPostResponse
+	MemberIDs []int
+	MemberImages []string
 }
 
 type APIDashboardResponse struct {
@@ -375,7 +377,7 @@ func CreateGroup(r * http.Request, response * APIResponse) {
 func addUserToGroup(user, group, role int) {
 	
 	for i := 0; i < len(GroupMembers); i++ {
-		if GroupMembers[i].User == user && GroupMembers[i].Group == group && GroupMembers[i].Role < role {
+		if GroupMembers[i].User == user && GroupMembers[i].Group == group && GroupMembers[i].Role <= role {
 			return
 		}
 	}
@@ -446,6 +448,20 @@ func getGroupInfo(groupId, maxPosts int) APIGroupResponse {
 		if Posts[i].Group == groupId {
 			apiPostResponse := PostResponseForPost(Posts[i])
 			apiGroupResponse.Posts = append(apiGroupResponse.Posts, apiPostResponse)
+		}
+	}
+	
+	apiGroupResponse.MemberIDs = make([]int, 0)
+	apiGroupResponse.MemberImages = make([]string, 0)
+	
+	for i := 0; i < len(GroupMembers); i++ {
+		if GroupMembers[i].Group == groupId && GroupMembers[i].Role > -1 {
+			apiGroupResponse.MemberIDs = append(apiGroupResponse.MemberIDs, GroupMembers[i].User)
+			apiGroupResponse.MemberImages = append(apiGroupResponse.MemberImages, UserForId(GroupMembers[i].User).UserImageURL)
+			
+			if len(apiGroupResponse.MemberIDs) > 100 {
+				break
+			}
 		}
 	}
 	

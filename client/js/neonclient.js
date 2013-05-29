@@ -386,6 +386,14 @@ function showGroup(hash)
 				html += HTMLForPost(data.Data.Posts[i]);
 			}
 			$("#groupcontent").html(html);
+			
+			var members = "";
+			
+			for (var i = 0; i < data.Data.MemberImages.length; i++)
+			{
+				members += "<img src=\"" + data.Data.MemberImages[i] + "\" />";
+			}
+			$("#groupmembers").html(members);
 		});
 		changeMenuHighlight("groups");
 	}, "html");

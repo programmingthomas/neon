@@ -217,3 +217,8 @@ func GroupIndexForId(id int) int {
 func GroupNameFromID(id int) string {
 	return Groups[GroupIndexForId(id)].Name
 }
+
+func AddPost(post Post) {
+	Posts = append(Posts, post)
+	SaveDatabase(Posts, "posts")
+}

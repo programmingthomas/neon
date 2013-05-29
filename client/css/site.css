@@ -1,65 +1,75 @@
 @font-face {
 	font-family: 'icomoon';
-	src:url('fonts/icomoon.eot');
-	src:url('fonts/icomoon.eot?#iefix') format('embedded-opentype'),
-		url('fonts/icomoon.svg#icomoon') format('svg'),
-		url('fonts/icomoon.woff') format('woff'),
-		url('fonts/icomoon.ttf') format('truetype');
+	src: url('fonts/icomoon.eot');
+	src: url('fonts/icomoon.eot?#iefix') format('embedded-opentype'),
+	url('fonts/icomoon.svg#icomoon') format('svg'),
+	url('fonts/icomoon.woff') format('woff'),
+	url('fonts/icomoon.ttf') format('truetype');
 	font-weight: normal;
 	font-style: normal;
 }
 
-body
-{
-	background-color:#F0F0FA;
-	margin:0;
-	padding-top:100px;
-	background: url(../splashes/1920.jpg) no-repeat 50% 100% fixed;  
+body {
+	background-color: #F0F0FA;
+	margin: 0;
+	padding-top: 100px;
+	background: url(../splashes/1920.jpg) no-repeat 50% 100% fixed;
 	background-size: cover;
-	background-position:center;
+	background-position: center;
 }
 
 #welcomebox {
-	background:#FFF;	
-	border-radius:5px;
+	background: #FFF;
+	border-radius: 5px;
 	box-shadow: rgba(0,0,0,0.5) 0px 0px 10px;
-	text-align:center;
-	padding:10px;
-	max-width:500px;
-	position:relative;
-	overflow:hidden;
+	text-align: center;
+	padding: 10px;
+	max-width: 500px;
+	position: relative;
+	overflow: hidden;
 }
 
-#loginbox
-{
-	text-align:center;
-	padding:10px;
-	margin-bottom:10px;
-	max-width:500px;
-	position:relative;
-	overflow:hidden;
+#loginbox {
+	text-align: center;
+	padding: 10px;
+	margin-bottom: 10px;
+	max-width: 500px;
+	position: relative;
+	overflow: hidden;
 
 	#svgloginlogo {
-			width: 220px;
-			height: 220px;
-
+		width: 220px;
+		height: 220px;
 	}
+
 }
 
 #signupbox {
-	display:none;
-	text-align:center;
-	padding:10px;
-	margin-top:10px;
-	max-width:500px;
-	position:relative;
-	overflow:hidden;
+	display: none;
+	text-align: center;
+	padding: 10px;
+	margin-top: 10px;
+	max-width: 500px;
+	position: relative;
+	overflow: hidden;
 }
 footer {
 	text-align: center;
-	padding:30px 0;
-	color:black;
-	background-image:-webkit-linear-gradient(rgba(0,0,0,0),rgba(200, 200, 200, 0.75) 40%, rgba(200, 200, 200, 0.75) 70%, rgba(0,0,0,0) 100%);
-	background-image:-moz-linear-gradient(rgba(0,0,0,0),rgba(200, 200, 200, 0.75) 40%, rgba(200, 200, 200, 0.75) 70%, rgba(0,0,0,0) 100%);
-	background-image:linear-gradient(rgba(0,0,0,0),rgba(200, 200, 200, 0.75) 40%, rgba(200, 200, 200, 0.75) 70%, rgba(0,0,0,0) 100%);
+	padding: 30px 0;
+	color: black;
+	background-image: -webkit-linear-gradient(rgba(0,0,0,0),rgba(200, 200, 200, 0.75) 40%, rgba(200, 200, 200, 0.75) 70%, rgba(0,0,0,0) 100%);
+	background-image: -moz-linear-gradient(rgba(0,0,0,0),rgba(200, 200, 200, 0.75) 40%, rgba(200, 200, 200, 0.75) 70%, rgba(0,0,0,0) 100%);
+	background-image: linear-gradient(rgba(0,0,0,0),rgba(200, 200, 200, 0.75) 40%, rgba(200, 200, 200, 0.75) 70%, rgba(0,0,0,0) 100%);
+}
+
+.loginsignuperror {
+	color: #d80000;
+}
+
+.whitecontainer {
+	background: #FFF;
+	border-radius: 5px;
+	box-shadow: rgba(0,0,0,0.5) 0px 0px 10px;
+	padding: 10px;
+	min-height:70px;
 }

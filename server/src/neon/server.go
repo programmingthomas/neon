@@ -72,7 +72,10 @@ func ViewHandler(w http.ResponseWriter, r *http.Request) {
 func APIHandler(w http.ResponseWriter, r * http.Request) {
 	w.Header().Add("Content-Type", "application/json")
 	response := APIResponseForRequest(r)
-	w.WriteHeader(response.SuccessCode)
+	//No longer setting this to the same success code from the API
+	//Because jQuery will only accept JS with 200 Status
+	//w.WriteHeader(response.SuccessCode)
+	w.WriteHeader(200)
 	jsonData, _ := json.Marshal(response)
 	w.Write(jsonData)
 }

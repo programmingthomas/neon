@@ -1,31 +1,69 @@
 /*
 This file is the general client side JS bridge
-It can return stuff. Its pretty useful
+It can return stuff. It's pretty useful
 It does /api/ calls as documented on the wiki
 All functions in this file are prefixed with nc_
 */
 
-function saveKey(data) 
-{
-	if (data.request.successCode == 200) 
-	{
-		localStorage.username = data.login.username;
-		localStorage.key = data.login.key;
-		changeToDashboard();
+/*
+A simple extension to jQuery that adds a post JSON function for convenience
+http://forum.jquery.com/topic/getjson-using-post
+*/
+jQuery.extend({
+	postJSON: function(url, data, callback) {
+		return jQuery.post(url, data, callback, "json");
 	}
-	else 
-	{
-		alert(data.request.message);
-	}
-}
+});
 
+var loaded = false;
+
+$(document).ready(function() {
+	if (!loaded) {
+		setBackground();
+		loaded = true;
+		
+		if (localStorage.username != undefined && localStorage.passkey != undefined) {
+			console.log("Hast un username");
+			$.get("dashboarddom.html", {}, function(data, status, xhr){
+				$("#pagecontent").html(data);
+			}, "html")
+		} else {
+			$.get("welcomedom.html", {}, function(data, status, xhr) {
+				$("#pagecontent").html(data);
+			}, "html");
+		}
+	}
+});
 
 function nc_login(u, p) 
 {
 	$.getJSON("/api/login/", {username:u, password:p}, function(data, status, xhr) 
 	{
-		saveKey(data);
+		loginAttemptApproved(data)
 	});
+}
+
+function nc_register(u, p, r)
+{
+	$.postJSON("/api/register/", {username:u, password:p, name:r}, function(data, status, xhr)
+	{
+		loginAttemptApproved(data)
+	});
+}
+
+function loginAttemptApproved(data)
+{
+	if (data.SuccessCode == 200)
+	{
+		localStorage.username = data.Data.Username;
+		//localStorage.key is a function, so I went for passkey instead
+		localStorage.passkey = data.Data.Key;
+		changeToDashboard();
+	}
+	else
+	{
+		$(".loginsignuperror").text(data.Message);
+	}
 }
 
 function nc_user(u, k, q, o) 
@@ -215,10 +253,7 @@ function nc_inboxDelete(u, k, r, c)
 	});
 }
 
-function nc_register(u, p, n) 
+function changeToDashboard()
 {
-	$.getJSON("/api/register/", {username:u, password:p, name:n}, function(data, status, xhr) 
-	{
-		saveKey(data);
-	});
+	$("#welcomebox").fadeOut()
 }

@@ -1,20 +1,3 @@
-
-$(document).ready(function()
-{
-	setBackground();
-
-	$('#signup-realname').bind("keyup", function()
-	{
-		verify('realname');
-	});
-
-	$('#signup-username').bind("keyup", function()
-	{
-		verify('username');
-	});
-
-});
-
 $(window).resize(function()
 {
 	setBackground();
@@ -54,20 +37,10 @@ var roundUpWidth = function(a, x)
     return [lo, hi];
 }
 
-var changeToDashboard = function()
-{
-	var dashboard_data = nc_dashboard(localStorage.username, localStorage.key);
-	alert("registered, going to dashboard");
-}
-
-
-
-
 var verify = function(field)
 {
 	var value = $('#signup-'+field).val();
-	console.log(value);
-
+	
 	if(field=="realname") 
 	{
 		if(value.length>=0) 

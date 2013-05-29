@@ -7,24 +7,8 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<script type="text/javascript" src="jquery-1.8.2.min.js"></script>		
 		<script type="text/javascript" src="core.js"></script>
+		<script type="text/javascript" src="neonclient.js">
         <script src="js/bootstrap.min.js"></script>
-		<script type="text/javascript">
-			document.ready = function() {
-				$("#login").submit(function() {
-					nc_login($('#login-username').val(),$('#login-password').val());
-					return false;	
-				});
-				$("#signup").submit(function() {
-					nc_register($('#signup-username').val(),$('#login-password').val(),$('#signup-realname').val());
-					return false;	
-				});
-				$('.switchform').click(function() {
-					$('#signupbox').slideToggle();
-					$('#loginbox').slideToggle();
-				});
-			}
-			
-		</script>
 	</head>
 	<body> 
       <div class="navbar navbar-fixed-top">
@@ -44,7 +28,7 @@
                   </ul>
                   <ul class="nav pull-right">
                       <form class="navbar-search">
-                          <input type="text" class="search-query" placeholder="Search">
+                          <input type="text" class="search-query" placeholder="Search (iTunes 11 style?)">
                       </form>
                       <li class="dropdown">
                           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Settings <b class="caret"></b></a>
@@ -61,35 +45,9 @@
               </div>
             </div><!-- /navbar-inner -->
         </div>
-        <div id="welcomebox" class="container">
-          <section id="loginbox">
-              <svg id="svgloginlogo" height="120" width="120" xmlns:xlink="http://www.w3.org/1999/xlink"  version="1.0"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000">
-                  <image x="0" y="0" height="1000" width="1000"  xlink:href="images/new_logo_animation_dark.svg"/>
-              </svg>
-              
-          <h1>Welcome to Neon</h1>
-              <h3>The educational blogging network</h3>
-              <form id="loginform">
-                  <div id="input_container"><input type="text" id="login-username" placeholder="Username" required/></div>
-                  <div id="input_container"><input type="password" id="login-password" placeholder="Password" required/></div>
-                  <br/>
-                  <button class="btn btn-primary" type="submit">Login</button> or <a href="#" class="switchform">sign up?</a>
-              </form>
-               Neon is an open-source project. Its <a href="https://github.com/programmingthomas/neon-2013">source is available on GitHub</a>.
-          </section>
-          <aside id="signupbox">
-              <h1>Sign up to Neon</h1>
-              <h3>It's fast, simple and unregrettable</h3>
-              <form id="signup">
-                  <div id="input_container"><input type="text" id="signup-realname" placeholder="Full Name" required/></div>
-                  <div id="input_container"><input type="text" id="signup-username" placeholder="Choose a username" required/></div>
-                  <div id="input_container"><input type="password" id="signup-password-1" placeholder="Password" required/></div>
-                  <div id="input_container"><input type="password" id="signup-password-2" placeholder="Verify Password" required/></div>
-                  <br/>
-                  <button class="btn btn-primary" type="submit">Sign Up</button> or <a href="#" class="switchform">log in?</a>
-              </form>
-          </aside>
-        </div>
+		<div id="pagecontent" class="container">
+			<!-- ALL DOM CONTENT OF THE PAGE HAS BEEN REMOVED AND IS FETCHED VIA AJAX -->
+		</div>
 		<script type="text/javascript" src="neonclient.js"></script>
 		<!--[if lt IE 9]>
 			<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>

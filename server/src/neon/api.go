@@ -45,6 +45,7 @@ type APIPostResponse struct {
 	UserFullName string
 	UserImage string
 	PostTime time.Time
+	TimeDescription string
 }
 
 type APIUserResponse struct {
@@ -312,6 +313,7 @@ func PostResponseForPost(post Post) APIPostResponse {
 	apiPostResponse.PlainText = post.Text
 	apiPostResponse.HTML = HTMLForText(post.Text)
 	apiPostResponse.PostTime = post.PostTime
+	apiPostResponse.TimeDescription = GetTimeDescription(post.PostTime)
 	apiPostResponse.GroupID = post.Group
 	apiPostResponse.GroupName = GroupNameFromID(post.Group)
 	apiPostResponse.Likes = 0
@@ -340,6 +342,8 @@ func PostResponseForPost(post Post) APIPostResponse {
 //This function generates the HTML from the plain text of a post. I plan to allow it
 //to pass Markdown (esp. links) in the future
 func HTMLForText(text string) string {
+	text = strings.Replace(text, "<", "&lt;", -1)
+	text = strings.Replace(text, ">", "&gt;", -1)
 	return "<p>" + text + "</p>"
 }
 
@@ -531,4 +535,32 @@ func in(value int, list []int) bool {
 		}
 	}
 	return false
+}
+
+func GetTimeDescription(datetime time.Time) string {
+	now := time.Now()
+	dur := now.Sub(datetime)
+	if dur.Seconds() <= 60 {
+		return "Moments ago"
+	} else if dur.Minutes() < 60 {
+		s := ""
+		if int(dur.Minutes()) > 1 {
+			s = "s"
+		}
+		return fmt.Sprintf("%d minute%s ago", int(dur.Minutes()), s)
+	} else if dur.Hours() < 24 {
+		s := ""
+		if int(dur.Hours()) > 1 {
+			s = "s"
+		}
+		return fmt.Sprintf("%d hour%s ago", int(dur.Hours()), s)
+	} else if dur.Hours() < 48 {
+		return "Yesterday"
+	}
+	daysAgo := int(dur.Hours() / 24.0)
+	s := ""
+	if daysAgo > 1 {
+		s = "s"
+	}
+	return fmt.Sprintf("%d day%s ago", daysAgo, s)
 }

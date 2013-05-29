@@ -177,6 +177,7 @@ log.txt
 
 #Custom database
 *.jsondb
+*.uimg
 
 #Executables
 .exe

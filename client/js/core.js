@@ -25,13 +25,13 @@ setBackground = function()
 	var widths = [1024, 1280, 1366, 1440, 1680, 1920, 3000];
 	var body_width = $("body").width();
 
-	if(body_width > 3000) 
+	if(body_width > widths[widths.length - 1]) 
 	{ //too big
-		var image_path = "splashes/3000.jpg";
+		var image_path = "splashes/" + width[widths.length - 1] + ".jpg";
 	}
-	else if(body_width < 1024) 
+	else if(body_width < widths[0]) 
 	{ //too small
-		var image_path = "splashes/1024.jpg";
+		var image_path = "splashes/" + widths[0] + ".jpg";
 	}
 	else 
 	{ //juuust right

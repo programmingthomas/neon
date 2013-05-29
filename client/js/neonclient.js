@@ -281,7 +281,7 @@ function updateDashboard()
 		{
 			var post = data.Data.Posts[i];
 			var html = "<section class=\"post row\" id=\"post" + post.PostID + "\">" +
-			"<div class=\"span1\"><img src=\"" + post.UserImage + "\" /></div>" +
+			"<div class=\"span1\"><img src=\"" + post.UserImage + "\" style=\"max-width:50px; max-height:50px\" /></div>" +
 			"<div class=\"span7\">" +
 			"<h4 style=\"margin:0;padding:0;\">" + post.UserFullName + "<span style=\"color:grey\"> &#9658 " + post.GroupName + "</span></h4>" + post.HTML + 
 			"<p style=\"font-size:smaller;color:#777;\">" + post.TimeDescription + " &#8226 <a href=\"#\">" + post.Likes + " Likes</a> &#8226 " + 

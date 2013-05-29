@@ -33,6 +33,11 @@ body {
     top:0;
 }
 
+#logo {
+	width:17px;
+	height:17px
+}
+
 #welcomebox {
 	background: #FFF;
 	border-radius: 5px;
@@ -176,19 +181,19 @@ input[type="search"] {
 }
 
 input[type="search"]::-webkit-input-placeholder {
- 	font-size: 15px;
+ 	font-size: 16px;
 }
 
 input[type="search"]:-moz-placeholder {
- 	font-size: 15px;
+ 	font-size: 16px;
 }
 
 input[type="search"]::-moz-placeholder {
- 	font-size: 15px; 
+ 	font-size: 16px; 
 }
 
 input[type="search"]:-ms-input-placeholder {  
- 	font-size: 15px;
+ 	font-size: 16px;
 }
 
 /* Large desktop */

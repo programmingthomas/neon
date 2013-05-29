@@ -282,5 +282,7 @@ function logout()
 {
 	localStorage.passkey = null;
 	localStorage.username = null;
-	window.location = "#";
+	$.get("welcomedom.html", {}, function(data, status, xhr){
+		$("#pagecontent").html(data);
+	}, "html");
 }

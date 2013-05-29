@@ -372,8 +372,14 @@ func CreateGroup(r * http.Request, response * APIResponse) {
 	}
 }
 
-//TODO Check whether user is already a member of the group
 func addUserToGroup(user, group, role int) {
+	
+	for i := 0; i < len(GroupMembers); i++ {
+		if GroupMembers[i].User == user && GroupMembers[i].Group == group && GroupMembers[i].Role < role {
+			return
+		}
+	}
+	
 	groupMember := GroupMember{}
 	groupMember.Group = group
 	groupMember.User = user

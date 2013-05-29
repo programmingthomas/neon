@@ -108,6 +108,8 @@ func APIResponseForRequest(r * http.Request) APIResponse {
 				JoinGroup(r, &response)
 			} else if response.RequestDetail == "mine" {
 				MyGroups(r, &response)
+			} else if response.RequestDetail == "all" {
+				AllGroups(r, &response)
 			} else {
 				GroupInfo(r, &response)
 			}
@@ -582,4 +584,14 @@ func MyGroups(r * http.Request, response * APIResponse) {
 	}
 	response.Data = groups
 	response.Message = "Found all groups user is member of"
+}
+
+func AllGroups(r * http.Request, response * APIResponse) {
+	var groups []APIGroupResponse = make([]APIGroupResponse, 0)
+	for i := 0; i < len(Groups); i++ {
+		groupInfo := getGroupInfo(Groups[i].ID, 0)
+		groups = append(groups, groupInfo)
+	}
+	response.Data = groups
+	response.Message = "Found all groups"
 }

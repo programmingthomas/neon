@@ -2,6 +2,7 @@
 	<h1>Groups</h1>
 	<p>The following shows a list of all the groups that you are a member of. Groups could be anything from your science class to the school football team.</p>
 	<a class="btn btn-primary btn-large" onclick="showCreateGroupForm()">Create a group</a>
+	<a class="btn btn-primary btn-large" onclick="showSearchDialog()">Join a group</a>
 	<form id="creategroupform">
 		<br>
 			<input type="text" id="groupformname" placeholder="Group name" required />    <button class="btn btn-primary" type="submit">Create group</button>
@@ -13,10 +14,32 @@
 	List of all groups...
 </div>
 
+<!-- Modal dialog for finding a group -->
+<div id="groupSearchModal" class="modal hide fade" tabindex="-1", role="dialog" aria-labelledby="groupSearchModalTitle" aria-hidden="true">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		<h3 id="groupSearchModalTitle">Groups</h3>
+	</div>
+	<div class="modal-body">
+		<div style="height:250px; overflow-y:scroll;" id="groupListContent">
+			
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn" data-dismiss="modal" aria-hidden="true">Done</button>
+	</div>
+</div>
+
 <script>
 function showCreateGroupForm()
 {
 	$("#creategroupform").slideToggle();
+}
+
+function showSearchDialog()
+{
+	$("#groupSearchModal").modal('show');
+	showAllGroups();
 }
 
 $("#creategroupform").submit(function(){

@@ -113,3 +113,30 @@ footer {
 {
 	display:none;
 }
+
+#groupListContent ul
+{
+	list-style:none;
+	font-size:large;
+	font-weight:bold;
+	padding:0;
+	margin:0;
+}
+
+#groupListContent li
+{
+	border-bottom: 1px solid black;
+	margin:0;
+	padding:0;
+	padding:5px;
+}
+
+#groupListContent li:last-child
+{
+	border-bottom:none;
+}
+
+#groupListContent a
+{
+	color:black;
+}

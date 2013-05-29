@@ -345,3 +345,14 @@ function nc_creategroup(n)
 		showGroups();
 	});
 }
+
+function showAllGroups() {
+	$.getJSON("/api/group/all", {username:localStorage.username, key:localStorage.passkey}, function(data, status, xhr) {
+		var html = "<ul>";
+		for (var i = 0; i < data.Data.length; i++)
+		{
+			html += "<li><a href=\"#group-" + data.Data[i].GroupID + "\">" + data.Data[i].GroupName + "</a></li>";
+		}
+		$("#groupListContent").html(html);
+	});
+}

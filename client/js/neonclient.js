@@ -28,6 +28,8 @@ $(document).ready(function() {
 				changeToDashboard();
 			else if (window.location.hash == "#groups")
 				showGroups();
+			else if (window.location.hash.indexOf("#group-") == 0)
+				showGroup(window.location.hash);
 		} else {
 			$.get("welcomedom.html", {}, function(data, status, xhr) {
 				$("#pagecontent").html(data);
@@ -284,12 +286,7 @@ function updateDashboard()
 		for (var i = 0; i < data.Data.Posts.length; i++)
 		{
 			var post = data.Data.Posts[i];
-			var html = "<section class=\"post row\" id=\"post" + post.PostID + "\">" +
-			"<div class=\"span1\"><img src=\"" + post.UserImage + "\" style=\"max-width:50px; max-height:50px\" /></div>" +
-			"<div class=\"span7\">" +
-			"<h4 style=\"margin:0;padding:0;\">" + post.UserFullName + "<span style=\"color:grey\"> &#9658 " + post.GroupName + "</span></h4>" + post.HTML + 
-			"<p style=\"font-size:smaller;color:#777;\">" + post.TimeDescription + " &#8226 <a href=\"#\">" + post.Likes + " Likes</a> &#8226 " + 
-			"<a href=\"#\">" + post.Dislikes + " dislikes</a></p></div></section>";
+			var html = HTMLForPost(post);
 			dashPosts.innerHTML += html;
 			if (i != data.Data.Posts.length - 1) dashPosts.innerHTML += "<hr />";
 		}
@@ -302,6 +299,16 @@ function updateDashboard()
 		
 		changeMenuHighlight("home");
 	});
+}
+
+function HTMLForPost(post)
+{
+	return "<section class=\"post row\" id=\"post" + post.PostID + "\">" +
+			"<div class=\"span1\"><img src=\"" + post.UserImage + "\" style=\"max-width:50px; max-height:50px\" /></div>" +
+			"<div class=\"span7\">" +
+			"<h4 style=\"margin:0;padding:0;\">" + post.UserFullName + "<span style=\"color:grey\"> &#9658 " + post.GroupName + "</span></h4>" + post.HTML + 
+			"<p style=\"font-size:smaller;color:#777;\">" + post.TimeDescription + " &#8226 <a href=\"#\">" + post.Likes + " Likes</a> &#8226 " + 
+			"<a href=\"#\">" + post.Dislikes + " dislikes</a></p></div></section>";
 }
 
 function logout()
@@ -334,6 +341,7 @@ function showGroups() {
 			}
 			html += "</ul>"
 			$("#grouplist").html(html);
+			addGroupLink();
 		});
 		changeMenuHighlight("groups");
 	}, "html");
@@ -354,5 +362,41 @@ function showAllGroups() {
 			html += "<li><a class=\"grouplink\" href=\"#group-" + data.Data[i].GroupID + "\">" + data.Data[i].GroupName + "</a></li>";
 		}
 		$("#groupListContent").html(html);
+		addGroupLink();
 	});
+}
+
+function showGroup(hash)
+{
+	var g = hash.replace("#group-", "")
+	$.get('groupdom.html', {}, function(data, textStatus, xhr) {
+		$("#pagecontent").html(data);
+		$.getJSON("/api/group/" + g, {username:localStorage.username, key:localStorage.passkey}, function(data, status, xhr){
+			$("#groupname").text(data.Data.GroupName);
+			$("#groupauthor").text("Group created by " + data.Data.GroupCreatorName);
+			$("#groupjoin").click(function()
+			{
+				$.postJSON("/api/group/join", {username:localStorage.username, key:localStorage.passkey, group:g}, function(data, status, xhr){
+					showGroup("#group-" + g);
+				});
+			});
+			var html = "";
+			for (var i = 0; i < data.Data.Posts.length; i++)
+			{
+				html += HTMLForPost(data.Data.Posts[i]);
+			}
+			$("#groupcontent").html(html);
+		});
+		changeMenuHighlight("groups");
+	}, "html");
+}
+
+function addGroupLink()
+{
+	$(".grouplink").click(groupLinkClicked);
+}
+
+function groupLinkClicked()
+{
+	showGroup($(this).attr("href"));
 }

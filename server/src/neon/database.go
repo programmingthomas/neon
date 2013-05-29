@@ -31,7 +31,6 @@ type Group struct {
 }
 
 type GroupMember struct {
-	ID int
 	Group int
 	User int
 	Role int
@@ -47,7 +46,6 @@ type Post struct {
 }
 
 type Repost struct {
-	ID int
 	Original int
 	Repost int
 }
@@ -77,6 +75,8 @@ var Reposts []Repost
 var Likes []LikeDislike
 var Messages []Message
 
+var InsertIndicies map[string] int
+
 func StartDatabase() {
 	if !DatabasesExist() {
 		CreateDatabases()
@@ -93,6 +93,23 @@ func LoadAllDatabases() {
 	LoadDatabase(&Reposts, "reposts")
 	LoadDatabase(&Likes, "likes")
 	LoadDatabase(&Messages, "messages")
+	
+	if FileExists("indicies" + storeExtension) {
+		LoadDatabase(&InsertIndicies, "indicies")
+	} else {
+		InsertIndicies = map[string] int {
+			"users" : 1,
+			"groups" : 1,
+			"posts" : 1,
+			"messages" : 1,
+		}
+		InsertIndicies["users"] = intMax(1, len(Users) + 1)
+		InsertIndicies["groups"] = intMax(1, len(Groups) + 1)
+		InsertIndicies["posts"] = intMax(1, len(Posts) + 1)
+		InsertIndicies["messages"] = intMax(1, len(Messages) + 1)
+		SaveDatabase(InsertIndicies, "indicies")
+	}
+	
 	info("Database", "Loaded all databases")
 }
 
@@ -110,6 +127,12 @@ func CreateDatabases() {
 	Reposts = make([]Repost, 0)
 	Likes = make([]LikeDislike, 0)
 	Messages = make([]Message, 0)
+	InsertIndicies = map[string] int {
+		"users" : 1,
+		"groups" : 1,
+		"posts" : 1,
+		"messages" : 1,
+	}
 	info("Database", "Created databases")
 	SaveAllDatabases()
 }
@@ -123,6 +146,7 @@ func SaveAllDatabases() {
 	SaveDatabase(Reposts, "reposts")
 	SaveDatabase(Likes, "likes")
 	SaveDatabase(Messages, "messages")
+	SaveDatabase(InsertIndicies, "indicies")
 	info("Database", "Saved all databases")
 }
 
@@ -131,7 +155,6 @@ func SaveDatabase(data interface{}, name string) {
 	file, _ := os.Create(name + storeExtension)
 	file.Write(b)
 	file.Close()
-	info("Database", "Wrote " + name)
 }
 
 func DatabasesExist() bool {
@@ -218,7 +241,54 @@ func GroupNameFromID(id int) string {
 	return Groups[GroupIndexForId(id)].Name
 }
 
-func AddPost(post Post) {
-	Posts = append(Posts, post)
+/*
+ADD FUNCTIONS
+These should be preffered to other ways of adding data to the database
+because they are fast and reliable
+*/
+
+//Add a Post
+func AddPost(post * Post) {
+	post.ID = InsertIndicies["posts"]
+	InsertIndicies["posts"]++
+	Posts = append(Posts, *post) //Have to add the pointer value, not the pointer
 	SaveDatabase(Posts, "posts")
+	SaveDatabase(InsertIndicies, "indicies")
+}
+
+//Add a user
+func AddUser(user * User) {
+	user.ID = InsertIndicies["users"]
+	InsertIndicies["users"]++
+	Users = append(Users, *user)
+	SaveDatabase(Users, "users")
+	SaveDatabase(InsertIndicies, "indicies")
+}
+
+//Add a group
+func AddGroup(group * Group) {
+	group.ID = InsertIndicies["groups"]
+	InsertIndicies["groups"]++
+	Groups = append(Groups, *group)
+	SaveDatabase(Groups, "groups")
+	SaveDatabase(InsertIndicies, "indicies")
+}
+
+//Add a key (doesn't require an ID)
+func AddKey(key * Key) {
+	Keys = append(Keys, *key)
+	SaveDatabase(Keys, "keys")
+}
+
+//Add a GroupMember
+func AddGroupMember(groupMember * GroupMember) {
+	GroupMembers = append(GroupMembers, *groupMember)
+	SaveDatabase(GroupMembers, "groupmembers")
+}
+
+func intMax(a, b int) int {
+	if a > b {
+		return a
+	} 
+	return b
 }

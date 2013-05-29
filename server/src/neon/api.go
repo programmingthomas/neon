@@ -129,8 +129,7 @@ func Login(r * http.Request, response * APIResponse) {
 				keyEndTime := dateNow.AddDate(0, 1, 0) //New date one month away
 				keyString := randomKey()
 				key := Key{keyString, user.ID, dateNow, keyEndTime}
-				Keys = append(Keys, key)
-				SaveDatabase(Keys, "keys")
+				AddKey(&key)
 				
 				response.Message = "User successfully logged in"
 				
@@ -175,11 +174,8 @@ func Register(r * http.Request, response * APIResponse) {
 					user.Username = username
 					user.HashedPassword = hashString(password)
 					user.UserImageURL = "userImages/default.png"
-					user.ID = len(Users) + 1
 					user.RealName = realName
-					Users = append(Users, user)
-					SaveDatabase(Users, "users")
-				
+					AddUser(&user)
 					info("API", "Successfully signed up user " + username)
 				
 					//Log the user in
@@ -350,12 +346,10 @@ func HTMLForText(text string) string {
 func CreateGroup(r * http.Request, response * APIResponse) {
 	if r.FormValue("name") != "" && r.FormValue("name") != "create" && r.FormValue("name") != "join" {
 		group := Group{}
-		group.ID = len(Groups) + 1
 		group.Creator = UserForName(r.FormValue("username")).ID
 		group.Name = r.FormValue("name")
 		
-		Groups = append(Groups, group)
-		SaveDatabase(Groups, "groups")
+		AddGroup(&group)
 		
 		addUserToGroup(group.Creator, group.ID, 1)
 		
@@ -369,13 +363,11 @@ func CreateGroup(r * http.Request, response * APIResponse) {
 //TODO Check whether user is already a member of the group
 func addUserToGroup(user, group, role int) {
 	groupMember := GroupMember{}
-	groupMember.ID = len(GroupMembers) + 1
 	groupMember.Group = group
 	groupMember.User = user
 	groupMember.Role = role
 	
-	GroupMembers = append(GroupMembers, groupMember)
-	SaveDatabase(GroupMembers, "groupmembers")
+	AddGroupMember(&groupMember)
 }
 
 //Join group
@@ -485,12 +477,11 @@ func PostToGroup(r * http.Request, response * APIResponse) {
 			//This function will also confirm whether or not the group exists
 			if UserIsMemberOfGroup(userDetail.ID, groupId) {
 				post := Post{}
-				post.ID = len(Posts) + 1
 				post.Text = postContent
 				post.User = userDetail.ID
 				post.Group = groupId
 				post.PostTime = time.Now()
-				AddPost(post)
+				AddPost(&post)
 				response.Data = PostResponseForPost(post)
 				response.SuccessCode = 200
 				response.Message = "Successfully created post"

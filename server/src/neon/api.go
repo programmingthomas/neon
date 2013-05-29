@@ -122,7 +122,7 @@ func APIResponseForRequest(r * http.Request) APIResponse {
 func Login(r * http.Request, response * APIResponse) {
 	if r.FormValue("username") != "" && r.FormValue("password") != "" {
 		hashedPassword := hashString(r.FormValue("password"))
-		username := r.FormValue("username")
+		username := strings.ToLower(r.FormValue("username"))
 		for i := 0; i < len(Users); i++ {
 			if Users[i].Username == username && Users[i].HashedPassword == hashedPassword {
 				user := Users[i]

@@ -330,7 +330,7 @@ function showGroups() {
 			var html = "<ul>"
 			for (var i = 0; i < data.Data.length; i++)
 			{
-				html += "<li><a href=\"#group-" + data.Data[i].GroupID + "\">" + data.Data[i].GroupName + "</a> <span class=\"label " + (data.Data[i].MyRole == 1 ? "label-success" : "") + "\">" + (data.Data[i].MyRole == 1 ? "Staff" : "Member") + "</span></li>";
+				html += "<li><a class=\"grouplink\" href=\"#group-" + data.Data[i].GroupID + "\">" + data.Data[i].GroupName + "</a> <span class=\"label " + (data.Data[i].MyRole == 1 ? "label-success" : "") + "\">" + (data.Data[i].MyRole == 1 ? "Staff" : "Member") + "</span></li>";
 			}
 			html += "</ul>"
 			$("#grouplist").html(html);
@@ -351,7 +351,7 @@ function showAllGroups() {
 		var html = "<ul>";
 		for (var i = 0; i < data.Data.length; i++)
 		{
-			html += "<li><a href=\"#group-" + data.Data[i].GroupID + "\">" + data.Data[i].GroupName + "</a></li>";
+			html += "<li><a class=\"grouplink\" href=\"#group-" + data.Data[i].GroupID + "\">" + data.Data[i].GroupName + "</a></li>";
 		}
 		$("#groupListContent").html(html);
 	});

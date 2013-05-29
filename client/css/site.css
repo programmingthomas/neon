@@ -112,6 +112,11 @@ footer {
 #creategroupform
 {
 	display:none;
+	background: #FFF;
+	border-radius: 5px;
+	box-shadow: inset rgba(0,0,0,0.5) 0px 0px 5px;
+	padding: 10px 10px 5px 10px;
+	margin-top:20px;
 }
 
 

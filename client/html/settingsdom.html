@@ -17,9 +17,21 @@
         	<ul class="thumbnails">
   				<li>
     				<div class="thumbnail">
-      					<img id="profilePicture"/>
-                        <br/>
-      					<span class="btn btn-success btn-file">Upload new picture <input type="file" />
+      					
+                        <div class="fileupload fileupload-new" data-provides="fileupload">
+                            <div class="fileupload-new thumbnail" style="max-width:100px; height:100px;">
+                                <img id="profilePicture"/>
+                            </div>
+							<div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 100px; max-height: 100px; line-height: 20px;"></div>
+							<div>
+								<span class="btn btn-file btn-success">
+									<span class="fileupload-new">Select image</span>
+									<span class="fileupload-exists">Change</span>
+									<input type="file" />
+								</span>
+								<a href="#" class="btn fileupload-exists btn-danger" data-dismiss="fileupload">Remove</a>
+							</div>
+						</div>
     				</div>
   				</li>
 			</ul>

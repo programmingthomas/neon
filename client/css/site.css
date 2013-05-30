@@ -262,12 +262,12 @@ input[type="search"]:-ms-input-placeholder {
 
 /* Large desktop */
 @media (min-width: 1200px) {
-	  .groupsHeader {
-		  position:fixed;
-		  max-width:567px;
-	  }
+	.groupsHeader {
+		position:fixed;
+		max-width:567px;
+	}
 	  
-	  .groupHeader{
+	.groupHeader{
 		position:fixed;
 		top:40px;
 	}

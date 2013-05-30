@@ -57,22 +57,24 @@ function setBackground()
 {
 	var widths = [600,750,1024, 1280, 1366, 1440, 1680, 1920, 3000];
 	var body_width = $("body").width();
+	var splashes = ["sunset"];
+	var randomSplash = splashes[Math.floor(Math.random())];
 
 	if(body_width > widths[widths.length - 1]) 
 	{ //too big
-		var image_path = "splashes/" + width[widths.length - 1] + ".jpg";
+		var image_path = width[widths.length - 1] + ".jpg";
 	}
 	else if(body_width < widths[0]) 
 	{ //too small
-		var image_path = "splashes/" + widths[0] + ".jpg";
+		var image_path = widths[0] + ".jpg";
 	}
 	else 
 	{ //juuust right
 		var image_width = roundUpWidth(widths, body_width)[1];
-		var image_path = "splashes/" + image_width + ".jpg";
+		var image_path = image_width + ".jpg";
 	}
 
-	$("#fixedbg").css("background-image", "url('" + image_path + "')"); 
+	$("#fixedbg").css("background-image", "url('splashes/" + randomSplash + "/" + image_path + "')"); 
 }
 
 var roundUpWidth = function(a, x) 

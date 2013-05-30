@@ -154,12 +154,12 @@ footer {
 }
 
 .groupsHeader{
-	padding:40px !important;
+	padding:40px;
 	border-radius: 5px;
 	box-shadow: rgba(0,0,0,0.5) 0px 0px 10px;
 }
 
-#dashposts #postUserImage {
+#postUserImage {
 	max-width: 50px;
 	max-height: 50px;
 	padding-left:20px;
@@ -173,7 +173,7 @@ input[type="search"] {
 	background-image: url(images/search.png);
 	background-repeat: no-repeat;
 	background-position: 8px 5px;
-	padding-left:33px !important;
+	padding-left:33px;
 }
 
 input[type="search"]::-webkit-input-placeholder {

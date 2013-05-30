@@ -2,31 +2,46 @@
 //TODO: Log to file
 package neonserver
 
-import "fmt"
+import (
+	"fmt"
+	"runtime"
+)
+
+//This will determine whether or not the package was built for windows
+//Note that runtime.GOOS doesn't reflect the current OS but reflects the architecture
+//the application was built for, such as 'windows', 'darwin' or 'linux'
+func IsWindows() bool {
+	return runtime.GOOS == "windows"
+}
 
 //Log something with a specific color
-func log(color, source, message string) {
-	if shouldLog {
-		fmt.Printf("%s%s:\033[0m\t%s\n", color, source, message)
+//The color will be ignored on Windows because the command prompt doesn't support colors
+func Log(color, source, message string) {
+	if ShouldLog {
+		if runtime.GOOS == "windows" {
+			fmt.Printf("%s\t%s", source, message)
+		} else {
+			fmt.Printf("%s%s:\033[0m\t%s\n", color, source, message)
+		}
 	}
 }
 
 //Log an error
 func e(source, message string) {
-	log("\033[91m", source, message)
+	Log("\033[91m", source, message)
 }
 
 //Log a warning
 func w(source, message string) {
-	if !shouldOnlyLogErrors {
-		log("\033[93m", source, message)
+	if !ShouldOnlyLogErrors {
+		Log("\033[93m", source, message)
 	}
 }
 
 //Log information
 func info(source, message string) {
-	if !shouldOnlyLogErrors {
-		log("\033[92m", source, message)
+	if !ShouldOnlyLogErrors {
+		Log("\033[92m", source, message)
 	}
 }
 

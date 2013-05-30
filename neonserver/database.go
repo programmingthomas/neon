@@ -4,67 +4,9 @@ package neonserver
 
 import (
 	"encoding/json"
-	"time"
 	"os"
 	"io/ioutil"
 )
-
-type User struct {
-	ID int
-	Username string
-	RealName string
-	HashedPassword string
-	UserImageURL string
-}
-
-type Key struct {
-	Key string
-	User int
-	StartTime time.Time
-	EndTime time.Time
-}
-
-type Group struct {
-	ID int
-	Name string
-	Creator int
-}
-
-type GroupMember struct {
-	Group int
-	User int
-	Role int
-}
-
-type Post struct {
-	ID int
-	Text string
-	User int
-	PostTime time.Time
-	Deleted int
-	Group int
-}
-
-type Repost struct {
-	Original int
-	Repost int
-}
-
-type LikeDislike struct {
-	User int
-	Post int
-	Like int
-}
-
-type Message struct {
-	ID int
-	Sender int
-	Receiver int
-	SendTime time.Time
-	Text string
-	Read int
-	DirectTo int
-}
 
 var Users []User
 var Keys []Key
@@ -99,7 +41,7 @@ func LoadAllDatabases() {
 	LoadDatabase(&Likes, "likes")
 	LoadDatabase(&Messages, "messages")
 	
-	if FileExists("indicies" + storeExtension) {
+	if FileExists("indicies" + StoreExtension) {
 		LoadDatabase(&InsertIndicies, "indicies")
 	} else {
 		InsertIndicies = map[string] int {
@@ -121,7 +63,7 @@ func LoadAllDatabases() {
 }
 
 func LoadDatabase(data interface{}, name string) {
-	contents, _ := ioutil.ReadFile(name + storeExtension)
+	contents, _ := ioutil.ReadFile(name + StoreExtension)
 	json.Unmarshal(contents, &data)
 }
 
@@ -159,20 +101,20 @@ func SaveAllDatabases() {
 
 func SaveDatabase(data interface{}, name string) {
 	b, _ := json.Marshal(data)
-	file, _ := os.Create(name + storeExtension)
+	file, _ := os.Create(name + StoreExtension)
 	file.Write(b)
 	file.Close()
 }
 
 func DatabasesExist() bool {
-	return FileExists("users" + storeExtension) &&
-		FileExists("keys" + storeExtension) &&
-		FileExists("groups" + storeExtension) &&
-		FileExists("groupmembers" + storeExtension) && 
-		FileExists("posts" + storeExtension) &&
-		FileExists("reposts" + storeExtension) &&
-		FileExists("likes" + storeExtension) &&
-		FileExists("messages" + storeExtension)
+	return FileExists("users" + StoreExtension) &&
+		FileExists("keys" + StoreExtension) &&
+		FileExists("groups" + StoreExtension) &&
+		FileExists("groupmembers" + StoreExtension) && 
+		FileExists("posts" + StoreExtension) &&
+		FileExists("reposts" + StoreExtension) &&
+		FileExists("likes" + StoreExtension) &&
+		FileExists("messages" + StoreExtension)
 }
 
 //API Helper functions

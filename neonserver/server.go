@@ -19,21 +19,6 @@ func FolderForType(ext, directory string) string {
 	return directory
 }
 
-//This ensures that the correct Content-Type is served for a file
-func ContentTypeForExtension(ext string) string {
-	extensionTypes := map[string] string {
-		"html"	: "text/html",
-		"js"	: "application/javascript; charset=utf-8",
-		"css"	: "text/css; charset=utf-8",
-		"svg"	: "image/svg+xml",
-	}
-	contentType, exists := extensionTypes[ext]
-	if exists {
-		return contentType
-	}
-	return ""
-}
-
 //Handles all regular non-API requests that require loading a file
 func ViewHandler(w http.ResponseWriter, r *http.Request) {
 	//Defaults to index.html if the request is empty
@@ -49,8 +34,9 @@ func ViewHandler(w http.ResponseWriter, r *http.Request) {
 	fileExists := FileExists(fullPath)
 	if fileExists {
 		lastModTime := LastMod(fullPath)
-		//This checks whether or not the Header was submitted with If-Modified-Since, which reduces server IO
-		if r.Header["If-Modified-Since"] != nil && cache {
+		//This checks whether or not the Header was submitted with 
+		//If-Modified-Since, which reduces server IO, only do if Cache is enabled
+		if r.Header["If-Modified-Since"] != nil && Cache {
 			//RFC1123 is the standard date format used with HTTP
 			headerTime, _ := time.Parse(time.RFC1123, r.Header["If-Modified-Since"][0])
 			if !headerTime.Before(lastModTime) {
@@ -59,9 +45,13 @@ func ViewHandler(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 		//Writer the header and content
-		if (cache) {
+		if (Cache) {
 			w.Header().Add("Last-Modified", lastModTime.Format(time.RFC1123))
 		}
+
+		//Go has a function for serving files easily
+		//I used this function because it reduces the complexity of the code
+		//And it seems to do a good job handling MIME types
 		http.ServeFile(w, r, fullPath)
 	} else {
 		w.WriteHeader(http.StatusNotFound)
@@ -70,21 +60,33 @@ func ViewHandler(w http.ResponseWriter, r *http.Request) {
 
 //Handles API requests
 func APIHandler(w http.ResponseWriter, r * http.Request) {
+	//Set the current Content-Type for JSON (it is not the same as JavaScript)
+	//And some tools require this
 	w.Header().Add("Content-Type", "application/json")
+	//This will get the APIResponse object from the API
 	response := APIResponseForRequest(r)
 	//No longer setting this to the same success code from the API
 	//Because jQuery will only accept JS with 200 Status
+	//If you are working on a client note 
 	//w.WriteHeader(response.SuccessCode)
 	w.WriteHeader(200)
+	//The JSON package quickly formats a struct/interface into a JSON object
+	//Note that it will only add the exported values, so all keys for the object
+	//Ended up beginning with a capital letter (Capital == exported, lowercase == private)
 	jsonData, _ := json.Marshal(response)
 	w.Write(jsonData)
 }
 
 //StartNeon() allows you to execute the server
+//Note that this start an infinite loop, so you cannot execute tasks after starting this
 func StartNeon() {
 	info("Server", "Starting Neon")
+	//StartDatabase() will also create the database (.jsondb) files if necessary
 	StartDatabase()
+	//Send all API requests to APIHandler - I like this simplicity compared to NodeJS
 	http.HandleFunc("/api/", APIHandler)
+	//Send everything else to the ViewHandler
 	http.HandleFunc("/", ViewHandler)
-	http.ListenAndServe(fmt.Sprintf(":%d", port), nil)
+	//Start the HTTP serving on the port set in config.go
+	http.ListenAndServe(fmt.Sprintf(":%d", Port), nil)
 }

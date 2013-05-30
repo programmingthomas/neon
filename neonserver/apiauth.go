@@ -111,23 +111,14 @@ func Register(r * http.Request, response * APIResponse) {
 //Determines whether or not the request being made is authorised
 //With a username/password (not recommended) or usename/key
 func RequestIsAuth(r * http.Request) bool {
-	if r.FormValue("username") != "" {
-		if r.FormValue("password") != "" {
-			hashedPassword := hashString(r.FormValue("password"))
-			for i := 0; i < len(Users); i++ {
-				if Users[i].Username == r.FormValue("username") && Users[i].HashedPassword == hashedPassword {
-					return true
-				}
-			}
-		} else if r.FormValue("key") != "" {
-			user := UserForName(r.FormValue("username"))
-			if IsUser(user) {
-				for i := 0 ; i < len(Keys); i++ {
-					if Keys[i].User == user.ID && Keys[i].Key == r.FormValue("key") {
-						timeNow := time.Now()
-						if timeNow.After(Keys[i].StartTime) && timeNow.Before(Keys[i].EndTime) {
-							return true
-						}
+	if r.FormValue("username") != "" && r.FormValue("key") != "" {
+		user := UserForName(r.FormValue("username"))
+		if IsUser(user) {
+			for i := 0 ; i < len(Keys); i++ {
+				if Keys[i].User == user.ID && Keys[i].Key == r.FormValue("key") {
+					timeNow := time.Now()
+					if timeNow.After(Keys[i].StartTime) && timeNow.Before(Keys[i].EndTime) {
+						return true
 					}
 				}
 			}
@@ -154,4 +145,19 @@ func randomKey() string {
 		buffer.Write([]byte{possibles[rand.Intn(len(possibles))]})
 	}
 	return buffer.String()
+}
+
+//This will find and destroy a key by setting the end time to before the start time,
+//so that the key can never be used again. This will *not* log the user out everywhere,
+//however.
+func Logout(r * http.Request, response * APIResponse) {
+	user := UserForName(r.FormValue("username"))
+	response.Message = "Logout " + r.FormValue("username")
+	for i := 0; i < len(Keys); i++ {
+		if Keys[i].Key == r.FormValue("key") && Keys[i].User == user.ID {
+			Keys[i].EndTime = Keys[i].StartTime
+			SaveDatabase(&Keys, "keys")
+			break
+		}
+	}
 }

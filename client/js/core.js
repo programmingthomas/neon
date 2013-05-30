@@ -5,7 +5,7 @@ $(window).resize(function()
 
 setBackground = function()
 {
-	var widths = [1024, 1280, 1366, 1440, 1680, 1920, 3000];
+	var widths = [300,450,600,750,1024, 1280, 1366, 1440, 1680, 1920, 3000];
 	var body_width = $("body").width();
 
 	if(body_width > widths[widths.length - 1]) 

@@ -38,7 +38,10 @@ body {
 
 #logo {
 	width:17px;
-	height:17px
+	height:17px;
+	position:relative;
+	top:-2px;
+	margin-right:3px;
 }
 
 #welcomebox {

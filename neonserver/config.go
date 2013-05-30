@@ -35,3 +35,8 @@ var ShouldOnlyLogErrors = false;
 //If the client directory is not a sub-directory of the directory of neon.go change
 //this
 var PathToClient = "client"
+
+//Will save one of the splash images once it has been resized. This is recommended for 
+//production use however not recommended for debugging because it will result in a lot more
+//files added to your repo unnecessarily
+var SaveResizedImages = false

@@ -9,13 +9,12 @@ import (
 	"strconv"
 	"os"
 	"net/http"
-	"time"
 	"fmt"
+	"bufio"
 )
 
 //Handle a request to resize an image. Requests are in the form /splashes/imgname/width.jpg
-//so the width is pulled out and the 3000px version is read. Please note it will 
-//automatically round up to the nearest 100
+//so the width is pulled out and the 3000px version is read.
 func ProcessImageRequest(w http.ResponseWriter, r * http.Request) {
 	if r.URL.Path != "/splashes/" {
 		rSplit := strings.Split(r.URL.Path, "/")
@@ -27,18 +26,14 @@ func ProcessImageRequest(w http.ResponseWriter, r * http.Request) {
 					//TODO If-Modified-Since
 					w.Header().Add("Content-Type", "image/jpeg")
 					w.WriteHeader(200)
-					startTime := time.Now()
 					file, _ := os.Open(PathToClient + "/splashes/" + imageName + "/3000.jpg")
 					defer file.Close()
 					img, _, _ := image.Decode(file)
-					imageLoadTime := time.Now()
-					warn("Image", fmt.Sprintf("Loaded in \t %f s", imageLoadTime.Sub(startTime).Seconds()))
-					newImg := ScaleImageToWidth(img, Nearest(int(imageRes), 100))
-					imageScaleTime := time.Now()
-					warn("Image", fmt.Sprintf("Scaled in \t %f s", imageScaleTime.Sub(imageLoadTime).Seconds()))
+					newImg := ScaleImageToWidth(img, int(imageRes))
 					jpeg.Encode(w, newImg, nil)
-					imageEncodeTime := time.Now()
-					warn("Image", fmt.Sprintf("Wrote in \t %f s", imageEncodeTime.Sub(imageScaleTime).Seconds()))
+					if SaveResizedImages {
+						SaveImage(imageName, int(imageRes), newImg)
+					}
 				} else {
 					w.WriteHeader(404)
 					e("Image", imageName + " doesn't exist")
@@ -57,9 +52,16 @@ func ProcessImageRequest(w http.ResponseWriter, r * http.Request) {
 	}
 }
 
-//Round something up to the nearest of that unit (101, 100 -> 200, 99, 100 -> 100)
-func Nearest(val, unit int) int {
-	return val + (unit - val % unit)
+//Save an image to disk
+func SaveImage(name string, width int, img image.Image) {
+	fo, err := os.Create(fmt.Sprintf("%s/splashes/%s/%d.jpg", PathToClient, name, width))
+	if err != nil {
+		fmt.Print(err)
+	}
+	w := bufio.NewWriter(fo)
+	jpeg.Encode(w, img, nil)
+	w.Flush()
+	defer fo.Close()
 }
 
 //This function will resample an image by fetching the closest pixel

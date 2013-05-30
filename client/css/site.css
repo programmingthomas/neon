@@ -32,12 +32,16 @@ body {
     width:100%;
     z-index:-1;
     top:0;
-	left:0;
+    left:0;
 }
 
 #logo {
 	width:17px;
 	height:17px
+}
+
+#search-results {
+	margin-top: 5px;
 }
 
 #welcomebox {

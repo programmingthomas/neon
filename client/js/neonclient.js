@@ -30,6 +30,8 @@ $(document).ready(function() {
 				showGroups();
 			else if (window.location.hash.indexOf("#group-") == 0)
 				showGroup(window.location.hash);
+			else if (window.location.hash.indexOf("#profile-") == 0)
+				showProfile(window.location.hash);
 		} else {
 			$.get("welcomedom.html", {}, function(data, status, xhr) {
 				$("#pagecontent").html(data);
@@ -129,10 +131,12 @@ function updateDashboard()
 
 function HTMLForPost(post)
 {
+	var groupLink = post.GroupID.toString();
+	var profileLink = post.UserID.toString();
 	return "<section class=\"post row\" id=\"post" + post.PostID + "\">" +
 			"<div class=\"span1\"><img src=\"" + post.UserImage + "\" id=\"postUserImage\" /></div>" +
 			"<div class=\"span7\">" +
-			"<h4 style=\"margin:0;padding:0;\">" + post.UserFullName + "<span style=\"color:grey\"> &#9658 <a href=\"#group-\"" + post.GroupName + "\">" + post.GroupName + "</a></span></h4>" + post.HTML + 
+			"<h4 style=\"margin:0;padding:0;\"> <a target=\"parent\" href=\"#profile-" + profileLink + "\">" + post.UserFullName + "</a><span style=\"color:grey\"> &#9658 <a target=\"parent\" href=\"#group-" + groupLink + "\">" + post.GroupName + "</a></span></h4>" + post.HTML + 
 			"<p style=\"font-size:smaller;color:#777;\">" + post.TimeDescription + " &#8226 <a href=\"#\">" + post.Likes + " Likes</a> &#8226 " + 
 			"<a href=\"#\">" + post.Dislikes + " dislikes</a></p></div></section>";
 }
@@ -233,4 +237,26 @@ function addGroupLink()
 function groupLinkClicked()
 {
 	showGroup($(this).attr("href"));
+}
+
+function showProfile(hash)
+{
+	var g = hash.replace("#profile-", "")
+	$.get('profiledom.html', {}, function(data, textStatus, xhr) {
+		$("#pagecontent").html(data);
+		$.getJSON("/api/user/" + g, {username:localStorage.username, key:localStorage.passkey}, function(data, status, xhr){
+			$("#username").text("@" + data.Data.Username);
+			$("#name").text(data.Data.Name);
+			$("#profilePicture").attr("src",(data.Data.UserImage));
+			
+			var html = "";
+			for (var i = 0; i < data.Data.Posts.length; i++)
+			{
+				html += HTMLForPost(data.Data.Posts[i]);
+			}
+			$("#usercontent").html(html);
+			
+		});
+		changeMenuHighlight("home");
+	}, "html");
 }

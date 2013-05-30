@@ -208,23 +208,23 @@ input[type="search"]:-ms-input-placeholder {
 	float:left;
 }
 
-.groupHeader{
+.largeHeader{
 	padding:10px 20px 20px 20px !important;
 	border-radius: 5px;
 	box-shadow: rgba(0,0,0,0.5) 0px 0px 10px;
 }
 
-.groupHeader h1 {
+.largeHeader h1 {
 	font-size:50px !important;
 	line-height:50px !important;
 }
 	
-.groupHeader h2 {
+.largeHeader h2 {
 	font-size:24px !important;
 	line-height:24px !important;
 }	
 
-#groupjoin {
+.largeButton {
 	margin-top:10px;
 }
 
@@ -255,6 +255,12 @@ input[type="search"]:-ms-input-placeholder {
  	font-size: 16px;
 }
 
+#profilePicture {
+	max-height:100px;
+	max-width:100px;
+	margin-top:10px;
+}
+
 
 /* Large desktop */
 @media (min-width: 1200px) {
@@ -263,11 +269,11 @@ input[type="search"]:-ms-input-placeholder {
 		max-width:567px;
 	}
 	  
-	.groupHeader{
+	.largeHeader{
 		position:fixed;
 		top:40px;
 	}
-	#groupcontent {
+	.content {
 		margin-top:110px;
 	}
 }
@@ -279,16 +285,17 @@ input[type="search"]:-ms-input-placeholder {
 		max-width:427px !important;	
 	}
 	
-	.groupHeader{
+	.largeHeader{
 		position:fixed;
 		top:40px;
 	}
-	#groupcontent {
+	.content {
 		margin-top:110px;
 	}
 }
 
-/* All of the media queries stupidly put at the end so it's miles away from where the rules are first defined */
+/* All of the media queries stupidly put at the end so it's miles away from where the rules are first defined.*/
+/* I'm terribly sorry Gareth, you can put them back if you want. */
 
 /* Portrait tablet to landscape and desktop */
 @media (min-width: 768px) and (max-width: 979px) {
@@ -350,12 +357,12 @@ input[type="search"]:-ms-input-placeholder {
 		position:relative;
 	}
 	
-	.groupHeader h1 {
+	.largeHeader h1 {
 		font-size:30px !important;
 		line-height:30px !important;
 	}
 	
-	.groupHeader h2 {
+	.largeHeader h2 {
 		font-size:20px !important;
 		line-height:20px !important;
 	}

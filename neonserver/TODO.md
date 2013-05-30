@@ -11,4 +11,4 @@ This file contains a list of things that I still need to add support to the serv
 * Wonderfully simple (and fast) Markdown support. I had thought about creating a generic heirarchial structure by parsing the Markdown and then applying some simple rules although I'm not convinced that this will be particularly quick
 * -Server side logout-
 
-Also, I like Hans Zimmer
+Also, I like Hans Zimmer, and Atticus Ross and Trent Reznor are pretty good as well

@@ -64,7 +64,7 @@ function setBackground() {
 }
 
 function setBackgroundWithSplash(splash) {
-	var widths = [600, 750, 1024, 1280, 1366, 1440, 1680, 1920, 3000];
+	var widths = [600, 768, 979, 1280, 1366, 1440, 1680, 1920, 3000];
 	var body_width = $("body")
 		.width();
 

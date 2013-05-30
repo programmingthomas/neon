@@ -32,6 +32,8 @@ $(document).ready(function() {
 				showGroup(window.location.hash);
 			else if (window.location.hash.indexOf("#profile-") == 0)
 				showProfile(window.location.hash);
+			else if (window.location.hash == "#settings")
+				showSettings();
 		} else {
 			$.get("welcomedom.html", {}, function(data, status, xhr) {
 				$("#pagecontent").html(data);
@@ -308,6 +310,7 @@ function showProfile(hash)
 {
 	var g = hash.replace("#profile-", "")
 	$.get('profiledom.html', {}, function(data, textStatus, xhr) {
+		document.title = (data.Data.Username + " - Neon");
 		$("#pagecontent").html(data);
 		$.getJSON("/api/user/" + g, {username:localStorage.username, key:localStorage.passkey}, function(data, status, xhr){
 			$("#username").text("@" + data.Data.Username);
@@ -322,6 +325,13 @@ function showProfile(hash)
 			$("#usercontent").html(html);
 			
 		});
-		changeMenuHighlight("home");
+		changeMenuHighlight("none");
+	}, "html");
+}
+
+function showSettings() {
+	$.get("settingsdom.html", {}, function(data, status, xhr){
+		document.title = "Settings - Neon";
+		changeMenuHighlight("none");
 	}, "html");
 }

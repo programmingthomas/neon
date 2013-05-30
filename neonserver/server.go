@@ -83,7 +83,6 @@ func SplashHandler(w http.ResponseWriter, r * http.Request) {
 		ViewHandler(w, r)
 	} else {
 		ProcessImageRequest(w, r)
-		info("Server", "Served")
 	}
 }
 

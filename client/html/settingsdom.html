@@ -1,16 +1,49 @@
-<div class="row">
-	<div class="span8 offset2 whitecontainer content" style="margin-top:0px" id="usercontent">
-        <div class="span6">
-            <h1>Settings</h1>
-            <h2 id="name">name</h2>
-            <h2 id="username">@username</h2>
-            <img id="profilePicture"></img>
+<div class="hero-unit largeHeader span11">
+	<div class="pull-right">
+		<div>
+			<a class="btn btn-success btn largeButton" id="settingsSave">Save</a>
+			<a class="btn btn-danger btn largeButton" id="settingsCancel">Cancel</a>
+		</div>
+    </div>
+	<div class="span2" style="margin-left:0px;">
+		<h1 style="font-weight:500">Settings</h1>
+	</div>
+</div>
+<div class="row" style="margin-top:65px">
+	<div class="span8 offset2 whitecontainer">
+    	<h2>General Settings</h2>
+        <div class="span2">
+        	<h3>Profile Picture</h3>
+        	<ul class="thumbnails">
+  				<li>
+    				<div class="thumbnail">
+      					<img id="profilePicture"/>
+                        <br/>
+      					<a class="btn btn-success btn-small">Upload new picture</a>
+    				</div>
+  				</li>
+			</ul>
         </div>
-        <div class="pull-right">
-        	<div>
-            	<a class="btn btn-success btn largeButton" id="profilefollow">Save</a>
-            	<a class="btn btn-danger btn largeButton" id="profilefollow">Cancel</a>
+        <div class="span5">
+        	<h3>Personal Details</h3>
+        	<label class="control-label" for"txtName">Full Name</label>
+            <input id="txtName" type="text" placeholder="Full Name"/>
+            <label class="control-label" for"txtUsername">Username</label>
+            <input id="txtUsername" type="text" placeholder="@username"/>
+        </div>
+    </div>
+</div>
+<div class="row">
+	<div class="span8 offset2 whitecontainer" style="margin-top:20px">
+    	<h2>Appearance</h2>
+        <div>
+        	<h3>Background Picture</h3>
+            <div id="backgrounds" style="margin-left:30px">
+				Some pretty backgrounds!
             </div>
         </div>
+        <br/>
+      	<a class="btn btn-success btn-small pull-right">Upload new picture</a>
+        <br/>
     </div>
 </div>

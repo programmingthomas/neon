@@ -361,10 +361,26 @@ var verify = function(field) {
 	}
 
 	function showSettings() {
-		$.get("settingsdom.html", {}, function(data, status, xhr) {
+		$.get("settingsdom.html", {}, function(data, status, xhr){
 			document.title = "Settings - Neon";
-			$("#pagecontent")
-				.html(data);
+			$("#pagecontent").html(data);
+			
+			$.getJSON("/api/user/" + localStorage.username, {username:localStorage.username, key:localStorage.passkey}, function(data, status, xhr){
+				$("#txtName").value = (data.Data.Name);
+				$("#txtUsername").value = (data.Data.Username);
+				$("#profilePicture").attr("src",(data.Data.UserImage));
+				
+				var splashes = ["cornfield", "hills", "island", "sea", "sunset", "sun", "yellowstone"];
+				var html = "<ul class=\"thumbnails\">";
+				for (var i = 0; i < splashes.length; i++) {
+					var splash = splashes[i];
+					html += "<li><div class=\"thumbnail\"><img id=\""+ splash +"\" class=\"backgroundPicture\" src=\"/splashes/"+ splash +"/3000.jpg\"/></div></li>";
+				}
+				html += "</ul>";
+				$("#backgrounds")
+					.html(html);
+			});
+			
 			changeMenuHighlight("none");
 		}, "html");
 	}

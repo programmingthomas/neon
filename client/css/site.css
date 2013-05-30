@@ -263,6 +263,10 @@ input[type="search"]:-ms-input-placeholder {
 	margin-top:10px;
 }
 
+.backgroundPicture {
+	max-height:125px;
+	max-width:200px;
+}
 
 /* Large desktop */
 @media (min-width: 1200px) {

@@ -39,14 +39,15 @@
         <div class="span5">
         	<h3>Personal Details</h3>
         	<label class="control-label" for"txtName">Full Name</label>
-            <input id="txtName" class="inputs" type="text" placeholder="Full Name"/>
+            <input id="txtName" class="inputs" type="text" placeholder="Full Name" data-toggle="popover" data-content="This should be your first name and your surname; <i>you can use a nick name</i>" />
             <label class="control-label" for"txtUsername">Username</label>
-            <input id="txtUsername" class="inputs" type="text" placeholder="@username"/> <!-- ARE WE REALLY LETTING THEM CHANGE USERNAME!! -->
+            <input id="txtUsername" class="inputs" type="text" placeholder="@username" data-toggle="popover" data-content="Not sure you should be able to change this&hellip;" /> <!-- ARE WE REALLY LETTING THEM CHANGE USERNAME!! -->
+            <a class="btn btn-success btn" id="passwordChange">Update details</a>
         	<h3>Password</h3>
         	<label class="control-label" for"txtPass">Password</label>
-            <input id="txtPass" class="inputs" type="password" placeholder="Password"/>
+            <input id="txtPass" class="inputs" type="password" placeholder="Password" data-toggle="popover" data-content="Please choose a secure password" />
             <label class="control-label" for"txtVerify">Verify</label>
-            <input id="txtVerify" class="inputs" type="password" placeholder="Verify Password"/>
+            <input id="txtVerify" class="inputs" type="password" placeholder="Verify Password" data-toggle="popover" data-content="Just make sure it's the same" />
             <br/>
             <a class="btn btn-danger btn" id="passwordChange">Change Password</a>
             <br/>
@@ -79,3 +80,10 @@
         <br/>
     </div>
 </div>
+<script>
+	$('input').popover({
+		html : true,
+		trigger : 'focus',
+		placement : 'right'
+	});
+</script>

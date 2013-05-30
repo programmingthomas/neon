@@ -146,7 +146,7 @@ func PostResponseForPost(post Post) APIPostResponse {
 	apiPostResponse.UserName = user.Username
 	apiPostResponse.UserFullName = user.RealName
 	apiPostResponse.UserImage = user.UserImageURL
-	apiPostResponse.PlainText = post.Text
+	apiPostResponse.PlainText = MarkdownToPlainText(post.Text)
 	apiPostResponse.HTML = HTMLForText(post.Text)
 	apiPostResponse.PostTime = post.PostTime
 	apiPostResponse.TimeDescription = GetTimeDescription(post.PostTime)
@@ -180,7 +180,7 @@ func PostResponseForPost(post Post) APIPostResponse {
 func HTMLForText(text string) string {
 	text = strings.Replace(text, "<", "&lt;", -1)
 	text = strings.Replace(text, ">", "&gt;", -1)
-	return "<p>" + text + "</p>"
+	return "<p>" + MarkdownToHTML(text) + "</p>"
 }
 
 

@@ -9,6 +9,6 @@ This file contains a list of things that I still need to add support to the serv
 * Security fixes so that all input (NAMES!) gets validated
 * Create cache folders for the images so that we can test without committing the files that we generate?
 * Wonderfully simple (and fast) Markdown support. I had thought about creating a generic heirarchial structure by parsing the Markdown and then applying some simple rules although I'm not convinced that this will be particularly quick
-* Server side logout
+* -Server side logout-
 
 Also, I like Hans Zimmer

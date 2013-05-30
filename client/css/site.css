@@ -282,10 +282,6 @@ input[type="search"]:-ms-input-placeholder {
 		position:fixed;
 		max-width:311px !important;	
 	}
-	
-	#pagecontent {
-		margin-top:80px;
-	}
 }
 /* Below large tablet */
 @media screen and (max-width: 979px) {
@@ -304,10 +300,6 @@ input[type="search"]:-ms-input-placeholder {
 		padding-bottom:20px !important;
 	}
 	
-	#pagecontent {
-		margin-top:80px;
-	}
-	
 	.groupsHeader{
 		position:relative;
 	}
@@ -322,11 +314,6 @@ input[type="search"]:-ms-input-placeholder {
 	
 	.postContainer {
 		padding-bottom:20px !important;
-		margin-top:80px;
-	}
-	
-	#pagecontent {
-		margin-top:0px;
 	}
 	
 	.groupsHeader{

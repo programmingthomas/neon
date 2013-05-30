@@ -56,7 +56,7 @@ $(window)
 function setBackground() {
 	var splash = localStorage.splash;
 	
-	if (splash == null || splash == "" || splash == undefined || splash == "null") {
+	if (splash == "null" || splash == null || splash == "" || splash == undefined || splash == "undefined"  ) {
 		var splashes = ["cornfield", "hills", "island", "sea", "sunset", "sun", "yellowstone"];
 		splash = splashes[Math.floor(Math.random() * splashes.length)];
 	}
@@ -334,13 +334,13 @@ var verify = function(field) {
 	function showProfile(hash) {
 		var g = hash.replace("#profile-", "")
 		$.get('profiledom.html', {}, function(data, textStatus, xhr) {
-			document.title = (data.Data.Username + " - Neon");
 			$("#pagecontent")
 				.html(data);
 			$.getJSON("/api/user/" + g, {
 				username: localStorage.username,
 				key: localStorage.passkey
 			}, function(data, status, xhr) {
+				document.title = (data.Data.Username + " - Neon");
 				$("#username")
 					.text("@" + data.Data.Username);
 				$("#name")

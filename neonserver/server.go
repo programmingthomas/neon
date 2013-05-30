@@ -30,7 +30,7 @@ func ViewHandler(w http.ResponseWriter, r *http.Request) {
 		ext = path.Ext(r.URL.Path)[1:]
 		directory, filename = path.Split(r.URL.Path)
 	}
-	fullPath := "client" + FolderForType(ext, directory) + filename
+	fullPath := PathToClient + FolderForType(ext, directory) + filename
 	fileExists := FileExists(fullPath)
 	if fileExists {
 		lastModTime := LastMod(fullPath)
@@ -77,6 +77,15 @@ func APIHandler(w http.ResponseWriter, r * http.Request) {
 	w.Write(jsonData)
 }
 
+//Handles splash images. If the file exists it will redirect to ViewHandler
+func SplashHandler(w http.ResponseWriter, r * http.Request) {
+	if FileExists("client" + r.URL.Path) {
+		ViewHandler(w, r)
+	} else {
+		ProcessImageRequest(w, r)
+	}
+}
+
 //StartNeon() allows you to execute the server
 //Note that this start an infinite loop, so you cannot execute tasks after starting this
 func StartNeon() {
@@ -85,6 +94,8 @@ func StartNeon() {
 	StartDatabase()
 	//Send all API requests to APIHandler - I like this simplicity compared to NodeJS
 	http.HandleFunc("/api/", APIHandler)
+	//Send all splash requests (in case they need to be resized) to the splash handler
+	http.HandleFunc("/splashes/", SplashHandler)
 	//Send everything else to the ViewHandler
 	http.HandleFunc("/", ViewHandler)
 	//Start the HTTP serving on the port set in config.go

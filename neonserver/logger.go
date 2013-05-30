@@ -32,7 +32,7 @@ func e(source, message string) {
 }
 
 //Log a warning
-func w(source, message string) {
+func warn(source, message string) {
 	if !ShouldOnlyLogErrors {
 		Log("\033[93m", source, message)
 	}

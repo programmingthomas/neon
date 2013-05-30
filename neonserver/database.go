@@ -99,6 +99,7 @@ func SaveAllDatabases() {
 	info("Database", "Saved all databases")
 }
 
+//TODO Defer
 func SaveDatabase(data interface{}, name string) {
 	b, _ := json.Marshal(data)
 	file, _ := os.Create(name + StoreExtension)

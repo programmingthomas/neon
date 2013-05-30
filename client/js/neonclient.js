@@ -38,8 +38,7 @@ $(document).ready(function() {
 			}, "html");
 		}
 		
-		if ("-ms-user-select" in document.documentElement.style && navigator.userAgent.match(/IEMobile\/10\.0/))
-		{
+		if ("-ms-user-select" in document.documentElement.style && navigator.userAgent.match(/IEMobile\/10\.0/)) {
 			var msViewportStyle = document.createElement("style");
 			msViewportStyle.appendChild(
 				document.createTextNode("@-ms-viewport{width:auto!important}")
@@ -136,9 +135,14 @@ function HTMLForPost(post)
 	return "<section class=\"post row\" id=\"post" + post.PostID + "\">" +
 			"<div class=\"span1\"><img src=\"" + post.UserImage + "\" id=\"postUserImage\" /></div>" +
 			"<div class=\"span7\">" +
-			"<h4 style=\"margin:0;padding:0;\"> <a target=\"blank\" href=\"#profile-" + profileLink + "\">" + post.UserFullName + "</a><span style=\"color:grey\"> &#9658 <a target=\"blank\" href=\"#group-" + groupLink + "\">" + post.GroupName + "</a></span></h4>" + post.HTML + 
+			"<h4 style=\"margin:0;padding:0;\"> <a onclick=\"goToPage('profile-" +profileLink + "')\" href=\"#\">" + post.UserFullName + "</a><span style=\"color:grey\"> &#9658 <a onclick=\"goToPage('group-" + groupLink + "')\" href=\"#\">" + post.GroupName + "</a></span></h4>" + post.HTML + 
 			"<p style=\"font-size:smaller;color:#777;\">" + post.TimeDescription + " &#8226 <a href=\"#\">" + post.Likes + " Likes</a> &#8226 " + 
 			"<a href=\"#\">" + post.Dislikes + " dislikes</a></p></div></section>";
+}
+
+function goToPage(hash) { // I'm sure there is a better way of doing this and I don't mind this function being scrapped and replaced for something better
+	window.location = "#" + hash;
+	window.location.reload(true);
 }
 
 function logout()

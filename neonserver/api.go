@@ -191,7 +191,7 @@ func CreateGroup(r * http.Request, response * APIResponse) {
 func addUserToGroup(user, group, role int) {
 	
 	for i := 0; i < len(GroupMembers); i++ {
-		if GroupMembers[i].User == user && GroupMembers[i].Group == group && GroupMembers[i].Role <= role {
+		if GroupMembers[i].User == user && GroupMembers[i].Group == group {
 			return
 		}
 	}

@@ -55,6 +55,7 @@ type APIUserResponse struct {
 	GroupIDs []int
 	GroupNames []string
 	Posts []APIPostResponse
+	Background string
 }
 
 //Returned when detail for a group is requested. MyRole is currently not guarenteed

@@ -17,6 +17,8 @@ jQuery.extend({
 });
 
 var loaded = false;
+var userSplash;
+
 
 $(document)
 	.ready(function() {
@@ -52,11 +54,19 @@ $(window)
 });
 
 function setBackground() {
+	var splash = localStorage.splash;
+	
+	if (splash == null || splash == "" || splash == undefined || splash == "null") {
+		var splashes = ["cornfield", "hills", "island", "sea", "sunset", "sun", "yellowstone"];
+		splash = splashes[Math.floor(Math.random() * splashes.length)];
+	}
+	setBackgroundWithSplash(splash)
+}
+
+function setBackgroundWithSplash(splash) {
 	var widths = [600, 750, 1024, 1280, 1366, 1440, 1680, 1920, 3000];
 	var body_width = $("body")
 		.width();
-	var splashes = ["cornfield", "hills", "island", "sea", "sunset", "sun", "yellowstone"];
-	var randomSplash = splashes[Math.floor(Math.random() * splashes.length)];
 
 	if (body_width > widths[widths.length - 1]) { //too big
 		var image_width = width[widths.length - 1];
@@ -67,7 +77,7 @@ function setBackground() {
 	}
 
 	$("#fixedbg")
-		.css("background-image", "url('splashes/" + randomSplash + "/" + image_width + ".jpg')");
+		.css("background-image", "url('splashes/" + splash + "/" + image_width + ".jpg')");
 }
 
 var roundUpWidth = function(a, x) {
@@ -180,6 +190,8 @@ var verify = function(field) {
 			}
 
 			changeMenuHighlight("home");
+			localStorage.splash = data.Data.User.Background;
+			setBackground();
 		});
 	}
 
@@ -197,11 +209,12 @@ var verify = function(field) {
 	function logout() {
 		localStorage.passkey = null;
 		localStorage.username = null;
+		localStorage.splash = null;
 		$.get("welcomedom.html", {}, function(data, status, xhr) {
-			$("#pagecontent")
-				.html(data);
+			$("#pagecontent").html(data);
 			changeMenuHighlight("home");
 			document.title = "Neon";
+			setBackground();
 		}, "html");
 	}
 

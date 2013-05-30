@@ -22,7 +22,7 @@ setBackground = function()
 		var image_path = "splashes/" + image_width;
 	}
    
-	$('body').css("background", "url('" + image_path + "') 50% 50% no-repeat fixed cover"); 
+	$('#fixedbg').css("background-image", "url('" + image_path + "') !important"); 
 }
 
 

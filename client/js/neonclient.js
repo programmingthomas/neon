@@ -332,6 +332,7 @@ function showProfile(hash)
 function showSettings() {
 	$.get("settingsdom.html", {}, function(data, status, xhr){
 		document.title = "Settings - Neon";
+		$("#pagecontent").html(data);
 		changeMenuHighlight("none");
 	}, "html");
 }

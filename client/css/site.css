@@ -1,4 +1,5 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700);
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
 
 @font-face {
 	font-family: 'icomoon';
@@ -163,10 +164,67 @@ footer {
 	padding-left:20px;
 }
 
-@media screen and (max-width: 979px) {
-	#postUserImage {
-		padding-left:0 !important;
-	}
+select {
+	outline: none !important;
+}
+
+input[type="search"] {
+	background-image: url(images/search.png);
+	background-repeat: no-repeat;
+	background-position: 8px 5px;
+	padding-left:33px !important;
+}
+
+input[type="search"]::-webkit-input-placeholder {
+ 	font-size: 16px;
+}
+
+input[type="search"]:-moz-placeholder {
+ 	font-size: 16px;
+}
+
+input[type="search"]::-moz-placeholder {
+ 	font-size: 16px; 
+}
+
+input[type="search"]:-ms-input-placeholder {  
+ 	font-size: 16px;
+}
+
+#groupmembers
+{
+	margin-top:10px;
+	overflow:hidden;
+	height:50px;
+	text-align:left;
+}
+
+#groupmembers img
+{
+	width:46px;
+	height:46px;
+	padding:2px;
+	float:left;
+}
+
+.groupHeader{
+	padding:10px 20px 20px 20px !important;
+	border-radius: 5px;
+	box-shadow: rgba(0,0,0,0.5) 0px 0px 10px;
+}
+
+.groupHeader h1 {
+	font-size:50px !important;
+	line-height:50px !important;
+}
+	
+.groupHeader h2 {
+	font-size:24px !important;
+	line-height:24px !important;
+}	
+
+#groupjoin {
+	margin-top:10px;
 }
 
 select {
@@ -196,6 +254,7 @@ input[type="search"]:-ms-input-placeholder {
  	font-size: 16px;
 }
 
+
 /* Large desktop */
 @media (min-width: 1200px) {
 	  .groupsHeader {
@@ -223,6 +282,12 @@ input[type="search"]:-ms-input-placeholder {
 		margin-top:80px;
 	}
 }
+/* Below large tablet */
+@media screen and (max-width: 979px) {
+	#postUserImage {
+		padding-left:0 !important;
+	}
+}
  
 /* Landscape phone to portrait tablet */
 @media (max-width: 768px) {
@@ -243,6 +308,7 @@ input[type="search"]:-ms-input-placeholder {
 	}
 }
  
+ 
 /* Landscape phones and down */
 @media (max-width: 480px) {
 	.profileContainer {
@@ -261,20 +327,23 @@ input[type="search"]:-ms-input-placeholder {
 	.groupsHeader{
 		position:relative;
 	}
+	
+	.groupHeader h1 {
+		font-size:30px !important;
+		line-height:30px !important;
+	}
+	
+	.groupHeader h2 {
+		font-size:20px !important;
+		line-height:20px !important;
+	}
+	
+	#groupmembers{
+		display:none;
+	}
+	
+	#settings	{
+		display:none;
+	}
+	
 }
-
-#groupmembers
-{
-	margin-top:10px;
-	overflow:hidden;
-	height:50px;
-}
-
-#groupmembers img
-{
-	width:46px;
-	height:46px;
-	padding:2px;
-	float:left;
-}
-

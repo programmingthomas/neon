@@ -12,6 +12,7 @@ type APIResponse struct {
 	Message string
 	SuccessCode int
 	Data interface{}
+	RequestTime int
 }
 
 //This is returned as the Data of an APIResponse when a user logs in or registers

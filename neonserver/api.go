@@ -15,12 +15,12 @@ import (
 func APIResponseForRequest(r * http.Request) APIResponse {
 	requestPath := r.URL.Path
 	requestPathSplit := strings.Split(requestPath, "/")
-	response := APIResponse{"", "", "", 200, nil}
-	
-	if string(requestPath[0]) == "api" && len(requestPath) > 1{
-		response.RequestType = string(requestPath[1])
-		if len(requestPathSplit) > 2 {
-			response.RequestDetail = string(requestPath[2])
+	response := APIResponse{}
+	response.SuccessCode = 200 //Default is good :)
+	if string(requestPathSplit[1]) == "api" && len(requestPathSplit) > 2 {
+		response.RequestType = string(requestPathSplit[2])
+		if len(requestPathSplit) > 3 {
+			response.RequestDetail = string(requestPathSplit[3])
 		} else {
 			response.RequestDetail = ""
 		}
@@ -28,7 +28,9 @@ func APIResponseForRequest(r * http.Request) APIResponse {
 		response.Message = "Failed to pass request"
 		return response
 	}
-	
+
+	startAPI := time.Now()
+
 	if response.RequestType == "login" {
 		Login(r, &response)
 	} else if response.RequestType == "register" {
@@ -58,6 +60,9 @@ func APIResponseForRequest(r * http.Request) APIResponse {
 		wtf("API", "Authorisation is required")
 	}
 	
+	endAPI := time.Now()
+	response.RequestTime = int(endAPI.Sub(startAPI).Nanoseconds())
+
 	return response
 }
 

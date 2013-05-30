@@ -84,7 +84,6 @@ func Register(r * http.Request, response * APIResponse) {
 					user.UserImageURL = "userImages/default.png"
 					user.RealName = realName
 					AddUser(&user)
-					info("API", "Successfully signed up user " + username)
 				
 					//Log the user in
 					Login(r, response)

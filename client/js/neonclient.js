@@ -308,9 +308,9 @@ function showProfile(hash)
 {
 	var g = hash.replace("#profile-", "")
 	$.get('profiledom.html', {}, function(data, textStatus, xhr) {
-		document.title = (data.Data.Username + " - Neon");
 		$("#pagecontent").html(data);
 		$.getJSON("/api/user/" + g, {username:localStorage.username, key:localStorage.passkey}, function(data, status, xhr){
+			document.title = (data.Data.Username + " - Neon");
 			$("#username").text("@" + data.Data.Username);
 			$("#name").text(data.Data.Name);
 			$("#profilePicture").attr("src",(data.Data.UserImage));
@@ -331,6 +331,14 @@ function showSettings() {
 	$.get("settingsdom.html", {}, function(data, status, xhr){
 		document.title = "Settings - Neon";
 		$("#pagecontent").html(data);
+		
+		$.getJSON("/api/user/" + localStorage.username, {username:localStorage.username, key:localStorage.passkey}, function(data, status, xhr){
+			$("#username").text("@" + data.Data.Username);
+			$("#name").text(data.Data.Name);
+			$("#profilePicture").attr("src",(data.Data.UserImage));
+			
+		});
+		
 		changeMenuHighlight("none");
 	}, "html");
 }

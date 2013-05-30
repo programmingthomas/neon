@@ -107,6 +107,10 @@ function updateDashboard()
 		document.title = "Dashboard - Neon";
 		$("#dashrealname").text(data.Data.User.Name);
 		$("#dashusername").text("@" + data.Data.User.Username);
+		$('#profileLink').click(function (event)
+		{
+        	goToPage("profile-" + data.Data.User.UserID);
+		});
 		document.getElementById("dashuserimage").src = data.Data.User.UserImage;
 		var dashPosts = document.getElementById("dashposts");
 		dashPosts.innerHTML = "";

@@ -59,25 +59,23 @@ function setBackground()
 {
 	var widths = [600,750,1024, 1280, 1366, 1440, 1680, 1920, 3000];
 	var body_width = $("body").width();
-	var splashes = ["sunset"];
-	//with new splashes: var splashes = ["cornfield","hills","island","sea","sunset","sun"];
+	var splashes = ["cornfield","hills","island","sea","sunset","sun"];
 	var randomSplash = splashes[Math.floor(Math.random() * splashes.length)];
 
 	if(body_width > widths[widths.length - 1]) 
 	{ //too big
-		var image_path = width[widths.length - 1] + ".jpg";
+		var image_width = width[widths.length - 1];
 	}
 	else if(body_width < widths[0]) 
 	{ //too small
-		var image_path = widths[0] + ".jpg";
+		var image_width = widths[0];
 	}
 	else 
 	{ //juuust right
 		var image_width = roundUpWidth(widths, body_width)[1];
-		var image_path = image_width + ".jpg";
 	}
 
-	$("#fixedbg").css("background-image", "url('splashes/" + randomSplash + "/" + image_path + "')"); 
+	$("#fixedbg").css("background-image", "url('splashes/" + randomSplash + "/" + image_width + ".jpg')"); 
 }
 
 var roundUpWidth = function(a, x) 

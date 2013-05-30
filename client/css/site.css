@@ -40,10 +40,6 @@ body {
 	height:17px
 }
 
-#search-results {
-	margin-top: 5px;
-}
-
 #welcomebox {
 	background: #FFF;
 	border-radius: 5px;
@@ -292,6 +288,8 @@ input[type="search"]:-ms-input-placeholder {
 	}
 }
 
+/* All of the media queries stupidly put at the end so it's miles away from where the rules are first defined */
+
 /* Portrait tablet to landscape and desktop */
 @media (min-width: 768px) and (max-width: 979px) {
 	.groupsHeader{
@@ -299,6 +297,16 @@ input[type="search"]:-ms-input-placeholder {
 		max-width:311px !important;	
 	}
 }
+
+/* Above large tablet */
+@media screen and (min-width: 979px) {
+	#search-results {
+		margin-top:5px;
+		width:255px;
+	}
+}
+
+
 /* Below large tablet */
 @media screen and (max-width: 979px) {
 	#postUserImage {

@@ -57,7 +57,7 @@ $(window).resize(function()
 
 function setBackground()
 {
-	var widths = [600,750,1024, 1280, 1366, 1440, 1680, 1920, 3000];
+	var widths = [600,800,1000, 1200, 1400, 1600, 1800, 2000, 3000];
 	var body_width = $("body").width();
 	var splashes = ["cornfield","hills","island","sea","sunset","sun"];
 	var randomSplash = splashes[Math.floor(Math.random() * splashes.length)];

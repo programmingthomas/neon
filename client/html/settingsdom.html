@@ -64,7 +64,18 @@
             </div>
         </div>
         <br/>
-      	<span class="btn btn-success pull-right btn-file">Upload new picture<input type="file"/></span>
+		<div class="fileupload fileupload-new pull-right" data-provides="fileupload">
+			<span class="btn btn-file btn-success">
+				<span class="fileupload-new">Upload new background</span>
+				<span class="fileupload-exists">Change background image</span>
+				<input type="file" />
+			</span>
+			<a href="#" class="btn fileupload-exists btn-danger" data-dismiss="fileupload">Remove</a>
+			<div class="fileupload-new thumbnail" style="width: 200px; height: 125px;">
+				<img src="http://www.placehold.it/200x125/EFEFEF/AAAAAA&text=No+image" />
+			</div>
+ 			<div class="fileupload-preview fileupload-exists thumbnail" style="width: 125px; height: 200px;"></div>
+		</div>
         <br/>
     </div>
 </div>

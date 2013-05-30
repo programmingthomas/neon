@@ -53,9 +53,9 @@ $(window).resize(function()
 	setBackground();
 });
 
-setBackground = function()
+function setBackground()
 {
-	var widths = [300,450,600,750,1024, 1280, 1366, 1440, 1680, 1920, 3000];
+	var widths = [600,750,1024, 1280, 1366, 1440, 1680, 1920, 3000];
 	var body_width = $("body").width();
 
 	if(body_width > widths[widths.length - 1]) 
@@ -68,11 +68,11 @@ setBackground = function()
 	}
 	else 
 	{ //juuust right
-		var image_width = roundUpWidth(widths, body_width)[1] + ".jpg"
-		var image_path = "splashes/" + image_width;
+		var image_width = roundUpWidth(widths, body_width)[1];
+		var image_path = "splashes/" + image_width + ".jpg";
 	}
-   
-	$('#fixedbg').css("background-image", "url('" + image_path + "') !important"); 
+
+	$("#fixedbg").css("background-image", "url('" + image_path + "')"); 
 }
 
 var roundUpWidth = function(a, x) 

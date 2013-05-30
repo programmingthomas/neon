@@ -24,7 +24,9 @@ body {
 }
 
 #fixedbg {
-	background: url(../splashes/1920.jpg) no-repeat 50% 100% fixed;
+	background-repeat: no-repeat;
+	background-position: 50% 100%;
+	background-attachment: fixed;
 	background-size: cover;
 	background-position: center;
 	height:100%;

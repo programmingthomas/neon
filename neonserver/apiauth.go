@@ -49,22 +49,32 @@ func Login(r * http.Request, response * APIResponse) {
 	}
 }
 
-func userNameIsValid(username string) bool {
-	length := len(username)
-	if length == 0 || length > 16 {
+func Validate(original string, regex string, minLength int, maxLength int) bool {
+	if len(original) > maxLength || len(original) < minLength {
 		return false
 	}
-	matched, _ := regexp.MatchString("^[a-z]", username)
+	matched, _ := regexp.MatchString(regex, original)
 	return matched
 }
 
+func userNameIsValid(username string) bool {
+	return Validate(username, "^[a-z]", 1, 16)
+}
+
+func nameIsValid(name string) bool {
+	return Validate(name, "^[A-Za-z ]", 1, 50)
+}
+
+//This will register a new user (and log them in) if the server allows registration,
+//the username is valid (all lowercase letters, less than 16 characters long), the
+//password is longer than five characters and the username is not taken
 func Register(r * http.Request, response * APIResponse) {
 	if AllowsRegister {
 		if r.FormValue("username") != "" && r.FormValue("password") != "" && r.FormValue("name") != "" {
 			username := r.FormValue("username")
 			password := r.FormValue("password")
 			realName := r.FormValue("name")
-			if len(password) > 5 && userNameIsValid(username) {
+			if len(password) > 5 && userNameIsValid(username) && nameIsValid(realName) {
 				if !UserForUserNameExists(username) {
 					//The password is acceptable, the username is untake and acceptable
 					//Sign up user
@@ -99,6 +109,8 @@ func Register(r * http.Request, response * APIResponse) {
 	}
 }
 
+//Determines whether or not the request being made is authorised
+//With a username/password (not recommended) or usename/key
 func RequestIsAuth(r * http.Request) bool {
 	if r.FormValue("username") != "" {
 		if r.FormValue("password") != "" {
@@ -125,12 +137,17 @@ func RequestIsAuth(r * http.Request) bool {
 	return false
 }
 
+//Generate the md5 hash of a string so that we don't include the raw password
+//in the database
 func hashString(original string) string {
 	h := md5.New()
 	io.WriteString(h, original)
 	return fmt.Sprintf("%x", h.Sum(nil))
 }
 
+//Generates a sudo random key for use with logging in. This key could be any letter
+//(upper or lower case) or number and is 64 characters long. Clients should submit
+//the generated key when making respects
 func randomKey() string {
 	var buffer bytes.Buffer
 	possibles := "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"

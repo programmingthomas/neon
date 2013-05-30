@@ -296,6 +296,7 @@ input[type="search"]:-ms-input-placeholder {
 
 /* All of the media queries stupidly put at the end so it's miles away from where the rules are first defined.*/
 /* I'm terribly sorry Gareth, you can put them back if you want. */
+/* Well now we've moved them it seems like a lot of effort to put them back */
 
 /* Portrait tablet to landscape and desktop */
 @media (min-width: 768px) and (max-width: 979px) {
@@ -307,6 +308,9 @@ input[type="search"]:-ms-input-placeholder {
 
 /* Above large tablet */
 @media screen and (min-width: 979px) {
+	.navbar .nav li.dropdown.open>.dropdown-toggle.navbar-search {
+		background-color:inherit;
+	}
 	#search-results {
 		margin-top:5px;
 		width:255px;

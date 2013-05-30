@@ -58,7 +58,8 @@ function setBackground()
 	var widths = [600,750,1024, 1280, 1366, 1440, 1680, 1920, 3000];
 	var body_width = $("body").width();
 	var splashes = ["sunset"];
-	var randomSplash = splashes[Math.floor(Math.random())];
+	//with new splashes: var splashes = ["cornfield","hills","island","sea","sunset","sun"];
+	var randomSplash = splashes[Math.floor(Math.random() * splashes.length)];
 
 	if(body_width > widths[widths.length - 1]) 
 	{ //too big

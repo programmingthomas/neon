@@ -266,6 +266,14 @@ input[type="search"]:-ms-input-placeholder {
 		  position:fixed;
 		  max-width:567px;
 	  }
+	  
+	  .groupHeader{
+		position:fixed;
+		top:40px;
+	}
+	#groupcontent {
+		margin-top:110px;
+	}
 }
 
 /*Normal desktop */
@@ -273,6 +281,14 @@ input[type="search"]:-ms-input-placeholder {
 	.groupsHeader{
 		position:fixed;
 		max-width:427px !important;	
+	}
+	
+	.groupHeader{
+		position:fixed;
+		top:40px;
+	}
+	#groupcontent {
+		margin-top:110px;
 	}
 }
 
@@ -303,11 +319,17 @@ input[type="search"]:-ms-input-placeholder {
 	.groupsHeader{
 		position:relative;
 	}
+	
+	#groupmembers{
+		display:none;
+	}
+	
 }
  
  
 /* Landscape phones and down */
 @media (max-width: 480px) {
+	
 	.profileContainer {
 		display:none;
 	}
@@ -330,12 +352,7 @@ input[type="search"]:-ms-input-placeholder {
 		line-height:20px !important;
 	}
 	
-	#groupmembers{
-		display:none;
-	}
-	
 	#settings	{
 		display:none;
 	}
-	
 }

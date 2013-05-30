@@ -1,4 +1,5 @@
-package neon
+package neonserver
+
 //Config.js contains all core options...
 
 //Which port to run the server on. The default (8888) is our recommended

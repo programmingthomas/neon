@@ -1,4 +1,4 @@
-package neon
+package neonserver
 
 import (
 	"net/http"
@@ -45,7 +45,7 @@ func ViewHandler(w http.ResponseWriter, r *http.Request) {
 		ext = path.Ext(r.URL.Path)[1:]
 		directory, filename = path.Split(r.URL.Path)
 	}
-	fullPath := "../client" + FolderForType(ext, directory) + filename
+	fullPath := "client" + FolderForType(ext, directory) + filename
 	fileExists := FileExists(fullPath)
 	if fileExists {
 		lastModTime := LastMod(fullPath)

@@ -1,6 +1,6 @@
 //This file is aimed at creating a simple way of interacting with a JSON
 //data store quickly. It is, however, designed specifically for Neon
-package neon
+package neonserver
 
 import (
 	"encoding/json"

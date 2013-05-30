@@ -1,6 +1,6 @@
 //The log functions make it easy to log server events
 //TODO: Log to file
-package neon
+package neonserver
 
 import "fmt"
 

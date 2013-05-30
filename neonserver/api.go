@@ -1,4 +1,4 @@
-package neon
+package neonserver
 
 import (
 	"net/http"

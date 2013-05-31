@@ -72,7 +72,12 @@ function NeonOnPopState(hash) {
 			ChangePage("profile", "Profile - Neon", function(np) {
 				SetMenuHighlight("home");
 				ShowProfile(hash.substring(8));
-			})
+			});
+		}else if (hash.indexOf("search") == 0) {
+			//Search queries should be formed like this: #search=myquery
+			ChangePage("search", "Search - Neon", function(np) {
+				ShowSearch(hash.substring(7));
+		});
 		}else if (hash == "settings") {
 			ChangePage("settings", "Settings - Neon", function(np) {
 				ShowSettings();
@@ -371,6 +376,12 @@ function ShowGroups() {
 		html += "</ul>"
 		$("#grouplist").html(html);
 	}, fail);
+}
+
+//Sets up the search query page. To load the search page: #search=query 
+function ShowSearch(query) {
+	$("#searchquery").text("Showing results for: '" + query + "'");
+	//There is div #searchcontent which should contain all relevant search results.
 }
 
 //Fetchs the details of the current user and presents them in the settings pane so that

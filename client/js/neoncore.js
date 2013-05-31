@@ -38,6 +38,8 @@ function NeonConfig(){
 	window.onpopstate = function (event) {
 		NeonOnPopState(window.location.hash.substring(1));
 	};
+	//Update required for Firefox
+	NeonPopState(window.location.hash.substring(1));
 	SetBackground();
 }
 
@@ -229,7 +231,7 @@ function Logout() {
 //localStorage
 function IsLoggedIn() {
 	//Local Storage seems to store everything as a string, regardless!
-	if (localStorage.loggedIn == "false" || localStorage.loggedIn == "undefined" || localStorage.loggedIn == "null") {
+	if (localStorage.loggedIn == "false" || localStorage.loggedIn == "undefined" || localStorage.loggedIn == "null" || localStorage.loggedIn == undefined || localStorage.loggedIn == null) {
 		return false;
 	}
 	return true;

@@ -37,6 +37,16 @@ func MarkdownToHTML(markdown string) string {
 				buffer.WriteString("</u>")
 			}
 			i++
+		} else if markdown[i] == '@'{
+			nextI := i + 1
+			for ; nextI < len(markdown) && IsLetter(markdown[nextI]); nextI++ {}
+			username := markdown[i + 1 : nextI]
+			if IsUser(UserForName(username)) {
+				buffer.WriteString("<a href=\"#profile-" + username + "\">@" + username + "</a>")
+			} else {
+				buffer.WriteString("@" + username)
+			}
+			i = nextI
 		} else {
 			buffer.WriteByte(markdown[i])
 			i++
@@ -63,4 +73,9 @@ func MarkdownToHTML(markdown string) string {
 //TODO Remove all markdown from text
 func MarkdownToPlainText(markdown string) string {
 	return markdown
+}
+
+//Determines if a character is a letter or not
+func IsLetter(character byte) bool {
+	return character >= 'a' && character <= 'z'
 }

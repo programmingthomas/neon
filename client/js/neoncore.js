@@ -75,12 +75,12 @@ function NeonOnPopState(hash) {
 				SetMenuHighlight("home");
 				ShowProfile(hash.substring(8));
 			});
-		}else if (hash.indexOf("search") == 0) {
+		} else if (hash.indexOf("search") == 0) {
 			//Search queries should be formed like this: #search=myquery
 			ChangePage("search", "Search - Neon", function(np) {
 				ShowSearch(hash.substring(7));
 		});
-		}else if (hash == "settings") {
+		} else if (hash == "settings") {
 			ChangePage("settings", "Settings - Neon", function(np) {
 				ShowSettings();
 			});

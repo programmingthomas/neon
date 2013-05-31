@@ -47,7 +47,13 @@ func MarkdownToHTML(markdown string) string {
 				buffer.WriteString("@" + username)
 			}
 			i = nextI
-		} else {
+		} else if markdown[i] == '#' {
+			nextI := i + 1
+			for ; nextI < len(markdown) && IsLetter(markdown[nextI]); nextI++ {}
+			hashTag := markdown[i + 1 : nextI]
+			buffer.WriteString("<a href=\"#search-" + hashTag + "\">#" + hashTag + "</a>")
+			i = nextI
+		}else {
 			buffer.WriteByte(markdown[i])
 			i++
 		}

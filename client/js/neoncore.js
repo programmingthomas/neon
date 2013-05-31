@@ -415,7 +415,8 @@ function ShowSettings() {
 //Creates a new group and then shows the groups page again
 //n: The name of a group (must be unique, letters and spaces only)
 function CreateGroup(n) {
-	APICall("group/create", "post", {name:n}, function(data){
+	console.log("Create group")
+	APICall("group/create", {name:n}, "post", function(data){
 		ShowGroups();
 	});
 }

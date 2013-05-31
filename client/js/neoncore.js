@@ -4,6 +4,10 @@
 
 //A simple extension to jQuery that adds a post JSON function for convenience
 //http://forum.jquery.com/topic/getjson-using-post
+
+//Splashes
+var splashes = ["animal","bridge", "clover", "cornfield", "farm", "hills", "holland", "island", "sea", "sunset", "sun", "yellowstone"];
+	
 jQuery.extend({
 	postJSON: function(url, data, callback) {
 		return jQuery.post(url, data, callback, "json");
@@ -248,7 +252,6 @@ function SetBackground() {
 	var splash = localStorage.splash;
 	
 	if (splash == "null" || splash == null || splash == "" || splash == undefined || splash == "undefined"  ) {
-		var splashes = ["animal","bridge", "clover", "cornfield", "farm", "hills", "holland", "island", "sea", "sunset", "sun", "yellowstone"];
 		splash = splashes[Math.floor(Math.random() * splashes.length)];
 	}
 	SetBackgroundWithSplash(splash)
@@ -404,7 +407,6 @@ function ShowSettings() {
 		$("#txtUsername").val(data.Username);
 		$("#profilePicture").attr("src",(data.UserImage));
 		
-		var splashes = ["animal","bridge", "clover", "cornfield", "farm", "hills", "holland", "island", "sea", "sunset", "sun", "yellowstone"];
 		var html = "<ul class=\"thumbnails\">";
 		for (var i = 0; i < splashes.length; i++) {
 			var splash = splashes[i];

@@ -54,6 +54,8 @@ func APIResponseForRequest(r * http.Request) APIResponse {
 			Dashboard(r, &response)
 		} else if response.RequestType == "post" {
 			PostToGroup(r, &response)
+		} else if response.RequestType == "search" {
+			SearchPosts(r, &response)
 		} else if response.RequestType == "logout" {
 			Logout(r, &response)
 		}

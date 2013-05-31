@@ -248,7 +248,7 @@ function SetBackground() {
 	var splash = localStorage.splash;
 	
 	if (splash == "null" || splash == null || splash == "" || splash == undefined || splash == "undefined"  ) {
-		var splashes = ["animal","cornfield", "farm", "hills", "island", "sea", "sunset", "sun", "yellowstone"];
+		var splashes = ["animal","bridge", "clover", "cornfield", "farm", "hills", "holland", "island", "sea", "sunset", "sun", "yellowstone"];
 		splash = splashes[Math.floor(Math.random() * splashes.length)];
 	}
 	SetBackgroundWithSplash(splash)
@@ -401,7 +401,7 @@ function ShowSettings() {
 		$("#txtUsername").val(data.Username);
 		$("#profilePicture").attr("src",(data.UserImage));
 		
-		var splashes = ["animal","cornfield", "farm", "hills", "island", "sea", "sunset", "sun", "yellowstone"];
+		var splashes = ["animal","bridge", "clover", "cornfield", "farm", "hills", "holland", "island", "sea", "sunset", "sun", "yellowstone"];
 		var html = "<ul class=\"thumbnails\">";
 		for (var i = 0; i < splashes.length; i++) {
 			var splash = splashes[i];

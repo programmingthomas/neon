@@ -384,6 +384,13 @@ function ShowGroups() {
 function ShowSearch(query) {
 	$("#searchquery").text("Showing results for: '" + query + "'");
 	//There is div #searchcontent which should contain all relevant search results.
+	APICall("search", {query:query}, "get", function(data) {
+		var html = ""
+		for (var i = 0; i < data.length; i++) {
+			html += HTMLForPost(data[i]);
+		}
+		$("#searchcontent").html(html);
+	}, fail);
 }
 
 //Fetchs the details of the current user and presents them in the settings pane so that
@@ -435,7 +442,7 @@ function Post(content, group) {
 
 function Search() {
 	var query = $('#searchbox').val();
-	NPS("search-" + query );
+	NPS("search-" + query.replace(' ', '+'));
 }
 
 //Final function in the file to launch the first one when the page has loaded

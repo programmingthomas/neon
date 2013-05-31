@@ -8,6 +8,7 @@ import (
 	"net/http"
 )
 
+//Searches all posts and finds posts that meet the criteria
 func SearchPosts(r * http.Request, response * APIResponse) {
 	if r.FormValue("query") != "" && SearchQueryIsValid(r.FormValue("query")) {
 		regexQuery := RegexForQuery(r.FormValue("query"))
@@ -37,6 +38,7 @@ func SearchPosts(r * http.Request, response * APIResponse) {
 	}
 }
 
+//Determines whether or the search query meets valid conditions
 func SearchQueryIsValid(query string) bool {
 	return Validate(query, "^[A-Za-z0-9\\+ ]", 1, 100)
 }

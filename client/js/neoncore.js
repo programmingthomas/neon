@@ -433,5 +433,10 @@ function Post(content, group) {
 	}, fail)
 }
 
+function Search() {
+	var query = $('#searchbox').val();
+	NPS("search-" + query );
+}
+
 //Final function in the file to launch the first one when the page has loaded
 $(document).ready(NeonConfig);

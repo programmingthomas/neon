@@ -76,8 +76,11 @@ function setBackgroundWithSplash(splash) {
 		var image_width = roundUpWidth(widths, body_width)[1];
 	}
 
-	$("#fixedbg")
-		.css("background-image", "url('splashes/" + splash + "/" + image_width + ".jpg')");
+	$.get('splashes/' + splash + "/" + image_width + ".jpg", {}, function(data, textStatus, xhr) {
+		$("#fixedbg")
+			.css("background-image", "url('splashes/" + splash + "/" + image_width + ".jpg')");
+	});
+	
 }
 
 var roundUpWidth = function(a, x) {

@@ -11,6 +11,7 @@ import (
 	"net/http"
 	"fmt"
 	"bufio"
+	"time"
 )
 
 //Handle a request to resize an image. Requests are in the form /splashes/imgname/width.jpg
@@ -21,9 +22,23 @@ func ProcessImageRequest(w http.ResponseWriter, r * http.Request) {
 		if len(rSplit) >= 4 {
 			imageName := rSplit[2]
 			imageRes, err := strconv.ParseInt(strings.Replace(rSplit[3], ".jpg", "", -1), 0, 0)
+			imagePath := PathToClient + "/splashes/" + imageName + "/3000.jpg"
 			if err == nil && imageRes < 3000 {
 				if FileExists(PathToClient + "/splashes/" + imageName + "/3000.jpg") {
-					//TODO If-Modified-Since
+					lastModTime := LastMod(imagePath)
+					if r.Header["If-Modified-Since"] != nil && Cache {
+						//RFC1123 is the standard date format used with HTTP
+						headerTime, _ := time.Parse(time.RFC1123, r.Header["If-Modified-Since"][0])
+						if !headerTime.Before(lastModTime) {
+							w.WriteHeader(http.StatusNotModified)
+							return
+						}
+					}
+					//Writer the header and content
+					if (Cache) {
+						w.Header().Add("Last-Modified", lastModTime.Format(time.RFC1123))
+					}
+					
 					w.Header().Add("Content-Type", "image/jpeg")
 					w.WriteHeader(200)
 					file, _ := os.Open(PathToClient + "/splashes/" + imageName + "/3000.jpg")

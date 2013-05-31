@@ -211,7 +211,8 @@ function Register(username, password, name) {
 }
 
 //This will do all the logout stuff that you need to ensure that the user can log out
-//and that the keys on the server side are invalidated
+//and that the keys on the server side are invalidated. This will then redirect the user
+//to the login/registration/welcome page
 function Logout() {
 	APICall("logout", {}, "get", function (d){
 		localStorage.username = "";
@@ -234,6 +235,8 @@ function IsLoggedIn() {
 	return true;
 }
 
+//This function will set the background to either whatever is stored in 
+//localStorage.splash or a random background from the ones that we selected
 function SetBackground() {
 	var splash = localStorage.splash;
 	
@@ -244,10 +247,13 @@ function SetBackground() {
 	SetBackgroundWithSplash(splash)
 }
 
+//This is used by SetBackground to actually set the background and detect the size of the
+//window.
+//splash: a splash image to use; one of cornfield, hills, island, sea, sunset, sun or 
+//yellostone
 function SetBackgroundWithSplash(splash) {
 	var widths = [600, 768, 979, 1280, 1366, 1440, 1680, 1920, 3000];
-	var body_width = $("body")
-		.width();
+	var body_width = $("body").width();
 
 	if (body_width > widths[widths.length - 1]) { //too big
 		var image_width = width[widths.length - 1];
@@ -260,6 +266,7 @@ function SetBackgroundWithSplash(splash) {
 	$("#fixedbg").css("background-image", "url('splashes/" + splash + "/" + image_width + ".jpg')");
 }
 
+//Determines whether or not a certain width is acceptable
 function roundUpWidth(a, x) {
 	var lo, hi;
 	for (var i = a.length; i--;) {
@@ -269,6 +276,9 @@ function roundUpWidth(a, x) {
 	return [lo, hi];
 }
 
+//Do an API request to the dashboard so that it can be updated, relies on the dashboard
+//DOM being visible. Perhaps some sort of caching would also be good to add at some point
+//for faster loading times
 function UpdateDashboard() {
 	APICall("dashboard", {},"get", function(data) {
 		document.title = "Dashboard - Neon";
@@ -297,12 +307,16 @@ function UpdateDashboard() {
 	}, fail);
 }
 
+//Generates the HTML layout for a post (the Markdown and whatnot is parsed by the server)
 function HTMLForPost(post) {
 	var groupLink = post.GroupID.toString();
 	var profileLink = post.UserID.toString();
 	return "<section class=\"post row\" id=\"post" + post.PostID + "\">" + "<div class=\"span1\"><img src=\"" + post.UserImage + "\" id=\"postUserImage\" /></div>" + "<div class=\"span7\">" + "<h4 style=\"margin:0;padding:0;\"> <a href=\"#profile-" + profileLink + "\">" + post.UserFullName + "</a><span style=\"color:grey\"> &#9658 <a href=\"#group-" + groupLink + "\">" + post.GroupName + "</a></span></h4>" + post.HTML + "<p style=\"font-size:smaller;color:#777;\">" + post.TimeDescription + " &#8226 <a href=\"#\">" + post.Likes + " Likes</a> &#8226 " + "<a href=\"#\">" + post.Dislikes + " dislikes</a></p></div></section>";
 }
 
+//Gets the detail for a group including all the posts and some of the members before
+//presenting it
+//groupId: The ID (number) of a group
 function ShowGroup(groupId) {
 	APICall("group/" + groupId, {}, "get", function(data){
 		$("#groupname").text(data.GroupName);
@@ -327,6 +341,9 @@ function ShowGroup(groupId) {
 	}, fail);
 }
 
+
+//Presents the profile in the profile page (should be visible)
+//profile: a username (string) or id (number)
 function ShowProfile(profile) {
 	APICall("user/" + profile, {}, "get", function(data){
 		document.title = (data.Username + " - Neon");
@@ -344,6 +361,7 @@ function ShowProfile(profile) {
 	}, fail);
 }
 
+//Shows all the groups that a user is a member of
 function ShowGroups() {
 	APICall("group/mine", {}, "get", function(data) {
 		var html = "<ul>"
@@ -355,6 +373,8 @@ function ShowGroups() {
 	}, fail);
 }
 
+//Fetchs the details of the current user and presents them in the settings pane so that
+//they can be modified at will
 function ShowSettings() {
 	APICall("user", {}, "get", function (data) {
 		$("#txtName").val(data.Name);
@@ -365,19 +385,22 @@ function ShowSettings() {
 		var html = "<ul class=\"thumbnails\">";
 		for (var i = 0; i < splashes.length; i++) {
 			var splash = splashes[i];
-			html += "<li><div class=\"thumbnail\"><img id=\""+ splash +"\" class=\"backgroundPicture\" src=\"/splashes/"+ splash +"/3000.jpg\"/></div></li>";
+			html += "<li><div class=\"thumbnail\"><img id=\""+ splash +"\" class=\"backgroundPicture\" src=\"/splashes/"+ splash +"/300.jpg\"/></div></li>";
 		}
 		html += "</ul>";
 		$("#backgrounds").html(html);
 	}, fail);
 }
 
+//Creates a new group and then shows the groups page again
+//n: The name of a group (must be unique, letters and spaces only)
 function CreateGroup(n) {
 	APICall("group/create", "post", {name:n}, function(data){
 		ShowGroups();
 	});
 }
 
+//Fetches a list of all the groups and presents them in the dialog
 function ShowAllGroups() {
 	APICall("group/all", {}, "get", function(data){
 		var html = "<ul>";
@@ -388,7 +411,9 @@ function ShowAllGroups() {
 	}, fail);
 }
 
-
+//Put a post into a certain group and update the dashboard.
+//content: The content (string) to be posted on the server
+//group: The ID of a group to post into
 function Post(content, group) {
 	APICall("post", {group:group, content:content}, "post", function(data){
 		UpdateDashboard();

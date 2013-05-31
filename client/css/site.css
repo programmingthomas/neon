@@ -109,14 +109,33 @@ footer {
 	margin-bottom:20px;
 	margin-right:10px;
 	position:fixed;
+	background-color:#D60000;
+	background-image: -ms-linear-gradient(top, #D60000 0%, #A80D0D 100%);
+	background-image: linear-gradient(to bottom, #D60000 0%, #A80D0D 100%);
+	color:#fff;
+}
+
+.profileContainer a {
+	color:#fff;
 }
 
 .profileContainer .span2 {
 	margin-top: 15px;
 }
 
+.profileText {
+	margin:5px;
+}
+
 .postContainer {
-	padding-bottom:0px;
+	padding:10px 10px 0px 10px;
+	border-radius: 5px;
+	box-shadow: rgba(0,0,0,0.5) 0px 0px 10px;
+	z-index:10;
+	background-color:#D60000;
+	background-image: -ms-linear-gradient(top, #D60000 0%, #A80D0D 100%);
+	background-image: linear-gradient(to bottom, #D60000 0%, #A80D0D 100%);
+	color:#fff;
 }
 
 #creategroupform
@@ -143,7 +162,6 @@ footer {
 {
 	border-bottom: 1px solid black;
 	margin:0;
-	padding:0;
 	padding:5px;
 }
 
@@ -157,10 +175,34 @@ footer {
 	color:black;
 }
 
+#grouplist {
+	margin:20px;
+	padding-left:0px;
+	padding-right:25px;
+	padding-bottom:0px;
+}
+.groupListItem {
+	text-align:center;
+	list-style:none;
+	font-size:30px;
+	margin:0;
+	margin-bottom:8px;
+	padding:5px;
+}
+
+.groupListItem a {
+	margin-right:3px;
+	color:#000;
+}
+
 .groupsHeader{
 	padding:40px;
 	border-radius: 5px;
 	box-shadow: rgba(0,0,0,0.5) 0px 0px 10px;
+	background-color:#D60000;
+	background-image: -ms-linear-gradient(top, #D60000 0%, #A80D0D 100%);
+	background-image: linear-gradient(to bottom, #D60000 0%, #A80D0D 100%);
+	color:#fff;
 }
 
 #postUserImage {
@@ -217,6 +259,10 @@ input[type="search"]:-ms-input-placeholder {
 	border-radius: 5px;
 	box-shadow: rgba(0,0,0,0.5) 0px 0px 10px;
 	z-index:10;
+	background-color:#D60000;
+	background-image: -ms-linear-gradient(top, #D60000 0%, #A80D0D 100%);
+	background-image: linear-gradient(to bottom, #D60000 0%, #A80D0D 100%);
+	color:#fff;
 }
 
 .largeHeader h1 {

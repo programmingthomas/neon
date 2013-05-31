@@ -1,26 +1,21 @@
 <div class="row">
-  <div class="span3">
-      <div class="profileContainer hidden-phone">
-      	<a id="profileLink" href="#">
-          <div class="row">
-              <div class="span1">
-                  <img src="/userImages/default.png" id="dashuserimage"/>
-              </div>
-              <div class="span2">
-                  <h4 style="margin:0;padding:0" id="dashrealname">Real Name</h4>
-                  <p style="font-size:larger;color:#777" id="dashusername">@username</p>
-              </div>
-          </div>
-        </a>
-      </div>
+  <div class="span2 offset1 profileContainer hidden-phone">
+    <img src="/userImages/default.png" id="dashuserimage"/>
+    <br/>
+    <div class="profileText">
+    	<a id="profileLink" href="#">
+   			<h4 style="margin:0;padding:0;" id="dashrealname"></h4>
+    		<p style="font-size:larger;color:#CCC" id="dashusername"></p>
+		</a>
+    </div>
   </div>
-  <div class="span9 offset3">
-      <div class="postContainer whitecontainer">
-          <form id="postform" style="margin:0px;">
+  <div class="span8 offset3">
+      <div class="postContainer">
+          <form id="postform">
               <input type="text" class="span5" placeholder="Post something... anything..." id="postentry"/>
-              <select class="span3" id="postgroup">
+              <select class="span2" id="postgroup">
               </select>
-              <button class="btn btn-primary pull-right" type="submit">Post</button>
+              <button class="btn pull-right" type="submit">Post</button>
                               <br/>     
           </form>
       </div>

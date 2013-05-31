@@ -248,7 +248,7 @@ function SetBackground() {
 	var splash = localStorage.splash;
 	
 	if (splash == "null" || splash == null || splash == "" || splash == undefined || splash == "undefined"  ) {
-		var splashes = ["cornfield", "hills", "island", "sea", "sunset", "sun", "yellowstone"];
+		var splashes = ["animal","cornfield", "farm", "hills", "island", "sea", "sunset", "sun", "yellowstone"];
 		splash = splashes[Math.floor(Math.random() * splashes.length)];
 	}
 	SetBackgroundWithSplash(splash)
@@ -373,7 +373,7 @@ function ShowGroups() {
 	APICall("group/mine", {}, "get", function(data) {
 		var html = "<ul>"
 		for (var i = 0; i < data.length; i++) {
-			html += "<li><a href=\"#group-" + data[i].GroupID + "\">" + data[i].GroupName + "</a> <span class=\"label " + (data[i].MyRole == 1 ? "label-success" : "") + "\">" + (data[i].MyRole == 1 ? "Staff" : "Member") + "</span></li>";
+			html += "<li class=\"groupListItem\"><a href=\"#group-" + data[i].GroupID + "\">" + data[i].GroupName + "</a> <span class=\"label " + (data[i].MyRole == 1 ? "label-success" : "") + "\">" + (data[i].MyRole == 1 ? "Staff" : "Member") + "</span></li>";
 		}
 		html += "</ul>"
 		$("#grouplist").html(html);
@@ -401,7 +401,7 @@ function ShowSettings() {
 		$("#txtUsername").val(data.Username);
 		$("#profilePicture").attr("src",(data.UserImage));
 		
-		var splashes = ["cornfield", "hills", "island", "sea", "sunset", "sun", "yellowstone"];
+		var splashes = ["animal","cornfield", "farm", "hills", "island", "sea", "sunset", "sun", "yellowstone"];
 		var html = "<ul class=\"thumbnails\">";
 		for (var i = 0; i < splashes.length; i++) {
 			var splash = splashes[i];

@@ -58,7 +58,18 @@ func Validate(original string, regex string, minLength int, maxLength int) bool 
 }
 
 func userNameIsValid(username string) bool {
-	return Validate(username, "^[a-z]", 1, 16)
+	return Validate(username, "^[a-z]", 1, 16) && !usernameIsBanned(username)
+}
+
+func usernameIsBanned(username string) bool {
+	//These user names cause problems, so we have to check for them
+	bannedUsernames := []string{"null", "hitler", "shit", "turd", "god", "ihateneon", "neon"}
+	for i := 0; i < len(bannedUsernames); i++ {
+		if username == bannedUsernames[i] {
+			return true
+		}
+	}
+	return false
 }
 
 func nameIsValid(name string) bool {

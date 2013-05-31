@@ -51,13 +51,11 @@ function showCreateGroupForm()
 function showSearchDialog()
 {
 	$("#groupSearchModal").modal('show');
-	showAllGroups();
+	ShowAllGroups();
 }
 
 $("#creategroupform").submit(function(){
-	nc_creategroup($("#groupformname").val());
+	CreateGroup($("#groupformname").val());
 	return false;
 });
-
-addGroupLink();
 </script>

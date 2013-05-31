@@ -49,22 +49,11 @@ func ProcessImageRequest(w http.ResponseWriter, r * http.Request) {
 					if SaveResizedImages {
 						SaveImage(imageName, int(imageRes), newImg)
 					}
-				} else {
-					w.WriteHeader(404)
-					e("Image", imageName + " doesn't exist")
 				}
-			} else {
-				w.WriteHeader(404)
-				e("Image", "Int failed " + rSplit[3])
 			}
-		} else {
-			w.WriteHeader(404)
-			e("Image", "Not correct length")
 		}
-	} else {
-		w.WriteHeader(404)
-		e("Image", "Not splash request")
 	}
+	w.WriteHeader(404)
 }
 
 //Save an image to disk

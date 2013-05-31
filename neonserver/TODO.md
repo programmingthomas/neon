@@ -8,7 +8,7 @@ This file contains a list of things that I still need to add support to the serv
 * More organisation of the API
 * Security fixes so that all input (NAMES!) gets validated
 * Create cache folders for the images so that we can test without committing the files that we generate?
-* Wonderfully simple (and fast) Markdown support. I had thought about creating a generic heirarchial structure by parsing the Markdown and then applying some simple rules although I'm not convinced that this will be particularly quick
+* Markdown support for links and multiline posts
 * -Server side logout-
 
 Also, I like Hans Zimmer, and Atticus Ross and Trent Reznor are pretty good as well

@@ -16,7 +16,7 @@
 			</div>
 			<br/>
 			<p class="loginsignuperror"></p>
-			<button class="btn btn-primary" type="submit">Login</button> or <a href="#" class="switchform">sign up?</a>
+			<button class="btn btn-primary" type="submit">Login</button> or <span  class="switchform">sign up?</span>
 		</form>
 		Neon is an open-source project. Its <a href="https://github.com/programmingthomas/neon-2013">source is available on GitHub</a>.
 	</section>
@@ -39,7 +39,7 @@
 			</div>
 			<br/>
 			<p class="loginsignuperror"></p>
-			<button class="btn btn-primary" type="submit">Sign Up</button> or <a href="#" class="switchform">log in?</a>
+			<button class="btn btn-primary" type="submit">Sign Up</button> or <span class="switchform">log in?</span>
 		</form>
 	</section>
 	
@@ -47,20 +47,21 @@
 
 <script>
 	$("#login").submit(function() {
-		nc_login($('#login-username').val(),$('#login-password').val());
+		Login($('#login-username').val(),$('#login-password').val());
 		return false;	
 	});
 	$("#signup").submit(function() {
 		if ($("#signup-password-1").val() == $("#signup-password-2").val())
 		{
-			nc_register($("#signup-username").val(),
+			Register($("#signup-username").val(),
 						$("#signup-password-1").val(),
 						$("#signup-realname").val());
 		}
 		return false;	
 	});
 	$('.switchform').click(function() {
-		$('#signupbox').slideToggle();
-		$('#loginbox').slideToggle();
+		console.log("Clicked?");
+		$("#signupbox").slideToggle();
+		$("#loginbox").slideToggle();
 	});
 </script>

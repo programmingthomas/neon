@@ -58,7 +58,7 @@ func Validate(original string, regex string, minLength int, maxLength int) bool 
 }
 
 func userNameIsValid(username string) bool {
-	return Validate(username, "^[a-z]", 1, 16) && !usernameIsBanned(username)
+	return Validate(username, "^[a-z]+$", 1, 16) && !usernameIsBanned(username)
 }
 
 func usernameIsBanned(username string) bool {
@@ -73,7 +73,7 @@ func usernameIsBanned(username string) bool {
 }
 
 func nameIsValid(name string) bool {
-	return Validate(name, "^[A-Za-z ]", 1, 50)
+	return Validate(name, "^[A-Za-z ]+$", 1, 50)
 }
 
 //This will register a new user (and log them in) if the server allows registration,

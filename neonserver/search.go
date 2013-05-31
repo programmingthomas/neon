@@ -40,7 +40,7 @@ func SearchPosts(r * http.Request, response * APIResponse) {
 
 //Determines whether or the search query meets valid conditions
 func SearchQueryIsValid(query string) bool {
-	return Validate(query, "^[A-Za-z0-9\\+ ]", 1, 100)
+	return Validate(query, "^[A-Za-z0-9\\+ ]+$", 1, 100)
 }
 
 //Gets the regular expression for a query in the form firstWord+secondWord+thirdWord+etc

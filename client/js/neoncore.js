@@ -10,6 +10,23 @@ jQuery.extend({
 	}
 });
 
+//To enable any form of navigation in IE10+
+$(document).ready(function() {
+   if ($.browser.msie) {
+	   if (window.location.hash == "")
+	   {
+    	 NPS('');
+	   }
+   }
+});
+
+$(window).on('hashchange', function() {
+  if ($.browser.msie) {
+		NPS(window.location.hash.substring(1));
+   }
+});
+
+
 //This function should be called once the page has finished loading
 function NeonConfig(){
 	window.onpopstate = function (event) {

@@ -76,7 +76,7 @@ function NeonOnPopState(hash) {
 				ShowProfile(hash.substring(8));
 			});
 		} else if (hash.indexOf("search") == 0) {
-			//Search queries should be formed like this: #search=myquery
+			//Search queries should be formed like this: #search-myquery
 			ChangePage("search", "Search - Neon", function(np) {
 				ShowSearch(hash.substring(7));
 		});
@@ -318,7 +318,7 @@ function UpdateDashboard() {
 function HTMLForPost(post) {
 	var groupLink = post.GroupID.toString();
 	var profileLink = post.UserID.toString();
-	return "<section class=\"post row\" id=\"post" + post.PostID + "\">" + "<div class=\"span1\"><img src=\"" + post.UserImage + "\" id=\"postUserImage\" /></div>" + "<div class=\"span7\">" + "<h4 style=\"margin:0;padding:0;\"> <a href=\"#profile-" + profileLink + "\">" + post.UserFullName + "</a><span style=\"color:grey\"> &#9658 <a href=\"#group-" + groupLink + "\">" + post.GroupName + "</a></span></h4>" + post.HTML + "<p style=\"font-size:smaller;color:#777;\">" + post.TimeDescription + " &#8226 <a href=\"#\">" + post.Likes + " Likes</a> &#8226 " + "<a href=\"#\">" + post.Dislikes + " dislikes</a></p></div></section>";
+	return "<section class=\"post row\" id=\"post" + post.PostID + "\">" + "<div class=\"span1\"><img src=\"" + post.UserImage + "\" id=\"postUserImage\" /></div>" + "<div class=\"span6\">" + "<h4 style=\"margin:0;padding:0;\"> <a href=\"#profile-" + profileLink + "\">" + post.UserFullName + "</a><span style=\"color:grey\"> &#9658 <a href=\"#group-" + groupLink + "\">" + post.GroupName + "</a></span></h4>" + post.HTML + "<p style=\"font-size:smaller;color:#777;\">" + post.TimeDescription + " &#8226 <a href=\"#\">" + post.Likes + " Likes</a> &#8226 " + "<a href=\"#\">" + post.Dislikes + " dislikes</a></p></div></section>";
 }
 
 //Gets the detail for a group including all the posts and some of the members before
@@ -336,6 +336,7 @@ function ShowGroup(groupId) {
 		var html = "";
 		for (var i = 0; i < data.Posts.length; i++) {
 			html += HTMLForPost(data.Posts[i]);
+			if (i != data.Posts.length - 1) html += "<hr />";
 		}
 		$("#groupcontent").html(html);
 
@@ -363,6 +364,7 @@ function ShowProfile(profile) {
 		var html = "";
 		for (var i = 0; i < data.Posts.length; i++) {
 			html += HTMLForPost(data.Posts[i]);
+			if (i != data.Posts.length - 1) html += "<hr />";
 		}
 		$("#usercontent").html(html);
 	}, fail);
@@ -380,7 +382,7 @@ function ShowGroups() {
 	}, fail);
 }
 
-//Sets up the search query page. To load the search page: #search=query 
+//Sets up the search query page. To load the search page: #search-query 
 function ShowSearch(query) {
 	$("#searchquery").text("Showing results for: '" + query + "'");
 	//There is div #searchcontent which should contain all relevant search results.
@@ -388,6 +390,7 @@ function ShowSearch(query) {
 		var html = ""
 		for (var i = 0; i < data.length; i++) {
 			html += HTMLForPost(data[i]);
+			if (i != data.length - 1) html += "<hr />";
 		}
 		$("#searchcontent").html(html);
 	}, fail);

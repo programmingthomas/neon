@@ -129,7 +129,7 @@ func apiUserResponseForUser(userDetail User, posts bool) APIUserResponse {
 //Novelty function that adds together the total ASCII values for each letter of the 
 //username before finding the modolu to get a background!
 func getBackgroundFromUsername(username string) string {
-	backgrounds := []string{"cornfield", "hills", "island", "sea", "sun", "sunset", "yellowstone"}
+	backgrounds := []string{"cornfield", "hills", "island", "sea", "sun", "sunset", "yellowstone", "animal", "bridge", "clover", "farm", "holland"}
 	total := 0
 	for i := 0; i < len(username); i++ {
 		total += int(username[i])

@@ -49,10 +49,12 @@ func ProcessImageRequest(w http.ResponseWriter, r * http.Request) {
 					if SaveResizedImages {
 						SaveImage(imageName, int(imageRes), newImg)
 					}
+					return
 				}
 			}
 		}
 	}
+	//Return a 404 in all other circumstances
 	w.WriteHeader(404)
 }
 

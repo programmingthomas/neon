@@ -3,7 +3,6 @@ package neonserver
 
 import ( 
 	"strings"
-	"regexp"
 	"strconv"
 	"net/http"
 )
@@ -11,8 +10,7 @@ import (
 //Searches all posts and finds posts that meet the criteria
 func SearchPosts(r * http.Request, response * APIResponse) {
 	if r.FormValue("query") != "" && SearchQueryIsValid(r.FormValue("query")) {
-		regexQuery := RegexForQuery(r.FormValue("query"))
-		info("Search", r.FormValue("query") + " -> " + regexQuery)
+		query := strings.Split(strings.ToLower(r.FormValue("query")), " ")
 		max := 100
 		if r.FormValue("limit") != "" {
 			v, err := strconv.ParseInt(r.FormValue("limit"), 0, 0)
@@ -22,7 +20,7 @@ func SearchPosts(r * http.Request, response * APIResponse) {
 		}
 		postsMatching := make([]APIPostResponse, 0)
 		for i := len(Posts) - 1; i >= 0; i-- {
-			matched, _ := regexp.MatchString(regexQuery, Posts[i].Text)
+			matched := PostStringMatchesQuery(Posts[i].Text, query)
 			if matched {
 				postsMatching = append(postsMatching, PostResponseForPost(Posts[i]))
 				if len(postsMatching) == max {
@@ -43,17 +41,16 @@ func SearchQueryIsValid(query string) bool {
 	return Validate(query, "^[A-Za-z0-9\\+ ]+$", 1, 100)
 }
 
-//Gets the regular expression for a query in the form firstWord+secondWord+thirdWord+etc
-func RegexForQuery(query string) string {
-	words := strings.Split(query, " ")
-	//I probably ought to use a byte.Buffer for this however the terms will be short and
-	//the queries have to be shorter than 100 characters
-	regex := "("
-	for index, word := range words {
-		regex += word
-		if index != len(words) - 1 {
-			regex += "|"
+//Determines whether or not the post matches the query
+func PostStringMatchesQuery(post string, query []string) bool {
+	totalWordsMatching := 0
+	//Convert to lowercase so that case can be ignored
+	lowercasePost := strings.ToLower(post)
+	for _, word := range query {
+		if strings.Contains(lowercasePost, word) {
+			totalWordsMatching++
 		}
-	} 
-	return regex + ")"
+	}
+	//If more than two thirds of the words appear then 
+	return totalWordsMatching > (2 * len(query)) / 3
 }

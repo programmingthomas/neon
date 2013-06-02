@@ -35,6 +35,8 @@ func APIResponseForRequest(r * http.Request) APIResponse {
 		Login(r, &response)
 	} else if response.RequestType == "register" {
 		Register(r, &response)
+	} else if response.RequestType == "splashes" {
+		Splashes(r, &response)
 	} else if RequestIsAuth(r) {
 		if response.RequestType == "user" {
 			UserDetailPublic(r, &response)
@@ -446,4 +448,9 @@ func AllGroups(r * http.Request, response * APIResponse) {
 	}
 	response.Data = groups
 	response.Message = "Found all groups"
+}
+
+func Splashes(r * http.Request, response * APIResponse) {
+	response.Data = imageList()
+	response.Message = "Found all splashes"
 }

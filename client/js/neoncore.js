@@ -420,7 +420,7 @@ function CreateGroup(n) {
 	console.log("Create group")
 	APICall("group/create", {name:n}, "post", function(data){
 		ShowGroups();
-	});
+	}, fail);
 }
 
 //Fetches a list of all the groups and presents them in the dialog
@@ -446,6 +446,12 @@ function Post(content, group) {
 function Search() {
 	var query = $('#searchbox').val();
 	NPS("search-" + query);
+}
+
+function ChangeName(name) {
+	APICall("update/settings", {name:name}, "post", function(data){
+		//Do something????????
+	}, fail);
 }
 
 //Final function in the file to launch the first one when the page has loaded

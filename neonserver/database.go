@@ -271,6 +271,17 @@ func AddGroupMember(groupMember * GroupMember) {
 	SaveDatabase(GroupMembers, "groupmembers")
 }
 
+//Update a user
+func UpdateUser(user User) {
+	for i, u := range Users {
+		if u.ID == user.ID {
+			Users[i] = user
+			break
+		}
+	}
+	SaveDatabase(Users, "users")
+}
+
 func intMax(a, b int) int {
 	if a > b {
 		return a

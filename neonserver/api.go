@@ -58,6 +58,8 @@ func APIResponseForRequest(r * http.Request) APIResponse {
 			PostToGroup(r, &response)
 		} else if response.RequestType == "search" {
 			SearchPosts(r, &response)
+		} else if response.RequestType == "update" && response.RequestDetail == "settings" {
+			UpdateSettings(r, &response)
 		} else if response.RequestType == "logout" {
 			Logout(r, &response)
 		}
@@ -453,4 +455,16 @@ func AllGroups(r * http.Request, response * APIResponse) {
 func Splashes(r * http.Request, response * APIResponse) {
 	response.Data = imageList()
 	response.Message = "Found all splashes"
+}
+
+func UpdateSettings(r * http.Request, response * APIResponse) {
+	user := UserForName(r.FormValue("username"))
+	if r.FormValue("name") != "" {
+		if nameIsValid(r.FormValue("name")) {
+			user.RealName = r.FormValue("name")
+		}
+	}
+	UpdateUser(user)
+	response.Data = apiUserResponseForUser(user, false)
+	response.Message = "Updated settings"
 }

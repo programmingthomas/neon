@@ -40,7 +40,7 @@
         	<h3>Personal Details</h3>
         	<label class="control-label" for"txtName">Full Name</label>
             <input id="txtName" class="inputs" type="text" placeholder="Full Name" data-toggle="popover" data-content="This should be your first name and your surname; <i>you can use a nick name</i>" />
-            <a class="btn btn-success btn" id="passwordChange">Update details</a>
+            <a class="btn btn-success btn" id="updateName">Update details</a>
         	<h3>Password</h3>
         	<label class="control-label" for"txtPass">Password</label>
             <input id="txtPass" class="inputs" type="password" placeholder="Password" data-toggle="popover" data-content="Please choose a secure password" />
@@ -71,5 +71,8 @@
 		html : true,
 		trigger : 'focus',
 		placement : 'right'
+	});
+	$("#updateName").click(function(){
+		ChangeName($("#txtName").val());
 	});
 </script>

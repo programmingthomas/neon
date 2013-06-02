@@ -30,6 +30,13 @@ func ViewHandler(w http.ResponseWriter, r *http.Request) {
 		ext = path.Ext(r.URL.Path)[1:]
 		directory, filename = path.Split(r.URL.Path)
 	}
+	//splashes.js is a generated JS file that makes it easier to get an up-to-date list of
+	//all the splash images
+	if filename == "splashes.js" {
+		SplashListRequest(w, r)
+		return
+	}
+	
 	fullPath := PathToClient + FolderForType(ext, directory) + filename
 	fileExists := FileExists(fullPath)
 	if fileExists {

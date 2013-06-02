@@ -5,9 +5,6 @@
 //A simple extension to jQuery that adds a post JSON function for convenience
 //http://forum.jquery.com/topic/getjson-using-post
 
-//Splashes
-var splashes = ["animal","bridge", "clover", "cornfield", "farm", "hills", "holland", "island", "sea", "sunset", "sun", "yellowstone"];
-	
 jQuery.extend({
 	postJSON: function(url, data, callback) {
 		return jQuery.post(url, data, callback, "json");

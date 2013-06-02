@@ -12,6 +12,7 @@ import (
 	"fmt"
 	"bufio"
 	"time"
+	"io/ioutil"
 )
 
 //Handle a request to resize an image. Requests are in the form /splashes/imgname/width.jpg
@@ -88,4 +89,31 @@ func ScaleImageToWidth(img image.Image, width int) image.Image {
 		}
 	}
 	return newImg
+}
+
+//Returns a list of all the background images
+func imageList() []string {
+	fileList, _ := ioutil.ReadDir(PathToClient + "/splashes/")
+	files := make([]string, 0)
+	for _, file := range fileList {
+		if file.IsDir() {
+			files = append(files, file.Name())
+		}
+	}
+	return files
+}
+
+func SplashListRequest(w http.ResponseWriter, r * http.Request) {
+	response := "var splashes = ["
+	images := imageList()
+	for i, splash := range images {
+		response += "\"" + splash + "\""
+		if i != len(images) - 1 {
+			response += ","
+		}
+	}
+	response += "];"
+	w.Header().Add("content-type", "application/javascript; charset=utf-8")
+	w.WriteHeader(200)
+	w.Write([]byte(response))
 }
